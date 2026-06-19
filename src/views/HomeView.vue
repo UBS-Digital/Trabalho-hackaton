@@ -3,7 +3,7 @@ import TheWelcome from '../components/TheWelcome.vue'
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+  <router-link to="/"> home </router-link>
+    <router-link to="/alimentos">Alimentos</router-link>
+    <router-link to="/AgendarExames"> </router-link>
 </template>
