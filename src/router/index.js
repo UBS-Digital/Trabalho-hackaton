@@ -10,12 +10,12 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/about',
-      name: 'about',
+      path: '/AgendarConsultaView.vue',
+      name: 'agendar-consulta',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AgendarConsultaView.vue/index.js'),
+      component: () => import('../views/AgendarConsultaView.vue'),
     },
   ],
 })
