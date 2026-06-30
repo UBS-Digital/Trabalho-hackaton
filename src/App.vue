@@ -1,6 +1,5 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/Produtos/ButtonChild.vue'
 </script>
 
 <template>
