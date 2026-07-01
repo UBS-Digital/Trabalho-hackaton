@@ -8,10 +8,7 @@ import HelloWorld from './components/Produtos/ButtonChild.vue'
 
     <div class="wrapper">
 
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/AgendarConsulta">Agendar Consulta</RouterLink>
-      </nav>
+    
     </div>
   </header>
 
