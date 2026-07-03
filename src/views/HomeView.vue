@@ -1,12 +1,15 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+
+import { RouterLink, RouterView } from 'vue-router'
+
 </script>
 
 <template>
  
     <div class="banner"> 
 
-    <h1> <router-link to="/Home"> home </router-link>
+    <h1>
+         <router-link to="/Home"> home </router-link>
         <router-link to="/AgendarConsulta">Agendar Consulta</router-link>
         <router-link to="/AgendarExame">Agentar Exame</router-link>
         <router-link to="/MedicoFamiliar">Médico da familia</router-link>
@@ -15,3 +18,8 @@ import TheWelcome from '../components/TheWelcome.vue'
     </div>
   
 </template>
+<style scoped>
+
+
+
+</style>
