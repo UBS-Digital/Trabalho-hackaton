@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { RouterLink } from 'vue-router';
-const atual = (RouterLink.path.value === '/')? ref('atual') : ref('')
+const atual = (RouterLink.name.value === RouterLink.value)? ref('atual') : ref('');
 </script>
 
 <template>
