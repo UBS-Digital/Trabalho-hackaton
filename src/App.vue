@@ -1,9 +1,13 @@
 <script setup>
 import AppHeader from './components/Produtos/AppHeader.vue';
+import { RouterLink } from 'vue-router';
 </script>
 
 <template>
     <AppHeader />
+    <main>
+      <RouterLink />
+    </main>
 
 </template>
 

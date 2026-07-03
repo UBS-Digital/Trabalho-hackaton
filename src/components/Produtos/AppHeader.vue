@@ -1,24 +1,22 @@
 <script setup>
-import { ref } from 'vue';
 import { RouterLink } from 'vue-router';
-const atual = (RouterLink.name.value === RouterLink.value)? ref('atual') : ref('');
 </script>
 
 <template>
   <header>
-    <RouterLink to="/Home">
+    <RouterLink to="/">
       <img src="../../../public/logoUBSDigital.png" alt="Logo UBS Digital" width="80px">
     </RouterLink>
     <nav>
-        <RouterLink to="/Home" :class="{ atual }"> Home </RouterLink>
-        <RouterLink to="/AgendarConsulta" :class="{ atual }">Agendar Consulta</RouterLink>
-        <RouterLink to="/AgendarExame" :class="{ atual }">Agendar Exame</RouterLink>
-        <RouterLink to="/MedicoFamiliar" :class="{ atual }">Médico da familia</RouterLink>
-        <RouterLink to="#" :class="{ atual }">Especialidades</RouterLink>
-        <RouterLink to="#" :class="{ atual }"> Contato</RouterLink>
+        <RouterLink to="/"> Home </RouterLink>
+        <RouterLink to="/AgendarConsulta" >Agendar Consulta</RouterLink>
+        <RouterLink to="/" >Agendar Exame</RouterLink>
+        <RouterLink to="/" >Médico da familia</RouterLink>
+        <RouterLink to="/" >Especialidades</RouterLink>
+        <RouterLink to="/" > Contato</RouterLink>
         <div class="botoes">
-          <RouterLink to="#" class="btn">Minha Área</RouterLink>
-          <RouterLink to="#" class="btn">Agendar Agora</RouterLink>
+          <RouterLink to="/" class="btn">Minha Área</RouterLink>
+          <RouterLink to="/" class="btn">Agendar Agora</RouterLink>
         </div>
     </nav>
   </header>
@@ -31,7 +29,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1vw;
+  padding: 2vw 3vw 2vw 2vw;
 }
 .btn {
   border: 1px solid black;
