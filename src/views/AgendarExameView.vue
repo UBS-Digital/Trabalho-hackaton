@@ -2,6 +2,7 @@
 
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router';
+import appHeader from '@/components/Produtos/appHeader.vue';
 
 const exames = ref([
     {
@@ -21,20 +22,24 @@ const exames = ref([
         nome: "Colesterol Total",
         preparo: "Jejum de 12h",
          icone: "🧪"
+    },
+    {
+        id: 4,
+        nome: "Raio-X Tórax",
+        preparo: "sem preparo",
+        icone: "📄"
     }
 ])
 
+const exameSelecionado = ref(null)
+
+function selecionar(exame){
+    exameSelecionado.value = exame.id
+}
+
 </script>
 <template>
-    <nav>  
-
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/">AgendarConsulta</RouterLink> 
-      <RouterLink to="/">AgendarExame</RouterLink>
-      <RouterLink to="/">MedicoFamiliar</RouterLink>
-      
-    </nav>
-
+  
 <div class="container">
 
 
