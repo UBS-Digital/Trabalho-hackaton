@@ -1,17 +1,28 @@
 <script setup>
+
+import { RouterLink } from 'vue-router'
+
+
 </script>
 
 <template>
 
+   <img src="" alt="">
+
     <div class="banner">
 
-    <h1> <router-link to="/Home"> home </router-link>
+        <nav> <h1>
+         <router-link to="/Home"> home </router-link>
         <router-link to="/AgendarConsulta">Agendar Consulta</router-link>
         <router-link to="/AgendarExame">Agentar Exame</router-link>
         <router-link to="/MedicoFamiliar">Médico da familia</router-link>
-    </h1>
+    </h1> </nav>
 
     </div>
 
 </template>
-zz
+<style scoped>
+
+
+
+</style>

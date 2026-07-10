@@ -20,7 +20,7 @@
         <option value="urina">Exame de Urina</option>
         <option value="raio-x">Raio-X</option>
         <!-- Adicione mais opções de exames conforme necessário -->
-      </select>
+      </select>RouterView
 
       <label for="data">Data:</label>
       <input type="date" id="data" name="data" required>
