@@ -11,7 +11,7 @@ import { RouterLink } from 'vue-router';
         <RouterLink to="/"> Home </RouterLink>
         <RouterLink to="/AgendarConsulta" >Agendar Consulta</RouterLink>
         <RouterLink to="/AgendarExame" >Agendar Exame</RouterLink>
-        <RouterLink to="/" >Médico da familia</RouterLink>
+        <RouterLink to="/MedicoFamilia" >Médico da familia</RouterLink>
         <RouterLink to="/" >Especialidades</RouterLink>
         <RouterLink to="/" > Contato</RouterLink>
         <div class="botoes">
