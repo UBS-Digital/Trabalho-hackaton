@@ -12,11 +12,11 @@ import { RouterLink } from 'vue-router';
         <RouterLink to="/AgendarConsulta" >Agendar Consulta</RouterLink>
         <RouterLink to="/AgendarExame" >Agendar Exame</RouterLink>
         <RouterLink to="/MedicoFamilia" >Médico da familia</RouterLink>
-        <RouterLink to="/" >Especialidades</RouterLink>
-        <RouterLink to="/" > Contato</RouterLink>
+        <RouterLink to="/Especialidades" >Especialidades</RouterLink>
+        <RouterLink to="/Contato" > Contato</RouterLink>
         <div class="botoes">
-          <RouterLink to="/" class="btn">Minha Área</RouterLink>
-          <RouterLink to="/" class="btn">Agendar Agora</RouterLink>
+          <RouterLink to="/MinhaArea" class="btn">Minha Área</RouterLink>
+          <RouterLink to="/AgendarAgora" class="btn">Agendar Agora</RouterLink>
         </div>
     </nav>
   </header>
