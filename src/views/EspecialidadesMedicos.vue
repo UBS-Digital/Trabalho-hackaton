@@ -1,11 +1,7 @@
 <script setup>
-
-
 </script>
 <template>
-
-a
-
+b
 </template>
 <style scoped>
 </style>
