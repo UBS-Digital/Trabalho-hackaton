@@ -1,15 +1,14 @@
 <script setup>
 
-import { RouterLink, RouterView } from 'vue-router'
-
+import { RouterLink,  } from 'vue-router'
 
 </script>
 
 <template>
 
    <img src="" alt="">
- 
-    <div class="banner"> 
+
+    <div class="banner">
 
         <nav> <h1>
          <router-link to="/Home"> home </router-link>
@@ -19,7 +18,7 @@ import { RouterLink, RouterView } from 'vue-router'
     </h1> </nav>
 
     </div>
-  
+
 </template>
 <style scoped>
 
