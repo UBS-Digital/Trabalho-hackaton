@@ -31,9 +31,27 @@ import { RouterLink } from 'vue-router'
     </div>
     <div class="contato">
       <h3>Contato</h3>
+      <p>
+        Rua da Saúde, 1234
+        Centro - São Paulo, SP
+      </p>
+      <p>
+        (11) 3456-7890
+      </p>
+      <p>
+        contato@ubsdigital.gov.br
+      </p>
     </div>
     <div class="horarios">
       <h3>Horário de Atendimento</h3>
+      <p>
+         Segunda a Sexta
+          7h às 19h
+      </p>
+      <p>
+        Sábados
+        7h às 12h
+      </p>
     </div>
   </footer>
 
@@ -46,9 +64,10 @@ import { RouterLink } from 'vue-router'
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     color: white;
-    padding: 0.5vw 2vw;
-    align-items: baseline;
+    padding: 2vw 2vw 3vw 2vw;
+    align-items: first baseline;
     gap: 20px;
+
   }
   h2 {
     font-size: 2rem;
@@ -63,17 +82,23 @@ import { RouterLink } from 'vue-router'
     display: block;
     padding: 0;
   }
-  .ubs p {
+  p {
     font-size: 1.2rem;
     line-height: 1.5;
     margin: 10px 0 0 0;
+    padding: 0 6vw;
   }
   a {
     text-decoration: underline;
     color: white;
     font-weight: normal;
+    font-size: 1.2rem;
+    line-height: 2;
   }
   .links {
     padding: 0 6vw;
+  }
+  .ubs p {
+    padding: 0;
   }
 </style>
