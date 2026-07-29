@@ -5,9 +5,10 @@ import { RouterLink } from 'vue-router'
   <footer>
     <div class="ubs">
       <RouterLink to="/">
-        <span class="logo">
-          <img src="/logoUBSDigital.png" alt="logo UBS Digital" width="80px">
-          <h2>UBS DIgital</h2>
+        <!--Não consigo alterar essa parte no CSS, então estou usando o style diretamente-->
+        <span class="logo" style="display: flex; align-items: center; color: white;">
+          <img src="/logoUBSDigital.png" alt="logo UBS Digital" width="80px"/>
+          <h2>UBS Digital</h2>
         </span>
       </RouterLink>
       <p>
@@ -17,6 +18,16 @@ import { RouterLink } from 'vue-router'
   </div>
     <div class="links">
       <h3>Links Rápidos</h3>
+      <nav>
+        <ul>
+          <li><RouterLink to="/"> Home </RouterLink></li>
+          <li><RouterLink to="/AgendarConsulta" >Agendar Consulta</RouterLink></li>
+          <li><RouterLink to="/AgendarExame" >Agendar Exame</RouterLink></li>
+          <li><RouterLink to="/MedicoFamilia" >Médico da familia</RouterLink></li>
+          <li><RouterLink to="/Especialidades" >Especialidades</RouterLink></li>
+          <li><RouterLink to="/Contato" > Contato</RouterLink></li>
+        </ul>
+      </nav>
     </div>
     <div class="contato">
       <h3>Contato</h3>
@@ -35,19 +46,34 @@ import { RouterLink } from 'vue-router'
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     color: white;
-    padding: 1vw;
-    align-items: center;
+    padding: 0.5vw 2vw;
+    align-items: baseline;
     gap: 20px;
   }
   h2 {
     font-size: 2rem;
     font-weight: bold;
   }
-  .logo {
-    display: margin;
-    align-items: center;
+  h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
   }
   .ubs {
     display: block;
+    padding: 0;
+  }
+  .ubs p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin: 10px 0 0 0;
+  }
+  a {
+    text-decoration: underline;
+    color: white;
+    font-weight: normal;
+  }
+  .links {
+    padding: 0 6vw;
   }
 </style>
