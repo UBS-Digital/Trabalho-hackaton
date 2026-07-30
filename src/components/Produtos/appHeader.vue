@@ -9,9 +9,9 @@ import { RouterLink } from 'vue-router';
      <nav>  
 
       <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/agendar-consulta">AgendarConsulta</RouterLink> 
-      <RouterLink to="/agendar-exame">AgendarExame</RouterLink>
-      <RouterLink to="/medico-familiar">MedicoFamiliar</RouterLink>
+      <RouterLink to="/agendar-consulta">Agendar-Consulta</RouterLink> 
+      <RouterLink to="/agendar-exame">Agendar-Exame</RouterLink>
+      <RouterLink to="/medico-familiar">Medico-Familiar</RouterLink>
       
     </nav>
 
