@@ -29,7 +29,7 @@ const router = createRouter({
     },
     {
     path: '/hemograma-completo',
-    component: HemogramaCompletoView,
+    component: hemogramaCompletoView,
 },
 {
     path: '/glicemia',

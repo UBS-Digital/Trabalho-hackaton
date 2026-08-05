@@ -91,7 +91,7 @@ function proximo(){
             v-for="exame in exames"
             :key="exame.id"
             class="card"
-            :class="{ selecionado: exameSelecionado?.id === exame.id }"
+            :class="{ selecionado: exameSelecionado.id === exame.id }"
             @click="selecionar(exame)"
         >
 
