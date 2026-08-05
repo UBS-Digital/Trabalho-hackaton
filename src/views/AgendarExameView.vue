@@ -3,38 +3,48 @@
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router';
 import appHeader from '@/components/Produtos/appHeader.vue';
+import hemogramaCompletoView from './hemogramaCompletoView.vue';
 
 const exames = ref([
     {
         id: 1,
         nome: "hemograma completo",
         preparo: "Jejum de 8h",
-        icone: "🩸"
+        icone: "🩸",
+        rota: "/hemograma-completo"
     },
     {
         id: 2,
         nome: "Glicemia em jejum",
         preparo: "Jejum de 8h",
-         icone: "💉"
+         icone: "💉",
+         rota: "/Glicemia"
     },
     {
         id: 3,
         nome: "Colesterol Total",
         preparo: "Jejum de 12h",
-         icone: "🧪"
+         icone: "🧪",
+         rota: "/Colesterol"
     },
     {
         id: 4,
         nome: "Raio-X Tórax",
         preparo: "sem preparo",
-        icone: "📄"
+        icone: "📄",
+        rota: "/Raio-X"
     }
 ])
 
 const exameSelecionado = ref(null)
 
 function selecionar(exame){
-    exameSelecionado.value = exame.id
+    exameSelecionado.value = exame
+}
+function proximo(){
+    if(exameSelecionado.value){
+        router.push(exameSelecionado.value.rota)
+    }
 }
 
 </script>
@@ -81,7 +91,7 @@ function selecionar(exame){
             v-for="exame in exames"
             :key="exame.id"
             class="card"
-            :class="{selecionado: exameSelecionado===exame.id}"
+            :class="{ selecionado: exameSelecionado?.id === exame.id }"
             @click="selecionar(exame)"
         >
 
@@ -104,7 +114,7 @@ function selecionar(exame){
 
         <button>← Voltar</button>
 
-        <button>Próximo →</button>
+        <button @click="proximo">Próximo →</button>
 
     </div>
 
