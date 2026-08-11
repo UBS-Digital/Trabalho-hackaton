@@ -30,11 +30,13 @@ import { RouterLink } from 'vue-router';
         <label for="mensagem" class="mensagem">
           <input type="text" id="mensagem" for="mensagem" placeholder="Mensagem*" required>
         </label>
+        <button type="submit"><span>Enviar Formulário</span><img src="../../public/mensagem.png" alt=""></button>
       </form>
     </section>
     <section class="informacoes">
       <ul>
         <li>
+          <img src="../../public/Group 3.png" alt="Local">
           <h4>Endereço</h4>
           <p>
             Rua da Saúde, 1234
@@ -44,12 +46,14 @@ import { RouterLink } from 'vue-router';
           </p>
         </li>
         <li>
+          <img src="../../public/Email.png" alt="Email">
           <h4>Email</h4>
           <p>
             contato@ubsdigital.gov.br
           </p>
         </li>
         <li>
+          <img src="../../public/Horário.png" alt="Horário de Atendimento">
           <h4>Horários de Atendimento</h4>
           <h5>Segunda a Sexta: </h5>
           <p>
@@ -65,6 +69,7 @@ import { RouterLink } from 'vue-router';
           </p>
         </li>
         <li>
+          <img src="../../public/telefone.png" alt="Telefone">
           <h4>Telefone</h4>
           <p>
             (11) 3456-7890
@@ -101,6 +106,8 @@ import { RouterLink } from 'vue-router';
     text-decoration: none;
     margin: 0 0 1vw 0;
   }
+
+
   input {
     padding: 1vw 1.5vw;
     width: 100%;
@@ -119,6 +126,28 @@ import { RouterLink } from 'vue-router';
   .mensagem input {
     padding: 1vw 1.5vw 10vw 1.5vw;
   }
+  .formulario form button {
+    background-color: #4D41EF;
+    color: white;
+    padding: 0.5vw 2.5vw 0.5vw 3vw;
+    border-radius: 10px;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin: 0 auto 0 auto 0;
+  }
+  .formulario form button span {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  .formulario form button img {
+    width: 25%;
+  }
+
+
+
   .informacoes {
     background-color: #f2f2f2;
     padding: 0 0 0 0;
@@ -132,8 +161,9 @@ import { RouterLink } from 'vue-router';
   .informacoes ul li {
     background-color: white;
     text-align: center;
-    padding: 1vw;
-    height: 15vw;
+    padding: 4vw;
+    min-height: 40%;
+    height: 20vw;
     box-shadow: 5px 5px 5px #00000029;
   }
 </style>
