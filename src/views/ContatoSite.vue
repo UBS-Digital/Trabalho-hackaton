@@ -12,7 +12,10 @@ import { RouterLink } from 'vue-router';
     </section>
     <section class="formulario">
       <form action="">
-        <h3>Envie sua mensagem</h3>
+        <div class="tituloForm">
+          <img src="../../public/formIcone.png" alt=""><h3>Envie sua mensagem</h3>
+        </div>
+
         <label for="name" class="nome">
           <input type="text" id="name" for="name" placeholder="Nome Completo*" required>
         </label>
@@ -30,8 +33,10 @@ import { RouterLink } from 'vue-router';
         <label for="mensagem" class="mensagem">
           <input type="text" id="mensagem" for="mensagem" placeholder="Mensagem*" required>
         </label>
-        <button type="submit"><span>Enviar Formulário</span><img src="../../public/mensagem.png" alt=""></button>
-      </form>
+        <div class="botao">
+          <button type="submit"><span>Enviar Formulário</span><img src="../../public/mensagem.png" alt=""></button>
+        </div>
+        </form>
     </section>
     <section class="informacoes">
       <ul>
@@ -101,13 +106,24 @@ import { RouterLink } from 'vue-router';
     font-size: 2rem;
     font-weight: bold;
   }
+  main h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
   main a {
     color: white;
     text-decoration: none;
     margin: 0 0 1vw 0;
   }
 
-
+  .formulario {
+    box-shadow: 5px 5px 5px #00000050;
+  }
+  .tituloForm {
+    display: flex;
+    align-items: center;
+    gap: 1vw;
+  }
   input {
     padding: 1vw 1.5vw;
     width: 100%;
@@ -126,6 +142,11 @@ import { RouterLink } from 'vue-router';
   .mensagem input {
     padding: 1vw 1.5vw 10vw 1.5vw;
   }
+  .formulario .botao {
+    display: flex;
+    justify-content: center;
+    margin: 2vw 0 0 0;
+  }
   .formulario form button {
     background-color: #4D41EF;
     color: white;
@@ -136,7 +157,6 @@ import { RouterLink } from 'vue-router';
     cursor: pointer;
     display: flex;
     align-items: center;
-    margin: 0 auto 0 auto 0;
   }
   .formulario form button span {
     font-weight: bold;
@@ -163,7 +183,12 @@ import { RouterLink } from 'vue-router';
     text-align: center;
     padding: 4vw;
     min-height: 40%;
-    height: 20vw;
-    box-shadow: 5px 5px 5px #00000029;
+    height: 23vw;
+    min-width: 40%;
+    box-shadow: 5px 5px 5px #00000050;
+  }
+  .informacoes ul li h4 {
+    font-size: 2rem;
+    font-weight: bold;
   }
 </style>
