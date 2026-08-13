@@ -117,7 +117,7 @@ import { RouterLink } from 'vue-router';
   }
 
   .formulario {
-    box-shadow: 5px 5px 5px #00000050;
+    box-shadow: 1px 5px 5px #00000050;
   }
   .tituloForm {
     display: flex;
@@ -182,10 +182,8 @@ import { RouterLink } from 'vue-router';
     background-color: white;
     text-align: center;
     padding: 4vw;
-    min-height: 40%;
-    height: 23vw;
-    min-width: 40%;
-    box-shadow: 5px 5px 5px #00000050;
+    min-height: 20vw;
+    box-shadow: 1px 5px 5px #00000050;
   }
   .informacoes ul li h4 {
     font-size: 2rem;
