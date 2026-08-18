@@ -13,6 +13,7 @@ import { RouterLink } from 'vue-router';
       <RouterLink to="/agendar-exame">Agendar-Exame</RouterLink>
       <RouterLink to="/medico-familiar">Medico-Familiar</RouterLink>
       
+      
     </nav>
 
    

@@ -4,7 +4,9 @@ import { ref } from 'vue'
 import { RouterLink } from 'vue-router';
 import appHeader from '@/components/Produtos/appHeader.vue';
 import hemogramaCompletoView from './hemogramaCompletoView.vue';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const exames = ref([
     {
         id: 1,
@@ -46,6 +48,9 @@ function proximo(){
         router.push(exameSelecionado.value.rota)
     }
 }
+function cadastrarExame (id){
+    router.push(`agendar-exame/${id}`)
+}
 
 </script>
 <template>
@@ -83,15 +88,14 @@ function proximo(){
 
     </div>
 
-    <h2>Selecione o Exame</h2>
+    <h2>Qual exame deseja fazer?</h2>
 
     <div class="cards">
 
         <div
             v-for="exame in exames"
-            :key="exame.id"
+            
             class="card"
-            :class="{ selecionado: exameSelecionado.id === exame.id }"
             @click="selecionar(exame)"
         >
 
@@ -103,6 +107,7 @@ function proximo(){
 
                 <h3>{{ exame.nome }}</h3>
                 <small>{{ exame.preparo }}</small>
+                <button @click="cadastrarExame(exame.id)"></button>
 
             </div>
 

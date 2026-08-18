@@ -28,6 +28,11 @@ const router = createRouter({
       component: AgendarExameView,
     },
     {
+      path: '/agendar-exame/:id',//url
+      name: 'hemograma',
+      component: hemogramaCompletoView,
+    },
+    {
     path: '/hemograma-completo',
     component: hemogramaCompletoView,
 },

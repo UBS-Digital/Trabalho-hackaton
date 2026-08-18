@@ -8,4 +8,7 @@ import AgendarExameView from './AgendarExameView.vue';
 
 
 </template>
-<style scoped></style>
+<style scoped>
+
+
+</style>
