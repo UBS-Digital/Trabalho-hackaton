@@ -1,5 +1,9 @@
 <script setup>
 import { RouterLink } from 'vue-router';
+function abrirMenu() {
+  const nav = document.querySelector('nav');
+  nav.classList.toggle('aberto');
+}
 </script>
 
 <template>
@@ -7,6 +11,13 @@ import { RouterLink } from 'vue-router';
     <RouterLink to="/">
       <img src="../../../public/logoUBSDigital.png" alt="Logo UBS Digital" width="80px">
     </RouterLink>
+    <button class="mudar-menu" @click="abrirMenu">
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </button>
     <nav>
         <RouterLink to="/"> Home </RouterLink>
         <RouterLink to="/AgendarConsulta" >Agendar Consulta</RouterLink>
@@ -47,4 +58,38 @@ nav {
   color: rgb(4, 132, 51);
 }
 
+
+.mudar-menu {
+
+  justify-content: space-between;
+  width: 12vw;
+  height: 12vw;
+  cursor: pointer;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  display: none;
+}
+.hamburger {
+  whidth: 100%;
+  height: 100%;
+   flex-direction: column;
+   display: flex;
+}
+.hamburguer span {
+  display: block;
+  width: 10vw;
+  height: 2px;
+  background-color: blue;
+  padding: 2px;
+  content: '';
+}
+@media (max-width: 768px) {
+  nav {
+    display: none;
+  }
+  .mudar-menu {
+    display: block;
+  }
+}
 </style>
