@@ -41,7 +41,7 @@ import AgendarExameView from './AgendarExameView.vue';
 
         <div class="step ativo">
             <span>2</span>
-            <p>Profissional</p>
+            <p>Local</p>
         </div>
 
         <div class="linha"></div>
@@ -60,6 +60,10 @@ import AgendarExameView from './AgendarExameView.vue';
 
     </div>
     </div>
+
+    <h2>Selecionar o Local</h2>
+
+
 </template>
 <style scoped>
 

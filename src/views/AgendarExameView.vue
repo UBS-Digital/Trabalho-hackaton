@@ -89,7 +89,7 @@ function cadastrarExame (id){
 
         <div class="step">
             <span>2</span>
-            <p>Profissional</p>
+            <p>Local</p>
         </div>
 
         <div class="linha"></div>
