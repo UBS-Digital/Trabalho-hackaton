@@ -276,22 +276,22 @@
   background: #f3f4f6;
   padding: 24px 0;
   box-sizing: border-box  ;
+ 
 }
 
 .stats-cards {
-  max-width: 1100px;   
+  max-width: 80vw;   
   margin: 0 auto;       
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   padding: 0 40px;
   box-sizing: border-box;
-  
 }
 
 .stat-card {
   background: #ffffff;
-  border-radius: 12px;
+  border-radius: 4px;
   padding: 13px 15px; 
   box-shadow: 1 1px 3px rgba(0, 0, 0, 0.08);
   box-sizing: border-box;
@@ -319,17 +319,14 @@
 }
 
 .icon-blue {
-  background: #dbeafe;
   color: #3b82f6;
 }
 
 .icon-green {
-  background: #d1fae5;
   color: #10b981;
 }
 
 .icon-purple {
-  background: #f3e8ff;
   color: #a855f7;
 }
 
