@@ -4,6 +4,11 @@ function abrirMenu() {
   const nav = document.querySelector('nav');
   nav.classList.toggle('aberto');
 }
+
+const nav =
+function abrirMenu() {
+
+}
 </script>
 
 <template>
@@ -74,15 +79,17 @@ nav {
   whidth: 100%;
   height: 100%;
    flex-direction: column;
-   display: flex;
+  display: flex;
+  padding: 1vw;
 }
-.hamburguer span {
+.hamburger span {
   display: block;
-  width: 10vw;
-  height: 2px;
+  margin: 3px 0;
+  height: 1px;
   background-color: blue;
   padding: 2px;
   content: '';
+  border-radius: 5px;
 }
 @media (max-width: 768px) {
   nav {
