@@ -1,8 +1,7 @@
 <script setup>
-
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router';
-import appHeader from '@/components/Produtos/appHeader.vue';
+
 import hemogramaCompletoView from './hemogramaCompletoView.vue';
 import { useRouter } from 'vue-router';
 
@@ -54,6 +53,14 @@ function cadastrarExame (id){
 
 </script>
 <template>
+
+    <header>
+
+        <div class="Banner">
+
+        </div>
+
+    </header>
   
 <div class="container">
 
