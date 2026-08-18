@@ -53,10 +53,23 @@ function cadastrarExame (id){
 
 </script>
 <template>
-
-    <header>
+<header>
+    
+    
 
         <div class="Banner">
+            <div>
+                <h1>Agendar Exame</h1>
+                <p>
+                    Escolha o exame e horário que melhor se adequa à sua necessidade
+                </p>
+            </div>
+
+            <div>
+
+                <img src="/public/foto.png" alt="">
+
+            </div>
 
         </div>
 
@@ -135,6 +148,26 @@ function cadastrarExame (id){
 
 </template>
 <style scoped>
+
+div.Banner{
+    display: flex;
+    justify-content: space-between;
+    padding: 4rem;
+  background: linear-gradient(to right, #6949A8, #267154, #4DDC45);
+  margin: 1vw 0 3vw 0;
+h1{
+    font-size: 5rem;
+    color: white;
+}
+p{
+    color: white;
+    font-size: 20px;
+}
+}
+
+
+
+
 
 .container{
     width:900px;
