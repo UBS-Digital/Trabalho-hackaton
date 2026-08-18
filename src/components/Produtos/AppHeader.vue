@@ -71,12 +71,12 @@ nav {
   height: 12vw;
   cursor: pointer;
   background-color: white;
-  border: 1px solid black;
+  border: none;
   border-radius: 5px;
   display: none;
 }
 .hamburger {
-  whidth: 100%;
+  width: 100%;
   height: 100%;
    flex-direction: column;
   display: flex;
@@ -86,7 +86,7 @@ nav {
   display: block;
   margin: 3px 0;
   height: 1px;
-  background-color: blue;
+  background-color: #447CDB;
   padding: 2px;
   content: '';
   border-radius: 5px;
