@@ -1,14 +1,11 @@
 <script setup>
 import { RouterLink } from 'vue-router';
+
 function abrirMenu() {
-  const nav = document.querySelector('nav');
-  nav.classList.toggle('aberto');
+  const menu = document.getElementById('menu');
+  menu.classList.toggle('ativo');
 }
 
-const nav =
-function abrirMenu() {
-
-}
 </script>
 
 <template>
@@ -16,24 +13,40 @@ function abrirMenu() {
     <RouterLink to="/">
       <img src="../../../public/logoUBSDigital.png" alt="Logo UBS Digital" width="80px">
     </RouterLink>
-    <button class="mudar-menu" @click="abrirMenu">
+    <button id="mudar-menu" class="mudar-menu" @click="abrirMenu">
       <div class="hamburger">
         <span></span>
         <span></span>
         <span></span>
       </div>
     </button>
-    <nav>
-        <RouterLink to="/"> Home </RouterLink>
-        <RouterLink to="/AgendarConsulta" >Agendar Consulta</RouterLink>
-        <RouterLink to="/AgendarExame" >Agendar Exame</RouterLink>
-        <RouterLink to="/MedicoFamilia" >Médico da familia</RouterLink>
-        <RouterLink to="/Especialidades" >Especialidades</RouterLink>
-        <RouterLink to="/Contato" > Contato</RouterLink>
-        <div class="botoes">
-          <RouterLink to="/MinhaArea" class="btn">Minha Área</RouterLink>
-          <RouterLink to="/AgendarAgora" class="btn">Agendar Agora</RouterLink>
-        </div>
+    <nav id="menu">
+      <ul>
+        <li>
+          <RouterLink to="/"> Home </RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/AgendarConsulta" >Agendar Consulta</RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/AgendarExame" >Agendar Exame</RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/MedicoFamilia" >Médico da familia</RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/Especialidades" >Especialidades</RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/Contato" > Contato</RouterLink>
+        </li>
+        <li>
+          <div class="botoes">
+            <RouterLink to="/MinhaArea" class="btn">Minha Área</RouterLink>
+            <RouterLink to="/AgendarAgora" class="btn">Agendar Agora</RouterLink>
+          </div>
+        </li>
+      </ul>
     </nav>
   </header>
 
@@ -65,7 +78,6 @@ nav {
 
 
 .mudar-menu {
-
   justify-content: space-between;
   width: 12vw;
   height: 12vw;
@@ -78,7 +90,7 @@ nav {
 .hamburger {
   width: 100%;
   height: 100%;
-   flex-direction: column;
+  flex-direction: column;
   display: flex;
   padding: 1vw;
 }
@@ -92,11 +104,22 @@ nav {
   border-radius: 5px;
 }
 @media (max-width: 768px) {
-  nav {
+  #menu {
     display: none;
+  }
+  #menu.ativo {
+    display: block;
+
   }
   .mudar-menu {
     display: block;
+  }
+  #menu ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
   }
 }
 </style>
