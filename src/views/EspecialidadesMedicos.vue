@@ -16,217 +16,217 @@
     <section>
         <ul>
             <li>
-                <img src="#" alt="">
+                <img src="../imagem/geral.png" alt="">
                 <h3>
-                    placeholder
+                    Clínico Geral
                 </h3>
                 <p>
-                    place gooner
+                   Atendimento completo para diagnóstico e tratamento de doenças comuns, prevenção e promoção da saúde.
                 </p>
                 <h4>
-                    palce gooner
+                    Serviços:
                 </h4>
                 <ul>
                     <li>
-
+                        • Consultas de rotina
                     </li>
                     <li>
-
+                        • Check-ups
                     </li>
                     <li>
-
+                        • Atestados médicos
                     </li>
                     <li>
-
+                        • Receitas
                     </li>
                 </ul>
                 <button>goonar</button>
             </li>
             <li>
-                <img src="#" alt="">
+                <img src="../imagem/pediatra.png" alt="">
                 <h3>
-                    placeholder
+                    Pediatra
                 </h3>
                 <p>
-                    place gooner
+                    Cuidado especializado para a saúde e desenvolvimento das crianças de 0 a 18 anos.
                 </p>
                 <h4>
-                    palce gooner
+                    Serviços:
                 </h4>
                 <ul>
                     <li>
-
+                        • Puericultura
                     </li>
                     <li>
-
+                        • Vacinação
                     </li>
                     <li>
-
+                        • Crescimento e desenvolvimento
                     </li>
                     <li>
-
+                        • Doenças infantis
                     </li>
                 </ul>
                 <button>goonar</button>
             </li>
             <li>
-                <img src="#" alt="">
+                <img src="../imagem/ginecologia.png" alt="">
                 <h3>
-                    placeholder
+                    Ginecologia
                 </h3>
                 <p>
-                    place gooner
+                    Saúde da mulher com atendimento humanizado, preventivo e tratamento de doenças.
                 </p>
                 <h4>
-                    palce gooner
+                    Serviços:
                 </h4>
                 <ul>
                     <li>
-
+                        • Preventivo
                     </li>
                     <li>
-
+                        • Planejamento familiar
                     </li>
                     <li>
-
+                        • Pré-natal
                     </li>
                     <li>
-
+                        • Climatério
                     </li>
                 </ul>
                 <button>goonar</button>
             </li>
             <li>
-                <img src="#" alt="">
+                <img src="../imagem/familia.png" alt="">
                 <h3>
-                    placeholder
+                    Médico da Família
                 </h3>
                 <p>
-                    place gooner
+                    Acompanhamento contínuo e integral de toda sua família com foco preventivo.
                 </p>
                 <h4>
-                    palce gooner
+                    Serviços:
                 </h4>
                 <ul>
                     <li>
-
+                        • Acompanhamento familiar
                     </li>
                     <li>
-
+                        • Doenças crônicas
                     </li>
                     <li>
-
+                        • Saúde mental
                     </li>
                     <li>
-
+                        • Visitas domiciliares
                     </li>
                 </ul>
                 <button>goonar</button>
             </li>
             <li>
-                <img src="#" alt="">
+                <img src="../imagem/cardiologia.png" alt="">
                 <h3>
-                    placeholder
+                    cardiologia
                 </h3>
                 <p>
-                    place gooner
+                    Prevenção e tratamento de doenças cardiovasculares com acompanhamento especializado.
                 </p>
                 <h4>
-                    palce gooner
+                    Serviços:
                 </h4>
                 <ul>
                     <li>
-
+                        • Hipertensão
                     </li>
                     <li>
-
+                        • Arritmias
                     </li>
                     <li>
-
+                        • Doenças coronárias
                     </li>
                     <li>
-
+                        • Check-up cardíaco
                     </li>
                 </ul>
                 <button>goonar</button>
             </li>
             <li>
-                <img src="#" alt="">
+                <img src="../imagem/oftalmologia.png" alt="">
                 <h3>
-                    placeholder
+                    Oftalmologia
                 </h3>
                 <p>
-                    place gooner
+                    Cuidados com a saúde dos olhos, prevenção e tratamento de problemas visuais.
                 </p>
                 <h4>
-                    palce gooner
+                    Serviços:
                 </h4>
                 <ul>
                     <li>
-
+                        • Exame de vista
                     </li>
                     <li>
-
+                        • Prescrição de óculos
                     </li>
                     <li>
-
+                        • Glaucoma
                     </li>
                     <li>
-
+                        • Catarata
                     </li>
                 </ul>
                 <button>goonar</button>
             </li>
             <li>
-                <img src="#" alt="">
+                <img src="../imagem/dermatologia.png" alt="">
                 <h3>
-                    placeholder
+                    Dermatologia
                 </h3>
                 <p>
-                    place gooner
+                    Diagnóstico, tratamento e prevenção de doenças de pele, cabelo, unhas e mucosas.
                 </p>
                 <h4>
-                    palce gooner
+                    Serviços:
                 </h4>
                 <ul>
                     <li>
-
+                        • Acne
                     </li>
                     <li>
-
+                        • Dermatite
                     </li>
                     <li>
-
+                        • Micoses
                     </li>
                     <li>
-
+                        • Prevenção de câncer de pele
                     </li>
                 </ul>
                 <button>goonar</button>
             </li>
             <li>
-                <img src="#" alt="">
+                <img src="../imagem/endocrinologia.png" alt="">
                 <h3>
-                    placeholder
+                    Endocrinologia
                 </h3>
                 <p>
-                    place gooner
+                    Tratamento de distúrbios hormonais e metabólicos como diabetes e tireoide.
                 </p>
                 <h4>
-                    palce gooner
+                    Serviços:
                 </h4>
                 <ul>
                     <li>
-                        goon 1
+                        • Diabetes
                     </li>
                     <li>
-                        goon 2
+                        • Tireoide
                     </li>
                     <li>
-                        goon 3                        
+                        • Obesidade                    
                     </li>
                     <li>
-                        goon 4 
+                        • Distúrbios hormonais
                     </li>
                 </ul>
                 <button>goonar</button>
@@ -250,7 +250,7 @@ h2 {
 }
 p {
     font-size: 1.1rem;
-    margin: 1vw 2.5vw 3vw 2.5vw;
+    margin: 0.3vw 0 0 0;
 }
 ul{
     justify-content: space-between;
@@ -265,8 +265,25 @@ li {
     padding: 2.3vw;
     box-shadow: 1px 1px 1px 1px #00000050;
 }
+button {
+    color: white;
+    border: none;
+    background-color: #447CDB;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px 1px #00000050;
+    padding: 1vw 11.6vw 1vw 11.6vw;
+    text-align: center;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #2f7bff;
+}
+ul li p{
+    padding: 0px;
+}
 ul li ul{
     display: block;
+    padding: 0;
 }
 ul li ul li{
     padding: 5px;
