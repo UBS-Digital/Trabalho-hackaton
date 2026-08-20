@@ -40,7 +40,7 @@
                         • Receitas
                     </li>
                 </ul>
-                <button>goonar</button>
+                <button>Agendar Consulta</button>
             </li>
             <li>
                 <img src="../imagem/pediatra.png" alt="">
@@ -67,7 +67,7 @@
                         • Doenças infantis
                     </li>
                 </ul>
-                <button>goonar</button>
+                <button>Agendar Consulta</button>
             </li>
             <li>
                 <img src="../imagem/ginecologia.png" alt="">
@@ -94,7 +94,7 @@
                         • Climatério
                     </li>
                 </ul>
-                <button>goonar</button>
+                <button>Agendar Consulta</button>
             </li>
             <li>
                 <img src="../imagem/familia.png" alt="">
@@ -121,7 +121,7 @@
                         • Visitas domiciliares
                     </li>
                 </ul>
-                <button>goonar</button>
+                <button>Agendar Consulta</button>
             </li>
             <li>
                 <img src="../imagem/cardiologia.png" alt="">
@@ -148,7 +148,7 @@
                         • Check-up cardíaco
                     </li>
                 </ul>
-                <button>goonar</button>
+                <button>Agendar Consulta</button>
             </li>
             <li>
                 <img src="../imagem/oftalmologia.png" alt="">
@@ -175,7 +175,7 @@
                         • Catarata
                     </li>
                 </ul>
-                <button>goonar</button>
+                <button>Agendar Consulta</button>
             </li>
             <li>
                 <img src="../imagem/dermatologia.png" alt="">
@@ -202,7 +202,7 @@
                         • Prevenção de câncer de pele
                     </li>
                 </ul>
-                <button>goonar</button>
+                <button>Agendar Consulta</button>
             </li>
             <li>
                 <img src="../imagem/endocrinologia.png" alt="">
@@ -229,14 +229,14 @@
                         • Distúrbios hormonais
                     </li>
                 </ul>
-                <button>goonar</button>
+                <button>Agendar Consulta</button>
             </li>
         </ul>
     </section>
 </template>
 <style scoped>
 .banner {
-    padding: 1VW 0.85VW;
+    padding: 1VW 0.85VW 5vw 3vw;
     background: linear-gradient(170deg, #2053ac, #447CDB, #267154, #267154, #37c22f);
     color: whitesmoke;
 }
@@ -271,9 +271,10 @@ button {
     background-color: #447CDB;
     border-radius: 10px;
     box-shadow: 1px 1px 1px 1px #00000050;
-    padding: 1vw 11.6vw 1vw 11.6vw;
+    padding: 1vw 9.9vw 1vw 9.6vw;
     text-align: center;
     cursor: pointer;
+    font-weight: bolder;
 }
 button:hover {
     background-color: #2f7bff;
