@@ -8,7 +8,7 @@
 
 <template>
 
-
+<main class="tudors">
  <div class="banner">
     <div class="banner__left">
       <div class="avatar" aria-hidden="true">G</div>
@@ -40,7 +40,6 @@
 
 
 
-/*card */
 
 
 
@@ -193,6 +192,8 @@
     </div>
 
     <!-- Item 2: Exame -->
+
+
     <div class="appointment-item">
       <div class="badges">
         <span class="badge badge-purple">Exame</span>
@@ -242,11 +243,14 @@
     </div>
   </div>
 
-
+</main>
 
 </template>
 <style scoped>
 
+main{
+  background-color: #f3f4f6;
+}
 
 .banner{
   min-height: 1vw;
@@ -286,15 +290,20 @@
   
 }
 
+.banner__text {
+  color: white;
+}
+
+
 .banner__text h1{
   color: #ffffff;
   font-size: 35px;
   font-weight: 700;
   
-}
+}banner
 
 .banner__text p{
-  color: rgb(255, 255, 255);
+  color: white;
   font-size: 15px;
   padding-left: 30px;;
 }
@@ -303,7 +312,7 @@
   display: flex;
   gap: 12px;
   flex-shrink: 0;
-  padding-right: 10vw;
+  padding-right: 14vw;
 }
 
 .pill-btn{
@@ -363,7 +372,6 @@
 
 
 /*card */
-
 
 
 
@@ -458,12 +466,13 @@
 
 
 .appointments-card {
-  background: #ffffff;
-  border-radius: 16px;
+  background: #fcfcfc;
+  border-radius: 9px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   padding: 28px 32px;
   box-sizing: border-box;
-  
+  margin-left: 19vw;
+  margin-right: 39vw;
 }
 
 .card-header {
