@@ -1,19 +1,20 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/Produtos/ButtonChild.vue'
+import AppHeader from './components/Produtos/AppHeader.vue';
+import { RouterView } from 'vue-router';
+import AppFooter from '../src/components/Produtos/AppFooter.vue';
 </script>
 
 <template>
   <header>
-
-    <div class="wrapper">
-
-      
-    
-    </div>
+<AppHeader />
   </header>
 
-  <RouterView />
+    <main>
+      <RouterView />
+    </main>
+    <footer>
+      <AppFooter />
+    </footer>
 </template>
 
 <style scoped>
