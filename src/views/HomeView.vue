@@ -12,10 +12,10 @@ import { RouterLink } from 'vue-router'
     <div class="banner">
 
         <nav> <h1>
-         <router-link to="/Home"> home </router-link>
-        <router-link to="/AgendarConsulta">Agendar Consulta</router-link>
-        <router-link to="/AgendarExame">Agentar Exame</router-link>
-        <router-link to="/MedicoFamiliar">Médico da familia</router-link>
+         <router-link to="/"> home </router-link>
+        <router-link to="/agendar-consulta">Agendar Consulta</router-link>
+        <router-link to="/agendar-exame">Agentar-Exame</router-link>
+        <router-link to="/medico-familiar">Médico da familia</router-link>
     </h1> </nav>
 
     </div>
