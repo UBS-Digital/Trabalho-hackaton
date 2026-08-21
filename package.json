@@ -13,6 +13,8 @@
     "format": "prettier --write --experimental-cli src/"
   },
   "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "v-calendar": "^3.1.2",
     "vue": "^3.5.32",
     "vue-router": "^5.0.4"
   },
