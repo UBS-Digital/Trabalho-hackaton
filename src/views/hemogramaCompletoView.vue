@@ -2,6 +2,7 @@
 
 import AgendarExameView from './AgendarExameView.vue';
 import { ref } from 'vue';
+import 'v-calendar/style.css';
 const date = ref(new Date())
 
 </script>
@@ -133,10 +134,12 @@ const date = ref(new Date())
         </h4>
 
          <VDatePicker v-model="date" mode="dateTime" is24hr />
+          
 
     </div>
 
 </template>
+
 <style scoped>
 
 div.Banner{
