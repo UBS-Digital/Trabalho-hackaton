@@ -69,6 +69,9 @@ header {
 nav {
   display: flex;
 }
+nav ul {
+  display: flex;
+}
 .botoes {
   display: block;
 }
@@ -110,6 +113,9 @@ nav {
   #menu.ativo {
     display: block;
 
+  }
+  header {
+    display: block;
   }
   .mudar-menu {
     display: block;
