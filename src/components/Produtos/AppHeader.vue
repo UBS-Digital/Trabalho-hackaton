@@ -10,10 +10,13 @@ function abrirMenu() {
 
 <template>
   <header>
-    <RouterLink to="/">
+    <div class="logo">
+      <RouterLink to="/">
       <img src="../../../public/logoUBSDigital.png" alt="Logo UBS Digital" width="80px">
     </RouterLink>
-    <button id="mudar-menu" class="mudar-menu" @click="abrirMenu">
+    </div>
+    <div class="menu-direita">
+      <button id="mudar-menu" class="mudar-menu" @click="abrirMenu">
       <div class="hamburger">
         <span></span>
         <span></span>
@@ -48,6 +51,7 @@ function abrirMenu() {
         </li>
       </ul>
     </nav>
+    </div>
   </header>
 
 
@@ -112,10 +116,11 @@ nav ul {
   }
   #menu.ativo {
     display: block;
-
+    text-align: right;
   }
   header {
-    display: block;
+    display: flex;
+    justify-content: space-between;
   }
   .mudar-menu {
     display: block;
