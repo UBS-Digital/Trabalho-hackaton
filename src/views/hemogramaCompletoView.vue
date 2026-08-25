@@ -61,6 +61,7 @@ const date = ref(new Date())
     </div>
  <div class="local">
           <h2>Selecionar o Local</h2>
+         <img src="/public/iconeLocal.png" alt="">
 
      <select v-model="localAtendimento">
         <option value="">UBS digital - Unidade Norte</option>
@@ -73,28 +74,24 @@ const date = ref(new Date())
             Selecione Data e Horário
         </h2>
 
+        
+      
         <div class="calendario">
-        <h4>
-            Data e hora Disponível
-        </h4>
+            
+             <VDatePicker v-model="date" mode="dateTime" is24hr/>
 
-            <VDatePicker v-model="date" mode="dateTime" is24hr />
+        </div>
+           
         
         </div>
 
     </div>
-            
-
-   
         
            <div class="botoes">
 
         <button>← Voltar</button>
 
         <button @click="proximo">Próximo →</button>
-
-    </div>
-
 
     </div>
 
@@ -183,7 +180,11 @@ p{
 .local select{
     border-radius: 9vw;
    font-size: 3rem;
-   margin: 10px 155px
+   margin: 5vw 155px 10vw
+}
+.local img{
+    width: 100px;
+    justify-content:space-between;
 }
 .botoes{
 
@@ -201,6 +202,13 @@ button{
     color:white;
     cursor:pointer;
 
+}
+.calendario{
+   width:auto;
+   max-width: 900px;
+   margin: 16px 20vw;
+    padding:30px;
+    border-radius:10px;
 }
 
 </style>
