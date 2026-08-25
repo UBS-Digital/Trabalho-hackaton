@@ -20,13 +20,13 @@
                 integral e prevenção.
               </p>
               <div class="actions">
-                <button class="btn primary">Agendar Consulta</button>
-                <button class="btn outline">Contato</button>
+                <RouterLink to="/agendar-consulta" class="btn primary">Agendar Consulta</RouterLink>
+                <RouterLink to="/contato-site" class="btn outline">Contato</RouterLink>
               </div>
             </div>
           </div>
 
-          <div class="health-panels">
+          <div class="graficos">
             <div class="panel image-slot">
               <img class="chart" :src="chart1" alt="Gráfico 1 - Pressão" />
             </div>
@@ -55,7 +55,7 @@
           </div>
         </div>
 
-        <aside class="sidebar">
+        <aside class="barraLateral">
           <div class="card contact">
             <h4>Informações de Contato</h4>
             <p>Tel: (11) 3456-7890</p>
@@ -81,7 +81,6 @@
 </template>
 
 <script setup>
-// Simples view estática. Dados podem ser conectados a props ou API.
 import chart1 from '../imagem/img1.jpg';
 import chart2 from  '../imagem/image2.jpg';
 </script>
@@ -172,14 +171,14 @@ import chart2 from  '../imagem/image2.jpg';
   padding: 6px 10px;
   font-size: 13px;
 }
-.health-panels {
+.graficos {
   display: flex;
   flex-direction: column;
   gap: 10px;
   margin-top: 26px;
 }
 .panel {
-  width: 100%;
+  width: 70%;
   background: transparent;
   border-radius: 8px;
   padding: 12px;
@@ -208,7 +207,7 @@ import chart2 from  '../imagem/image2.jpg';
   border-radius: 6px;
   margin-top: 8px;
 }
-.sidebar {
+.barraLateral {
   width: 340px;
   display: flex;
   flex-direction: column;

@@ -35,7 +35,7 @@ const date = ref(new Date())
 
     <div class="stepper">
 
-        <div class="step confere" v-if="checaPasso"> 
+        <div class="step confere"> 
             <span>-</span>
             <p>Especialidade</p>
         </div>
@@ -52,13 +52,6 @@ const date = ref(new Date())
         <div class="step">
             <span>3</span>
             <p>Data e Horário</p>
-        </div>
-
-        <div class="linha"></div>
-
-        <div class="step">
-            <span>4</span>
-            <p>Confirmação</p>
         </div>
 
     </div>
@@ -75,7 +68,26 @@ const date = ref(new Date())
        
     </select>
 
-     <div class="botoes">
+     <div class="data">
+        <h2>
+            Selecione Data e Horário
+        </h2>
+
+        <div class="calendario">
+        <h4>
+            Data e hora Disponível
+        </h4>
+
+            <VDatePicker v-model="date" mode="dateTime" is24hr />
+        
+        </div>
+
+    </div>
+            
+
+   
+        
+           <div class="botoes">
 
         <button>← Voltar</button>
 
@@ -83,58 +95,6 @@ const date = ref(new Date())
 
     </div>
 
-    </div>
-  
-            <div class="data-hora">
-                <h1>Agendar Exame</h1>
-                <p>
-                    Escolha o exame e horário que melhor se adequa à sua necessidade
-                </p>
-            </div>
-              <div class="container">
-
-
-    <div class="stepper">
-
-        <div class="step confere" v-if="checaPasso"> 
-            <span>-</span>
-            <p>Especialidade</p>
-        </div>
-
-        <div class="linha"></div>
-
-        <div class="step ativo">
-            <span>2</span>
-            <p>Local</p>
-        </div>
-
-        <div class="linha"></div>
-
-        <div class="step">
-            <span>3</span>
-            <p>Data e Horário</p>
-        </div>
-
-        <div class="linha"></div>
-
-        <div class="step">
-            <span>4</span>
-            <p>Confirmação</p>
-        </div>
-
-    </div>
-    </div>
-
-    <div class="data">
-        <h2>
-            Selecione Data e Horário
-        </h2>
-        <h4>
-            Data e hora Disponível
-        </h4>
-
-         <VDatePicker v-model="date" mode="dateTime" is24hr />
-          
 
     </div>
 
@@ -214,9 +174,11 @@ p{
     padding:30px;
     border-radius:10px;
      box-shadow:0 20px 20px rgba(0,0,0,.15);
+     
 }
 .local h2{
-    margin: 10px 165px
+    margin: 10px 16px;
+    font-size: 2rem;
 }
 .local select{
     border-radius: 9vw;
