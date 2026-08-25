@@ -1,11 +1,14 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '@/views/HomeView.vue';
-import AgendarExameView from '@/views/AgendarExameView.vue';
-import MedicoFamiliarView from '@/views/MedicoFamiliarView.vue';
-import EspecialidadesMedicos from '@/views/EspecialidadesMedicos.vue';
-import MinhaArea from '@/views/MinhaArea.vue';
-import ContatoSite from '@/views/ContatoSite.vue';
-import AgendarAgora from '@/views/AgendarAgora.vue';
+import { createRouter, createWebHistory } from 'vue-router'
+import HomeView from '../views/HomeView.vue'
+import AgendarConsultaView from '../views/AgendarConsultaView.vue'
+import AgendarExameView from '../views/AgendarExameView.vue'
+import MedicoFamiliarView from '../views/MedicoFamiliarView.vue'
+import hemogramaCompletoView from '../views/hemogramaCompletoView.vue'
+import GlicemiaView from '../views/GlicemiaView.vue'
+import ColesterolView from '../views/ColesterolView.vue'
+import RaioXView from '../views/RaioXView.vue'
+  
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -15,44 +18,41 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/AgendarConsulta',
+      path: '/agendar-consulta',
       name: 'agendar-consulta',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AgendarConsultaView.vue'),
+      component: AgendarConsultaView,
     },
-    {    
-
-      path: '/AgendarExame',
+    {
+      path: '/agendar-exame',
       name: 'agendar-exame',
       component: AgendarExameView,
     },
     {
-      path: '/MedicoFamilia',
-      name: 'medico-familia',
+      path: '/agendar-exame/:id',//url
+      name: 'hemograma',
+      component: hemogramaCompletoView,
+    },
+    {
+    path: '/hemograma-completo',
+    component: hemogramaCompletoView,
+},
+{
+    path: '/glicemia',
+    component: GlicemiaView,
+},
+{
+    path: '/colesterol',
+    component: ColesterolView,
+},
+{
+    path: '/raio-x',
+    component: RaioXView,
+},
+    {
+      path: '/medico-familiar',
+      name: 'medico-familiar',
       component: MedicoFamiliarView,
     },
-    {
-      path: '/Especialidades',
-      name: 'especialidades',
-      component: EspecialidadesMedicos,
-    },
-    {
-      path: '/Contato',
-      name: 'contato',
-      component: ContatoSite,
-    },
-    {
-      path: '/MinhaArea',
-      name: 'minha-area',
-      component: MinhaArea,
-    },
-    {
-      path: '/AgendarAgora',
-      name: 'agendar-agora',
-      component: AgendarAgora,
-    }
   ],
 })
 

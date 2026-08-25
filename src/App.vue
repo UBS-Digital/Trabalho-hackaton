@@ -1,5 +1,5 @@
 <script setup>
-import AppHeader from '../src/components/Produtos/AppHeader.vue';
+import AppHeader from './components/Produtos/appHeader.vue';
 import { RouterView } from 'vue-router';
 import AppFooter from '../src/components/Produtos/AppFooter.vue';
 </script>

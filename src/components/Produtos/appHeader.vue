@@ -8,11 +8,11 @@ import { RouterLink } from 'vue-router';
       <img src="../../../public/logoUBSDigital.png" alt="Logo UBS Digital" width="80px">
     </RouterLink>
     <nav>
-        <RouterLink to="/"> Home </RouterLink>
-        <RouterLink to="/AgendarConsulta" >Agendar Consulta</RouterLink>
-        <RouterLink to="/AgendarExame" >Agendar Exame</RouterLink>
-        <RouterLink to="/MedicoFamilia" >Médico da familia</RouterLink>
-        <RouterLink to="/Especialidades" >Especialidades</RouterLink>
+       <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/agendar-consulta">Agendar-Consulta</RouterLink> 
+      <RouterLink to="/agendar-exame">Agendar-Exame</RouterLink>
+      <RouterLink to="/medico-familiar">Medico-Familiar</RouterLink> 
+      <RouterLink to="/Especialidades" >Especialidades</RouterLink>
         <RouterLink to="/Contato" > Contato</RouterLink>
         <div class="botoes">
           <RouterLink to="/MinhaArea" class="btn">Minha Área</RouterLink>
@@ -20,6 +20,8 @@ import { RouterLink } from 'vue-router';
         </div>
     </nav>
   </header>
+
+  
 
 
 </template>
