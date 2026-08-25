@@ -1,8 +1,6 @@
 <script setup>
 
-import AgendarExameView from './AgendarExameView.vue';
 import { ref } from 'vue';
-import 'v-calendar/style.css';
 const date = ref(new Date())
 
 </script>

@@ -15,7 +15,7 @@ import { RouterLink } from 'vue-router';
       <RouterLink to="/especialidades">Especialidades</RouterLink>
       <RouterLink to="/contato-site">Contato</RouterLink>
         <div class="botoes">
-          <RouterLink to="/MinhaArea" class="btn">Minha Área</RouterLink>
+          <RouterLink to="/MinhaArea" class="btn"> <img src="/src/imagem//icon-minha-area.svg" alt="" class="imgiconzinho">Minha Área</RouterLink>
           <RouterLink to="/AgendarAgora" class="btn">Agendar Agora</RouterLink>
         </div>
     </nav>
@@ -30,23 +30,39 @@ import { RouterLink } from 'vue-router';
 header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 2vw 3vw 2vw 2vw;
+  justify-content: center;
+  padding: 2vw;
+  color: #2563eb;
 }
 .btn {
-  border: 1px solid black;
-  padding: 0.5vw 1vw;
+  border: 0.5px solid #2563eb;
+  padding: 0.2vw 0.7vw;
   margin: 5px;
+  border-radius: 0.5vw;
+  align-items: center;
+  display: flex;
+  gap: 0.3vw;
+  color: #2563eb;
+  
 }
+
+
 
 nav {
   display: flex;
+  align-items: center;
 }
 .botoes {
-  display: block;
+  display: flex;
 }
 .atual {
   color: rgb(4, 132, 51);
+}
+.imgiconzinho {
+  height: 1vw;
+  width: 1vw;
+  margin-right: 1px;
+  
 }
 
 </style>
