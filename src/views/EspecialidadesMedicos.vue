@@ -26,8 +26,8 @@ import { RouterLink } from 'vue-router'
           <li>• Receitas</li>
         </ul>
         <RouterLink to="/AgendarConsulta">
-          <button>Agendar Consulta</button>
-        </RouterLink>
+            <button>Agendar Consulta</button>
+          </RouterLink>
       </li>
       <li>
         <img src="../imagem/pediatra.png" alt="" />
@@ -41,8 +41,8 @@ import { RouterLink } from 'vue-router'
           <li>• Doenças infantis</li>
         </ul>
         <RouterLink to="/AgendarConsulta">
-          <button>Agendar Consulta</button>
-        </RouterLink>
+            <button>Agendar Consulta</button>
+          </RouterLink>
       </li>
       <li>
         <img src="../imagem/ginecologia.png" alt="" />
@@ -56,8 +56,8 @@ import { RouterLink } from 'vue-router'
           <li>• Climatério</li>
         </ul>
         <RouterLink to="/AgendarConsulta">
-          <button>Agendar Consulta</button>
-        </RouterLink>
+            <button>Agendar Consulta</button>
+          </RouterLink>
       </li>
       <li>
         <img src="../imagem/familia.png" alt="" />
@@ -71,8 +71,8 @@ import { RouterLink } from 'vue-router'
           <li>• Visitas domiciliares</li>
         </ul>
         <RouterLink to="/AgendarConsulta">
-          <button>Agendar Consulta</button>
-        </RouterLink>
+            <button>Agendar Consulta</button>
+          </RouterLink>
       </li>
       <li>
         <img src="../imagem/cardiologia.png" alt="" />
@@ -86,8 +86,8 @@ import { RouterLink } from 'vue-router'
           <li>• Check-up cardíaco</li>
         </ul>
         <RouterLink to="/AgendarConsulta">
-          <button>Agendar Consulta</button>
-        </RouterLink>
+            <button>Agendar Consulta</button>
+          </RouterLink>
       </li>
       <li>
         <img src="../imagem/oftalmologia.png" alt="" />
@@ -101,8 +101,8 @@ import { RouterLink } from 'vue-router'
           <li>• Catarata</li>
         </ul>
         <RouterLink to="/AgendarConsulta">
-          <button>Agendar Consulta</button>
-        </RouterLink>
+            <button>Agendar Consulta</button>
+          </RouterLink>
       </li>
       <li>
         <img src="../imagem/dermatologia.png" alt="" />
@@ -116,8 +116,8 @@ import { RouterLink } from 'vue-router'
           <li>• Prevenção de câncer de pele</li>
         </ul>
         <RouterLink to="/AgendarConsulta">
-          <button>Agendar Consulta</button>
-        </RouterLink>
+            <button>Agendar Consulta</button>
+          </RouterLink>
       </li>
       <li>
         <img src="../imagem/endocrinologia.png" alt="" />
