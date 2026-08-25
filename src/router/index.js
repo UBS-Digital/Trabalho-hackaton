@@ -7,6 +7,8 @@ import hemogramaCompletoView from '../views/hemogramaCompletoView.vue'
 import GlicemiaView from '../views/GlicemiaView.vue'
 import ColesterolView from '../views/ColesterolView.vue'
 import RaioXView from '../views/RaioXView.vue'
+import EspecialidadesMedicos from '@/views/EspecialidadesMedicos.vue'
+import ContatoSite from '../views/ContatoSite.vue'
   
 
 const router = createRouter({
@@ -52,6 +54,16 @@ const router = createRouter({
       path: '/medico-familiar',
       name: 'medico-familiar',
       component: MedicoFamiliarView,
+    },
+    {
+      path: '/ContatoSite',
+      name: 'Contato',
+      component: ContatoSite,
+    },
+    {
+      path: '/Especialidades',
+      name: 'Especialidades',
+      component: EspecialidadesMedicos,
     },
   ],
 })
