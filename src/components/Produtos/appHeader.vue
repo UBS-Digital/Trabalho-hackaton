@@ -12,8 +12,8 @@ import { RouterLink } from 'vue-router';
       <RouterLink to="/agendar-consulta">Agendar-Consulta</RouterLink> 
       <RouterLink to="/agendar-exame">Agendar-Exame</RouterLink>
       <RouterLink to="/medico-familiar">Medico-Familiar</RouterLink> 
-      <RouterLink to="/Especialidades" >Especialidades</RouterLink>
-        <RouterLink to="/Contato" > Contato</RouterLink>
+      <RouterLink to="/especialidades">Especialidades</RouterLink>
+      <RouterLink to="/contato-site">Contato</RouterLink>
         <div class="botoes">
           <RouterLink to="/MinhaArea" class="btn">Minha Área</RouterLink>
           <RouterLink to="/AgendarAgora" class="btn">Agendar Agora</RouterLink>

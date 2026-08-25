@@ -4,7 +4,7 @@ import { RouterLink } from 'vue-router'
 <template>
   <div class="banner">
     <div class="voltar">
-      <RouterLink to="/"><- Voltar</RouterLink>
+      <RouterLink to="/">← Voltar</RouterLink>
     </div>
     <h2>Especialidades Médicas</h2>
     <p>Conheça todas as especialidades disponíveis na UBS Digital e agende sua consulta</p>
