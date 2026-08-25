@@ -54,6 +54,7 @@ const router = createRouter({
       component: MedicoFamiliarView,
     },
   ],
+  
 })
 
 export default router

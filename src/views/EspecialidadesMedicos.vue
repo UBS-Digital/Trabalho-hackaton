@@ -153,6 +153,9 @@ h2 {
   font-weight: bolder;
   margin: 3vw 1vw 0 2.5vw;
 }
+h4 {
+    font-size: 1rem;
+}
 p {
   font-size: 1.1rem;
   margin: 0.3vw 0 0 0;
