@@ -83,6 +83,9 @@ nav ul {
   color: rgb(4, 132, 51);
 }
 
+.menu-direita {
+  position: relative;
+}
 
 .mudar-menu {
   justify-content: space-between;
@@ -111,16 +114,49 @@ nav ul {
   border-radius: 5px;
 }
 @media (max-width: 768px) {
+  .botoes {
+    display: grid;
+  }
   #menu {
-    display: none;
-  }
-  #menu.ativo {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
     display: block;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    pointer-events: none;
     text-align: right;
+    background: white;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    z-index: 20;
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
   }
+
+  #menu.ativo {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  nav ul {
+    display: block;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  nav ul li {
+    margin: 2.5vw 0;
+  }
+
   header {
     display: flex;
     justify-content: space-between;
+    position: relative;
   }
   .mudar-menu {
     display: block;
