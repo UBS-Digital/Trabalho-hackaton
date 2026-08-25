@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router';
 
-import hemogramaCompletoView from './hemogramaCompletoView.vue';
+
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -59,7 +59,9 @@ function cadastrarExame (id){
 
         <div class="Banner">
             <div>
-                <h1>Agendar Exame</h1>
+                <h1>
+                    <RouterLink to="/">Agendar Exame</RouterLink>
+                </h1>
                 <p>
                     Escolha o exame e horário que melhor se adequa à sua necessidade
                 </p>
@@ -114,7 +116,7 @@ function cadastrarExame (id){
 
         <div
             v-for="exame in exames"
-            
+            :key="exame.id"
             class="card"
             @click="selecionar(exame)"
         >
