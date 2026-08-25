@@ -35,7 +35,7 @@ const date = ref(new Date())
 
     <div class="stepper">
 
-        <div class="step confere" v-if="checaPasso"> 
+        <div class="step confere"> 
             <span>-</span>
             <p>Especialidade</p>
         </div>
@@ -54,13 +54,6 @@ const date = ref(new Date())
             <p>Data e Horário</p>
         </div>
 
-        <div class="linha"></div>
-
-        <div class="step">
-            <span>4</span>
-            <p>Confirmação</p>
-        </div>
-
     </div>
    
     
@@ -75,67 +68,7 @@ const date = ref(new Date())
        
     </select>
 
-     <div class="botoes">
-
-        <button>← Voltar</button>
-
-        <button @click="proximo">Próximo →</button>
-
-    </div>
-
-    </div>
-  
-            <div class="data-hora">
-               
-                <div>
-                    <h1>Agendar Exame</h1>
-                <p>
-                    Escolha o exame e horário que melhor se adequa à sua necessidade
-                </p>
-            </div>
-                
-                <div>
-
-                <img src="/public/foto.png" alt="">
-
-            </div>
-                
-            </div>
-              <div class="container">
-
-
-    <div class="stepper">
-
-        <div class="step confere" v-if="checaPasso"> 
-            <span>-</span>
-            <p>Especialidade</p>
-        </div>
-
-        <div class="linha"></div>
-
-        <div class="step confere">
-            <span>-</span>
-            <p>Local</p>
-        </div>
-
-        <div class="linha"></div>
-
-        <div class="step ativo">
-            <span>3</span>
-            <p>Data e Horário</p>
-        </div>
-
-        <div class="linha"></div>
-
-        <div class="step">
-            <span>4</span>
-            <p>Confirmação</p>
-        </div>
-
-    </div>
-    </div>
-
-    <div class="data">
+     <div class="data">
         <h2>
             Selecione Data e Horário
         </h2>
@@ -148,8 +81,20 @@ const date = ref(new Date())
             <VDatePicker v-model="date" mode="dateTime" is24hr />
         
         </div>
+
+    </div>
+            
+
+   
         
-          
+           <div class="botoes">
+
+        <button>← Voltar</button>
+
+        <button @click="proximo">Próximo →</button>
+
+    </div>
+
 
     </div>
 
@@ -229,9 +174,11 @@ p{
     padding:30px;
     border-radius:10px;
      box-shadow:0 20px 20px rgba(0,0,0,.15);
+     
 }
 .local h2{
-    margin: 10px 165px
+    margin: 10px 16px;
+    font-size: 2rem;
 }
 .local select{
     border-radius: 9vw;
@@ -254,36 +201,6 @@ button{
     color:white;
     cursor:pointer;
 
-}
-.data-hora{
-    display: flex;
-    justify-content: space-between;
-    padding: 4rem;
-  background: linear-gradient(to right, #6949A8, #267154, #4DDC45);
-  margin: 1vw 0 3vw 0;
-h1{
-    font-size: 5rem;
-    color: white;
-}
-p{
-    color: white;
-    font-size: 20px;
-}
-}
-
-.data{
-    width:auto;
-   max-width: 900px;
-   margin: 16px auto;
-    background:white;
-    padding:30px;
-    border-radius:10px;
-     box-shadow:0 20px 20px rgba(0,0,0,.15); 
-
-.calendario{
-display: flex;
-justify-content: center;
-}
 }
 
 </style>
