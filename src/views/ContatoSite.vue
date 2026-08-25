@@ -4,8 +4,8 @@ import { RouterLink } from 'vue-router';
 <template>
   <main>
     <section class="banner">
-      <a href="#"><RouterLink to="/"><- Voltar</RouterLink></a>
-      <h2>Entre em Contato</h2>
+      
+      <h2><RouterLink to="/">-&gt; Voltar</RouterLink></h2>
       <p>
         Entre em contato ou visite nossa unidade. Queremos te ajudar.
       </p>
