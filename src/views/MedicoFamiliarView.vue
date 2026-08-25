@@ -20,7 +20,7 @@
                 integral e prevenção.
               </p>
               <div class="actions">
-                <RouterLink to="/agendar-exame" class="btn primary">Agendar Consulta</RouterLink>
+                <button class="btn primary">Agendar Consulta</button>
                 <button class="btn outline">Contato</button>
               </div>
             </div>
@@ -81,6 +81,7 @@
 </template>
 
 <script setup>
+// Simples view estática. Dados podem ser conectados a props ou API.
 import chart1 from '../imagem/img1.jpg';
 import chart2 from  '../imagem/image2.jpg';
 </script>
@@ -178,7 +179,7 @@ import chart2 from  '../imagem/image2.jpg';
   margin-top: 26px;
 }
 .panel {
-  width: 70%;
+  width: 100%;
   background: transparent;
   border-radius: 8px;
   padding: 12px;
