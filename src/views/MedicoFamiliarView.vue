@@ -8,7 +8,7 @@
     </header>
 
     <main class="container">
-      <section class="content">
+      <section class="conteudo">
         <div class="profile-card">
           <div class="profile-header">
             <div class="avatar">PLACEHOLDER</div>
@@ -27,25 +27,28 @@
           </div>
 
           <div class="graficos">
+            <h2>Acompanhamento de Saúde</h2>
             <div class="panel image-slot">
+              <h3>Evolução peso (kg)</h3>
               <img class="chart" :src="chart1" alt="Gráfico 1 - Pressão" />
             </div>
 
             <div class="panel image-slot">
+              <h3>Evolução pressão arterial (mmHg)</h3>
               <img class="chart" :src="chart2" alt="Gráfico 2 - Pressão" />
             </div>
           </div>
 
-          <div class="history">
+          <div class="historico">
             <h3>Histórico de Consultas</h3>
-            <div class="history-item">
+            <div class="historico-item">
               <div>
                 <strong>Consulta de Rotina</strong>
                 <div class="meta">02 Mai 2024 · Pressão arterial controlada. Manter medicação.</div>
               </div>
               <button class="btn small">Ver Detalhes</button>
             </div>
-            <div class="history-item">
+            <div class="historico-item">
               <div>
                 <strong>Consulta de Rotina</strong>
                 <div class="meta">01 Mar 2024 · Pressão arterial controlada. Manter medicação.</div>
@@ -62,15 +65,20 @@
             <p>Email: dr.carlos@ubsdigital.gov.br</p>
           </div>
 
-          <div class="card hours">
+          <div class="card-hours">
             <h4>Horário de Atendimento</h4>
             <ul>
-              <li>Segunda–Sexta: 8h – 17h</li>
-              <li>Sábado: 8h – 12h</li>
+              <li>Segunda–Feira: <span>8h – 17h</span></li>
+              <li>Terça–Feira: <span>8h – 17h</span></li>
+              <li>Quarta–Feira: <span>8h – 17h</span></li>
+              <li>Quinta–Feira: <span>8h – 17h</span></li>
+              <li>Sexta–Feira: <span>8h – 17h</span></li>
+              <li>Sábado: <span>8h – 12h</span></li>
+              <li>Domingo: <span>FECHADO</span></li>
             </ul>
           </div>
 
-          <div class="card cta">
+          <div class="card-cta">
             <h4>Programa Família Saudável</h4>
             <button class="btn primary full">Saiba Mais</button>
           </div>
@@ -108,21 +116,23 @@ import chart2 from  '../imagem/image2.jpg';
   margin: 34px auto;
   padding: 0 24px;
 }
-.content {
+.conteudo {
   display: flex;
   gap: 30px;
 }
 .profile-card {
   flex: 1;
-  background: #fff;
+  background: #ffffff;
   border-radius: 10px;
   padding: 22px;
-  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+ 
 }
 .profile-header {
   display: flex;
   gap: 20px;
   align-items: center;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+  padding: 20px;
 }
 .avatar {
   width: 144px;
@@ -174,12 +184,27 @@ import chart2 from  '../imagem/image2.jpg';
 .graficos {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 10px;
   margin-top: 26px;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  padding-left: 30px;
 }
+
+.graficos h2 {
+  align-self: center;
+  font-size: 2rem;  
+}
+
+.graficos h3 {
+  padding-left: 30px;
+  font-size: 1.5rem;
+}
+
 .panel {
   width: 70%;
-  background: transparent;
+  background: #ffffff;
   border-radius: 8px;
   padding: 12px;
 }
@@ -195,37 +220,51 @@ import chart2 from  '../imagem/image2.jpg';
   width: 100%;
   height: 100%;
 }
-.history {
+.historico {
   margin-top: 18px;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+  padding: 10px;
 }
-.history-item {
+.historico-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 12px;
-  border: 1px solid #eef2f5;
   border-radius: 6px;
-  margin-top: 8px;
+  margin-top: 10px;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+  
 }
+
 .barraLateral {
   width: 340px;
   display: flex;
   flex-direction: column;
   gap: 18px;
-  background: transparent;
   padding: 8px;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(15, 23, 42, 0.03);
 }
-.card {
+.card, .card-hours, .card-cta  {
   background: #fff;
   padding: 14px;
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
 }
-.card h4 {
+.card-hours h4 {
   margin: 0 0 8px;
 }
+
+.card-hours ul li {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+}
+
+.card-hours ul li span {
+  font-weight: bold;
+}
+
 .btn.full {
   width: 100%;
 }
