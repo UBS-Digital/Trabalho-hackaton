@@ -26,8 +26,8 @@ import { RouterLink } from 'vue-router'
           <li>• Receitas</li>
         </ul>
         <RouterLink to="/AgendarConsulta">
-            <button>Agendar Consulta</button>
-          </RouterLink>
+          <button>Agendar Consulta</button>
+        </RouterLink>
       </li>
       <li>
         <img src="../imagem/pediatra.png" alt="" />
@@ -41,8 +41,8 @@ import { RouterLink } from 'vue-router'
           <li>• Doenças infantis</li>
         </ul>
         <RouterLink to="/AgendarConsulta">
-            <button>Agendar Consulta</button>
-          </RouterLink>
+          <button>Agendar Consulta</button>
+        </RouterLink>
       </li>
       <li>
         <img src="../imagem/ginecologia.png" alt="" />
@@ -56,8 +56,8 @@ import { RouterLink } from 'vue-router'
           <li>• Climatério</li>
         </ul>
         <RouterLink to="/AgendarConsulta">
-            <button>Agendar Consulta</button>
-          </RouterLink>
+          <button>Agendar Consulta</button>
+        </RouterLink>
       </li>
       <li>
         <img src="../imagem/familia.png" alt="" />
@@ -71,8 +71,8 @@ import { RouterLink } from 'vue-router'
           <li>• Visitas domiciliares</li>
         </ul>
         <RouterLink to="/AgendarConsulta">
-            <button>Agendar Consulta</button>
-          </RouterLink>
+          <button>Agendar Consulta</button>
+        </RouterLink>
       </li>
       <li>
         <img src="../imagem/cardiologia.png" alt="" />
@@ -86,8 +86,8 @@ import { RouterLink } from 'vue-router'
           <li>• Check-up cardíaco</li>
         </ul>
         <RouterLink to="/AgendarConsulta">
-            <button>Agendar Consulta</button>
-          </RouterLink>
+          <button>Agendar Consulta</button>
+        </RouterLink>
       </li>
       <li>
         <img src="../imagem/oftalmologia.png" alt="" />
@@ -101,8 +101,8 @@ import { RouterLink } from 'vue-router'
           <li>• Catarata</li>
         </ul>
         <RouterLink to="/AgendarConsulta">
-            <button>Agendar Consulta</button>
-          </RouterLink>
+          <button>Agendar Consulta</button>
+        </RouterLink>
       </li>
       <li>
         <img src="../imagem/dermatologia.png" alt="" />
@@ -116,8 +116,8 @@ import { RouterLink } from 'vue-router'
           <li>• Prevenção de câncer de pele</li>
         </ul>
         <RouterLink to="/AgendarConsulta">
-            <button>Agendar Consulta</button>
-          </RouterLink>
+          <button>Agendar Consulta</button>
+        </RouterLink>
       </li>
       <li>
         <img src="../imagem/endocrinologia.png" alt="" />
@@ -141,62 +141,117 @@ import { RouterLink } from 'vue-router'
 </template>
 <style scoped>
 .banner {
-  padding: 1vw 0.85vw 5vw 3vw;
+  padding: 1.5rem 1rem 3rem;
   background: linear-gradient(170deg, #2053ac, #447cdb, #267154, #267154, #37c22f);
   color: whitesmoke;
 }
+
 .banner a {
   color: white;
 }
+
 h2 {
-  font-size: 1.67rem;
+  font-size: clamp(1.6rem, 2.5vw, 2.4rem);
   font-weight: bolder;
-  margin: 3vw 1vw 0 2.5vw;
+  margin: 1.5rem 0 0.5rem;
+  padding-left: 0.5rem;
 }
+
 h4 {
-    font-size: medium;
-    text-align: left;
+  font-size: medium;
+  text-align: left;
+  margin-top: 1rem;
 }
+
 p {
   font-size: 1.1rem;
   margin: 0.3vw 0 0 0;
 }
-ul {
-  justify-content: space-between;
+
+section > ul {
   padding: 3.4vw;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 1vw;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
 }
 
-li {
+section > ul > li {
+  display: flex;
+  flex-direction: column;
   border-radius: 6px;
-  padding: 2.3vw;
+  padding: 1.25rem;
   box-shadow: 1px 1px 1px 1px #00000050;
+  background: white;
 }
+
+img {
+  width: 20%;
+  height: 30%;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
 button {
   color: white;
   border: none;
   background-color: #447cdb;
   border-radius: 10px;
   box-shadow: 1px 1px 1px 1px #00000050;
-  padding: 1vw 9.9vw 1vw 9.6vw;
+  padding: 0.9rem 1rem;
+  width: 100%;
   text-align: center;
   cursor: pointer;
   font-weight: bolder;
+  margin-top: auto;
 }
+
 button:hover {
   background-color: #2f7bff;
 }
+
 ul li p {
-  padding: 0px;
+  padding: 0;
 }
+
 ul li ul {
   display: block;
   padding: 0;
+  margin: 0;
 }
+
 ul li ul li {
   padding: 5px;
   box-shadow: none;
+}
+
+@media (max-width: 900px) {
+  section > ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .banner {
+    padding: 1.25rem 1rem 2rem;
+  }
+
+  h2 {
+    margin-top: 1rem;
+    padding-left: 0;
+  }
+
+  section > ul {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+
+  img {
+    width: 50%;
+    height: 50%;
+    display: flex;
+    text-align: center;
+    margin: 0 auto;
+  }
 }
 </style>
