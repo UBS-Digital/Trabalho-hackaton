@@ -1,6 +1,7 @@
 <script setup>
 
-import { RouterLink,  } from 'vue-router'
+import { RouterLink } from 'vue-router'
+
 
 </script>
 
@@ -9,6 +10,13 @@ import { RouterLink,  } from 'vue-router'
    <img src="" alt="">
 
     <div class="banner">
+
+        <nav> <h1>
+         <router-link to="/"> home </router-link>
+        <router-link to="/agendar-consulta">Agendar Consulta</router-link>
+        <router-link to="/agendar-exame">Agentar-Exame</router-link>
+        <router-link to="/medico-familiar">Médico da familia</router-link>
+    </h1> </nav>
 
         <div class="primeira_parte">
             <p class="fundo">Atendimento disponivel</p>

@@ -1,10 +1,7 @@
 <script setup>
-
-
-
 </script>
 <template>
-a
+e
 </template>
-<style scoped>
-</style>
+<script scoped>
+</script>

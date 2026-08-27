@@ -1,5 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import AgendarConsultaView from '../views/AgendarConsultaView.vue'
+import AgendarExameView from '../views/AgendarExameView.vue'
+import MedicoFamiliarView from '../views/MedicoFamiliarView.vue'
+import hemogramaCompletoView from '../views/hemogramaCompletoView.vue'
+import GlicemiaView from '../views/GlicemiaView.vue'
+import ColesterolView from '../views/ColesterolView.vue'
+import RaioXView from '../views/RaioXView.vue'
+import ContatoSite from '../views/ContatoSite.vue'
+import EspecialidadesMedicos from '../views/EspecialidadesMedicos.vue'
+import MinhaArea from '../views/MinhaArea.vue'    
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,23 +20,55 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/AgendarConsultaView.vue',
+      path: '/agendar-consulta',
       name: 'agendar-consulta',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AgendarConsultaView.vue'),
+      component: AgendarConsultaView,
     },
-    {path: '/AgendarExameView.vue',
+    {
+      path: '/agendar-exame',
       name: 'agendar-exame',
-      component: () => import('../views/AgendarExameView.vue'),
+      component: AgendarExameView,
     },
     {
-      path: '/MedicoFamiliarView.vue',
+      path: '/agendar-exame/:id',//url
+      name: 'hemograma',
+      component: hemogramaCompletoView,
+    },
+    {
+    path: '/hemograma-completo',
+    component: hemogramaCompletoView,
+},
+{
+    path: '/glicemia',
+    component: GlicemiaView,
+},
+{
+    path: '/colesterol',
+    component: ColesterolView,
+},
+{
+    path: '/raio-x',
+    component: RaioXView,
+},
+    {
+      path: '/medico-familiar',
       name: 'medico-familiar',
-      component: () => import('../views/MedicoFamiliarView.vue'),
+      component: MedicoFamiliarView,
     },
     {
+      path: '/especialidades',
+      name: 'especialidades',
+      component: EspecialidadesMedicos,
+    },
+    {
+      path: '/contato-site',
+      name: 'contato-site',
+      component: ContatoSite,
+    },
+    {
+      path: '/MinhaArea',
+      name: 'minha-area',
+      component: MinhaArea,
     }
   ],
 })
