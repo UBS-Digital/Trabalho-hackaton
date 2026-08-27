@@ -2,7 +2,6 @@
 
 import { RouterLink } from 'vue-router'
 
-
 </script>
 
 <template>
@@ -19,8 +18,8 @@ import { RouterLink } from 'vue-router'
 
 
           <div class="a">
-            <a href="#" class="botaoum">Agendar consultas </a>
-              <a href="#" class="botao">Agendar exames<img src="/src/imagem/hospital.png" alt=""></a>
+            <RouterLink to="/login" class="botaoum">Agendar consultas </RouterLink>
+            <RouterLink to="/agendar-exame" class="botao">Agendar exames<img src="/src/imagem/hospital.png" alt=""></RouterLink>
           </div>
         </div>
 
@@ -327,16 +326,16 @@ img{
 
 .blocos {
     display: flex;
-    justify-content: space-between;
+    gap: 20px;
     align-items: center;
-    gap: 35px;
-    padding: 35px 30px;
+    padding-top: 100px;
+    padding-left: 125px;
     background-color: #f5f5f5;
 }
 
 
 .bloco {
-    width: 200px;
+    width: 400px;
     min-height: 120px;
     background-color: white;
     border-radius: 10px;
@@ -370,7 +369,7 @@ img{
 .cabecalho-bloco h2 {
     margin: 0;
     padding: 0;
-    font-size: 14px;
+    font-size: 1.3rem;
     font-weight: 500;
     color: #222;
     line-height: 1.2;
@@ -379,7 +378,7 @@ img{
 .bloco p {
     margin: 10px 0 0 0;
     padding: 0;
-    font-size: 12px;
+    font-size: 1.1rem;
     line-height: 1.4;
     color: #999;
 }
