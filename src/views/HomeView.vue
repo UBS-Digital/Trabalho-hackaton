@@ -11,13 +11,6 @@ import { RouterLink } from 'vue-router'
 
     <div class="banner">
 
-        <nav> <h1>
-         <router-link to="/"> home </router-link>
-        <router-link to="/agendar-consulta">Agendar Consulta</router-link>
-        <router-link to="/agendar-exame">Agentar-Exame</router-link>
-        <router-link to="/medico-familiar">Médico da familia</router-link>
-    </h1> </nav>
-
         <div class="primeira_parte">
             <p class="fundo">Atendimento disponivel</p>
 
@@ -171,7 +164,7 @@ import { RouterLink } from 'vue-router'
 
   <div class="atendimentoPreventivo">
     <div class="cabecalhoOito">
-      <img src="/src/imagem/atendimentoPreventivo.png" alt="">
+      <img src="/src/imagem/AtendimentoPreventivo.png" alt="">
       <h2>Atendimento Preventivo</h2>
     </div>
 
@@ -246,42 +239,7 @@ import { RouterLink } from 'vue-router'
 </div>
 
 
-<footer class="rodape">
 
-    <div class="rodapeMarca">
-        <div class="rodapeLogo">
-            <img src="/src/imagem/Logo.png" alt="">
-            <h2>UBS Digital</h2>
-        </div>
-        <p>Atendimento humanizado e tecnologia para cuidar da sua saúde e da sua família com qualidade e agilidade.</p>
-    </div>
-
-    <div class="rodapeColuna">
-        <h3>Links Rápidos</h3>
-        <a href="">Agendar Consulta</a>
-        <a href="">Agendar Exames</a>
-        <a href="">Médico da Família</a>
-        <a href="">Especialidades</a>
-        <a href="">Resultados de Exames</a>
-    </div>
-
-    <div class="rodapeColuna">
-        <h3>Contato</h3>
-        <p>Rua da Saúde, 1234</p>
-        <p>Centro - São Paulo, SP</p>
-        <p>(11) 3456-7890</p>
-        <p>contato@ubsdigital.gov.br</p>
-    </div>
-
-    <div class="rodapeColuna">
-        <h3>Horário de Atendimento</h3>
-        <p>Segunda a Sexta</p>
-        <p>7h às 19h</p>
-        <p>Sábados</p>
-        <p>7h às 12h</p>
-    </div>
-
-</footer>
 
 </template>
 <style scoped>
@@ -686,71 +644,6 @@ img{
     border: 1px solid white;
 }
 
-/* ===== Rodapé ===== */
-.rodape{
-    background-color: #14213D;
-    color: #d9d9d9;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 40px;
-    padding: 3rem 5rem;
-    box-sizing: border-box;
-}
 
-.rodapeMarca{
-    flex: 1 1 280px;
-}
-
-.rodapeLogo{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 1rem;
-}
-
-.rodapeLogo img{
-    width: 32px;
-    height: 32px;
-}
-
-.rodapeLogo h2{
-    color: white;
-    font-size: 1.6rem;
-    margin: 0;
-}
-
-.rodapeMarca p{
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #aab2c5;
-}
-
-.rodapeColuna{
-    flex: 1 1 180px;
-}
-
-.rodapeColuna h3{
-    color: white;
-    font-size: 1.3rem;
-    margin-bottom: 1rem;
-}
-
-.rodapeColuna a{
-    display: block;
-    color: #aab2c5;
-    text-decoration: none;
-    font-size: 1.1rem;
-    margin-bottom: 0.7rem;
-}
-
-.rodapeColuna a:hover{
-    color: white;
-}
-
-.rodapeColuna p{
-    color: #aab2c5;
-    font-size: 1.1rem;
-    margin: 0 0 0.4rem 0;
-}
 
 </style>
