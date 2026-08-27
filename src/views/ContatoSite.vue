@@ -43,7 +43,7 @@ import { RouterLink } from 'vue-router';
     </section>
     <section class="informacoes">
       <ul>
-        <li>
+        <li class="endereco">
           <img src="../../public/Group 3.png" alt="Local">
           <h4>Endereço</h4>
           <p>
@@ -53,14 +53,14 @@ import { RouterLink } from 'vue-router';
             Centro - São Paulo, SP
           </p>
         </li>
-        <li>
+        <li class="email">
           <img src="../../public/Email.png" alt="Email">
           <h4>Email</h4>
           <p>
             contato@ubsdigital.gov.br
           </p>
         </li>
-        <li>
+        <li class="horario">
           <img src="../../public/Horário.png" alt="Horário de Atendimento">
           <h4>Horários de Atendimento</h4>
           <h5>Segunda a Sexta: </h5>
@@ -76,7 +76,7 @@ import { RouterLink } from 'vue-router';
             Fechado
           </p>
         </li>
-        <li>
+        <li class="telefone">
           <img src="../../public/telefone.png" alt="Telefone">
           <h4>Telefone</h4>
           <p>
@@ -95,7 +95,7 @@ main {
 }
 
 section {
-  margin: 2vw 15% 2vw 15%;
+  margin: 5vw 15% 5vw 15%;
   padding: 5vw 7% 5vw 5%;
   background-color: white;
 }
@@ -222,16 +222,29 @@ input {
   img {
     width: 45%;
   }
-
+  .formulario {
+    padding: 5vw 5vw 5vw 5vw;
+    display: block;
+  }
+  .formulario form label input{
+    margin: 1vw auto 3vw auto;
+  }
+  .formulario .lado {
+    display: block;
+  }
   .informacoes ul {
     grid-template-columns: 1fr;
     gap: 2vw 0;
   }
 
   .informacoes ul li {
-    min-height: 8vw;
     margin: 2vw 0 2vw 0;
+    width: 100%;
+    padding: 5vw 1vw;
+    height: 230px;
   }
-
+  .informacoes ul .horario {
+    height: 400px;
+  }
 }
 </style>
