@@ -89,20 +89,13 @@ function cadastrarExame (id){
 
         <div class="step">
             <span>2</span>
-            <p>Local</p>
+            <p>Local e Data</p>
         </div>
 
         <div class="linha"></div>
 
         <div class="step">
             <span>3</span>
-            <p>Data e Horário</p>
-        </div>
-
-        <div class="linha"></div>
-
-        <div class="step">
-            <span>4</span>
             <p>Confirmação</p>
         </div>
 
@@ -123,11 +116,11 @@ function cadastrarExame (id){
                 {{ exame.icone }}
             </div>
 
-            <div>
+            <div @click="cadastrarExame(exame.id)">
 
                 <h3>{{ exame.nome }}</h3>
                 <small>{{ exame.preparo }}</small>
-                <button @click="cadastrarExame(exame.id)"></button>
+                <!-- <button @click="cadastrarExame(exame.id)"></button> -->
 
             </div>
 
@@ -135,13 +128,13 @@ function cadastrarExame (id){
 
     </div>
 
-    <div class="botoes">
+    <!-- <div class="botoes">
 
         <button>← Voltar</button>
 
         <button @click="proximo">Próximo →</button>
 
-    </div>
+    </div> -->
 
 </div>
 
@@ -176,6 +169,7 @@ p{
     padding:30px;
     border-radius:10px;
     box-shadow:0 2px 10px rgba(0,0,0,.15);
+    margin-bottom: 30px;
 }
 .container h2{
     font-size: 2rem;
