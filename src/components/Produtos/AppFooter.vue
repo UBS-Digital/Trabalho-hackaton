@@ -81,7 +81,7 @@ import { RouterLink } from 'vue-router'
   }
   .ubs {
     display: block;
-    padding: 0;
+    padding: 10px 0 20px 0;
   }
   p {
     font-size: 1.2rem;
@@ -109,7 +109,9 @@ import { RouterLink } from 'vue-router'
       margin: 0;
     }
     footer div {
-      margin: 0 0 5vw;
+      margin: 20px 0 20px 0;
+      padding: 20px 10px 30px 10px;
+      border-bottom: 1px solid rgba(120, 181, 255, 0.473);
     }
     footer .ubs {
       gap: 0px;
