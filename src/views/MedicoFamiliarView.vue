@@ -16,8 +16,7 @@
               <h2>Dr. Carlos Mendes</h2>
               <p class="subtitle">Médico da Família • 15 anos de experiência</p>
               <p class="desc">
-                Especialista em Medicina de Família e Comunidade, com foco em acompanhamento
-                integral e prevenção.
+                Especialista em Medicina de Família e Comunidade, com foco em atendimento integral e preventivo. Acompanha você e sua família desde Janeiro de 2024.
               </p>
               <div class="actions">
                 <RouterLink to="/agendar-consulta" class="btn primary">Agendar Consulta</RouterLink>
@@ -125,7 +124,7 @@ import chart2 from  '../imagem/image2.jpg';
   background: #ffffff;
   border-radius: 10px;
   padding: 22px;
- 
+
 }
 .profile-header {
   display: flex;
@@ -194,7 +193,7 @@ import chart2 from  '../imagem/image2.jpg';
 
 .graficos h2 {
   align-self: center;
-  font-size: 2rem;  
+  font-size: 2rem;
 }
 
 .graficos h3 {
@@ -233,7 +232,7 @@ import chart2 from  '../imagem/image2.jpg';
   border-radius: 6px;
   margin-top: 10px;
   box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
-  
+
 }
 
 .barraLateral {
