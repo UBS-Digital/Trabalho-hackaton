@@ -91,7 +91,8 @@ import { RouterLink } from 'vue-router'
     </div>
 
     <p>Atendimento completo para diagnóstico e tratamento de doenças comuns</p>
-    <a href="#" class="saibaMais">Saiba Mais <span>→</span></a>
+    <RouterLink to="/especialidades" class="saibaMais">Saiba Mais <span>→</span></RouterLink>    
+    <
   </div>
 
 
@@ -102,8 +103,8 @@ import { RouterLink } from 'vue-router'
     </div>
 
     <p>Cuidado especializado para a saúde e desenvolvimento das crianças</p>
-    <a href="#" class="saibaMais">Saiba Mais <span>→</span></a>
-  </div>
+    <RouterLink to="/especialidades" class="saibaMais">Saiba Mais <span>→</span></RouterLink>  
+    </div>
 
 
   <div class="ginecologista">
@@ -113,7 +114,7 @@ import { RouterLink } from 'vue-router'
     </div>
 
     <p>Saúde da mulher com atendimento humanizado e preventivo</p>
-    <a href="" class="saibaMais">Saiba Mais <span>→</span></a>
+    <RouterLink to="/especialidades" class="saibaMais">Saiba Mais <span>→</span></RouterLink>
   </div>
 
 
@@ -124,7 +125,8 @@ import { RouterLink } from 'vue-router'
     </div>
 
     <p>Acompanhamento contínuo e integral de toda sua família </p>
-    <a href="" class="saibaMais">Saiba Mais <span>→</span></a>
+    
+    <RouterLink to="/especialidades" class="saibaMais">Saiba Mais <span>→</span></RouterLink>
   </div>
 
 
@@ -135,7 +137,7 @@ import { RouterLink } from 'vue-router'
     </div>
 
     <p>Vacinas disponíveis para todas as idades e campanhas</p>
-    <a href="" class="saibaMais">Saiba Mais <span>→</span></a>
+    <RouterLink to="/especialidades" class="saibaMais">Saiba Mais <span>→</span></RouterLink>
   </div>
 
 
@@ -146,7 +148,7 @@ import { RouterLink } from 'vue-router'
     </div>
 
     <p>Coleta e análises clínicas com resultados rápidos</p>
-    <a href="" class="saibaMais">Saiba Mais <span>→</span></a>
+    <RouterLink to="/especialidades" class="saibaMais">Saiba Mais <span>→</span></RouterLink>
   </div>
 
 
@@ -157,7 +159,7 @@ import { RouterLink } from 'vue-router'
     </div>
 
     <p>Raio-X, ultrassom e outros exames diagnósticos</p>
-    <a href="" class="saibaMais">Saiba Mais <span>→</span></a>
+    <RouterLink to="/especialidades" class="saibaMais">Saiba Mais <span>→</span></RouterLink>
   </div>
 
 
@@ -168,7 +170,7 @@ import { RouterLink } from 'vue-router'
     </div>
 
     <p>Programas de prevenção e promoção da saúde</p>
-    <a href="" class="saibaMais">Saiba Mais <span>→</span></a>
+    <RouterLink to="/especialidades" class="saibaMais">Saiba Mais <span>→</span></RouterLink>
   </div>
 
 </div>
