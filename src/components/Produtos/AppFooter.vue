@@ -67,7 +67,7 @@ import { RouterLink } from 'vue-router'
     padding: 2vw 2vw 3vw 2vw;
     align-items: first baseline;
     gap: 20px;
-    min-width: 100%;
+    min-width: 90%;
 
   }
   h2 {

@@ -249,6 +249,11 @@ div.banner{
     padding: 3rem;
 }
 
+div.banner .segunda_parte img{
+    width: 600px;
+    height: auto;
+}
+
 div.primeira_parte{
 .fundo{
     border-radius: 1.3rem;
