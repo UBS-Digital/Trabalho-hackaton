@@ -61,8 +61,9 @@ const pacientesBase = [
     ],
     consultas: [
       {
-        motivo: 'Dor no Abdômen',
+        especialidade: 'Pediatra',
         data: '02 de maio de 2026',
+        horario: '14:00',
         medico: 'Dr. Carlos Mendes'
       }
     ]
@@ -90,8 +91,9 @@ const pacientesBase = [
     medicoFamiliar: 'Dr. Marcos',
     exames: [
       {
-        tipo: 'Hemograma Completo',
+        especialidade: 'Clínico Geral',
         data: '02 de maio de 2026',
+        horario: '11:00',
         medico: 'Dr. Carlos Mendes'
       },
     ],

@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue'
 import paginas from '@/components/data/data'
 import AppBanner from '@/components/Produtos/AppBanner.vue'
+import { pacientesBase } from '@/components/data/data.js'
 
 const especialidades = [
   { nome: 'Pediatria', descricao: 'Saúde infantil', icone: '👩‍⚕️', cor: 'pink' },
@@ -48,9 +49,7 @@ const avancar = () => {
     return
   }
 
-  alert(
-    `Consulta agendada com sucesso para ${especialidadeSelecionada.value} com ${profissionalSelecionado.value} em ${dataSelecionada.value} às ${horarioSelecionado.value}.`,
-  )
+  cadastrarConsulta()
 }
 
 const voltarEtapa = () => {
@@ -66,11 +65,33 @@ const resetar = () => {
   dataSelecionada.value = ''
   horarioSelecionado.value = ''
 }
+
+function cadastrarConsulta() {
+  const novaConsulta = {
+    especialidade: especialidadeSelecionada.value,
+    profissional: profissionalSelecionado.value,
+    data: dataSelecionada.value,
+    horario: horarioSelecionado.value,
+  }
+
+  pacientesBase[0].consultas.push(novaConsulta)
+
+  alert(
+    `Consulta agendada com sucesso para ${especialidadeSelecionada.value} com ${profissionalSelecionado.value} em ${dataSelecionada.value} às ${horarioSelecionado.value}.`,
+  )
+  alert(pacientesBase[0].consultas[1].data + " " + pacientesBase[0].consultas[1].horario + " " + pacientesBase[0].consultas[1].especialidade + " " + pacientesBase[0].consultas[1].profissional)
+
+  resetar()
+}
 </script>
 
 <template>
   <main class="content">
-    <AppBanner key="paginas[0].pagina" :titulo="paginas[0].titulo" :subtitulo="paginas[0].subtitulo" />
+    <AppBanner
+      key="paginas[0].pagina"
+      :titulo="paginas[0].titulo"
+      :subtitulo="paginas[0].subtitulo"
+    />
 
     <section class="steps" aria-label="etapas de agendamento">
       <div :class="['step', { active: etapa === 1 }]">
@@ -158,7 +179,7 @@ const resetar = () => {
       <div class="actions-row">
         <button v-if="etapa > 1" class="back-btn" @click="voltarEtapa">Voltar</button>
         <button v-if="etapa < 4" class="next-btn" @click="avancar">Próximo →</button>
-        <button v-else class="next-btn" @click="avancar">Confirmar</button>
+        <button v-else class="next-btn" @click="cadastrarConsulta">Confirmar</button>
       </div>
     </section>
   </main>
@@ -337,7 +358,7 @@ const resetar = () => {
 
 .card-info p {
   margin: 0;
-  color: #f8f5f5;
+  color: #000000;
   font-size: 0.95rem;
 }
 
