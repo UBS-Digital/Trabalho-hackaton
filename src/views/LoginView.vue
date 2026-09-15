@@ -1,4 +1,26 @@
 <script setup>
+import { pacientesBase } from '@/components/data/data';
+import { ref } from 'vue';
+
+const i = 3;
+const nomePaciente = ref('');
+const cpfPaciente = ref('');
+const telPaciente = ref('');
+const genPaciente = ref('');
+const emailPaciente = ref('');
+const senhaPaciente = ref('');
+
+function cadastrarConsulta() {
+  pacientesBase.push({
+    nome: nomePaciente,
+    peso: '',
+    email: emailPaciente,
+    senha: senhaPaciente,
+    tel: telPaciente
+  })
+  alert(pacientesBase[i].nome.value + " " + pacientesBase[i].email.value + " " + pacientesBase[i].senha.value + " " + pacientesBase[i].tel.value);
+  i += 1;
+}
 </script>
 <template>
   <section class="cadastro">
@@ -6,24 +28,24 @@
       <h2>Cadastre-se:</h2>
       <form action="cadastroUs">
         <label for="nome">Nome Completo:</label>
-        <input type="text" id="nome" placeholder="Nome Completo*" required>
+        <input type="text" id="nome" placeholder="Nome Completo*" required v-model="nomePaciente">
         <label for="cpf">CPF:</label>
-        <input type="text" id="cpf" placeholder="CPF*">
+        <input type="text" id="cpf" placeholder="CPF*" v-model="cpfPaciente">
         <label for="telefone">Telefone:</label>
-        <input type="text" id="telefone" placeholder="Número de Telefone*">
+        <input type="text" id="telefone" placeholder="Número de Telefone*" v-model="telPaciente">
         <div class="gen">
           <p>Gênero:</p>
           <label for="genero">M</label>
-          <input type="radio" id="genero" name="genero" value="1">
+          <input type="radio" id="genero" name="genero" value="'M'" v-model="genPaciente">
           <label for="genero">F</label>
-          <input type="radio" name="genero" id="genero" value="2">
+          <input type="radio" name="genero" id="genero" value="'F'" v-model="genPaciente">
         </div>
         <label for="email">E-mail</label>
-        <input type="email" name="email" id="email" required placeholder="Email*">
+        <input type="email" name="email" id="email" required placeholder="Email*" v-model="emailPaciente">
         <label for="">Criar Senha</label>
-        <input type="password" name="senha" id="senha" required placeholder="Criar Senha*">
+        <input type="password" name="senha" id="senha" required placeholder="Criar Senha*" v-model="senhaPaciente">
       </form>
-      <button class="submeter">Cadastrar</button>
+      <button class="submeter" @click="cadastrarConsulta">Cadastrar</button>
     </div>
   </section>
 </template>
