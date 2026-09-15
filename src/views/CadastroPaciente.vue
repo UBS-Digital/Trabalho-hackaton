@@ -1,9 +1,7 @@
 <script setup>
-
 import { pacientesBase } from '@/components/data/data';
 import { ref } from 'vue';
 
-let i = pacientesBase.length + 1;
 const nomePaciente = ref('');
 const cpfPaciente = ref('');
 const telPaciente = ref('');
@@ -12,51 +10,103 @@ const emailPaciente = ref('');
 const senhaPaciente = ref('');
 const cadastroFeito = ref(false);
 
+const erros = ref({});
+
+function limparErros() {
+  erros.value = {};
+}
+
+function validarFormulario() {
+  limparErros();
+
+  const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailPaciente.value);
+  const cpfValido = cpfPaciente.value.replace(/\D/g, '').length === 11;
+  const telValido = telPaciente.value.replace(/\D/g, '').length >= 10;
+
+  if (!nomePaciente.value.trim()) {
+    erros.value.nome = 'Informe o nome completo.';
+  }
+
+  if (!cpfValido) {
+    erros.value.cpf = 'CPF inválido. Digite 11 números.';
+  }
+
+  if (!telValido) {
+    erros.value.telefone = 'Telefone inválido.';
+  }
+
+  if (!genPaciente.value) {
+    erros.value.genero = 'Selecione o gênero.';
+  }
+
+  if (!emailValido) {
+    erros.value.email = 'Informe um e-mail válido.';
+  }
+
+  if (!senhaPaciente.value || senhaPaciente.value.length < 6) {
+    erros.value.senha = 'A senha deve ter pelo menos 6 caracteres.';
+  }
+
+  return Object.keys(erros.value).length === 0;
+}
+
 function cadastrarConsulta() {
+  if (!validarFormulario()) {
+    return;
+  }
+
   pacientesBase.push({
     nome: nomePaciente.value,
     peso: '',
     genero: genPaciente.value,
     email: emailPaciente.value,
     senha: senhaPaciente.value,
-    tel: telPaciente.value,
-    cpf: cpfPaciente.value
-  })
-  alert(pacientesBase[i].nome + " " + pacientesBase[i].email + " " + pacientesBase[i].senha + " " + pacientesBase[i].tel);
-  i += 1;
-  cadastroFeito.value = !cadastroFeito.value;
-  return cadastroFeito.value;
+    tel: telPaciente.value
+  });
+
+  cadastroFeito.value = true;
 }
 </script>
 <template>
   <section class="cadastro">
     <div class="formulario" v-if="!cadastroFeito">
       <h2>Cadastre-se:</h2>
-      <form action="cadastroUs">
+
+      <form @submit.prevent="cadastrarConsulta">
         <label for="nome">Nome Completo:</label>
-        <input type="text" id="nome" placeholder="Nome Completo*" required v-model="nomePaciente">
+        <input id="nome" v-model="nomePaciente" placeholder="Nome Completo*" />
+        <small v-if="erros.nome" class="erro">{{ erros.nome }}</small>
+
         <label for="cpf">CPF:</label>
-        <input type="text" id="cpf" placeholder="CPF*" v-model="cpfPaciente">
+        <input id="cpf" v-model="cpfPaciente" placeholder="CPF*" />
+        <small v-if="erros.cpf" class="erro">{{ erros.cpf }}</small>
+
         <label for="telefone">Telefone:</label>
-        <input type="text" id="telefone" placeholder="Número de Telefone*" v-model="telPaciente" required>
+        <input id="telefone" v-model="telPaciente" placeholder="Número de Telefone*" />
+        <small v-if="erros.telefone" class="erro">{{ erros.telefone }}</small>
+
         <div class="gen">
           <p>Gênero:</p>
-          <label for="genero">M</label>
-          <input type="radio" id="genero" name="genero" value="'M'" v-model="genPaciente" required>
-          <label for="genero">F</label>
-          <input type="radio" name="genero" id="genero" value="'F'" v-model="genPaciente" required>
+          <label><input type="radio" name="genero" value="M" v-model="genPaciente" /> M</label>
+          <label><input type="radio" name="genero" value="F" v-model="genPaciente" /> F</label>
         </div>
+        <small v-if="erros.genero" class="erro">{{ erros.genero }}</small>
+
         <label for="email">E-mail</label>
-        <input type="email" name="email" id="email" required placeholder="Email*" v-model="emailPaciente">
-        <label for="">Criar Senha</label>
-        <input type="password" name="senha" id="senha" required placeholder="Criar Senha*" v-model="senhaPaciente">
+        <input id="email" type="email" v-model="emailPaciente" placeholder="Email*" />
+        <small v-if="erros.email" class="erro">{{ erros.email }}</small>
+
+        <label for="senha">Criar Senha</label>
+        <input id="senha" type="password" v-model="senhaPaciente" placeholder="Criar Senha*" />
+        <small v-if="erros.senha" class="erro">{{ erros.senha }}</small>
+
+        <button type="submit" class="submeter">Cadastrar</button>
       </form>
-      <button class="submeter" @click="cadastrarConsulta">Cadastrar</button>
     </div>
     <div class="feito" v-else>
       <img src="../../public/ant-design--check-circle-twotone.png" alt="check" width="100px" height="100px">
       <h2>Cadastro Feito!</h2>
-      <p>Analisaremos usas informações para o cadastro.</p>
+      <p>Analisaremos usas informações para completar o cadastro.</p>
       <p><span>O cadastro será confirmado por email.</span></p>
     </div>
   </section>
@@ -124,5 +174,12 @@ form input {
 }
 .feito p span {
   font-size: 1.3rem;
+}
+
+.erro {
+  color: #d32f2f;
+  font-size: 1rem;
+  margin-top: 0.3rem;
+  display: block;
 }
 </style>
