@@ -92,7 +92,7 @@ import { RouterLink } from 'vue-router'
 
     <p>Atendimento completo para diagnóstico e tratamento de doenças comuns</p>
     <RouterLink to="/especialidades" class="saibaMais">Saiba Mais <span>→</span></RouterLink>
-    <
+    
   </div>
 
 
