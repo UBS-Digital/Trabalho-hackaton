@@ -10,7 +10,7 @@ import RaioXView from '../views/RaioXView.vue'
 import ContatoSite from '../views/ContatoSite.vue'
 import EspecialidadesMedicos from '../views/EspecialidadesMedicos.vue'
 import MinhaArea from '../views/MinhaArea.vue'
-import LoginView from '@/views/LoginView.vue'
+import CadastroPaciente from '@/views/CadastroPaciente.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -72,9 +72,9 @@ const router = createRouter({
       component: MinhaArea,
     },
     {
-      path: '/login-usuario',
-      name: 'login-usuario',
-      component: LoginView
+      path: '/cadastro-usuario',
+      name: 'cadastro-usuario',
+      component: CadastroPaciente
     }
   ],
 })

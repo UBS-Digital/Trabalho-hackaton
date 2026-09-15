@@ -24,7 +24,7 @@ import { RouterLink } from 'vue-router';
       <RouterLink to="/medico-familiar">Medico-Familiar</RouterLink>
       <RouterLink to="/especialidades">Especialidades</RouterLink>
       <RouterLink to="/contato-site">Contato</RouterLink>
-      <RouterLink to="login-usuario">Login</RouterLink>
+      <RouterLink to="cadastro-usuario">Cadastro</RouterLink>
      </div>
 
 
