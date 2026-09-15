@@ -91,7 +91,7 @@ import { RouterLink } from 'vue-router'
     </div>
 
     <p>Atendimento completo para diagnóstico e tratamento de doenças comuns</p>
-    <RouterLink to="/especialidades" class="saibaMais">Saiba Mais <span>→</span></RouterLink>    
+    <RouterLink to="/especialidades" class="saibaMais">Saiba Mais <span>→</span></RouterLink>
     <
   </div>
 
@@ -103,7 +103,7 @@ import { RouterLink } from 'vue-router'
     </div>
 
     <p>Cuidado especializado para a saúde e desenvolvimento das crianças</p>
-    <RouterLink to="/especialidades" class="saibaMais">Saiba Mais <span>→</span></RouterLink>  
+    <RouterLink to="/especialidades" class="saibaMais">Saiba Mais <span>→</span></RouterLink>
     </div>
 
 
@@ -125,7 +125,7 @@ import { RouterLink } from 'vue-router'
     </div>
 
     <p>Acompanhamento contínuo e integral de toda sua família </p>
-    
+
     <RouterLink to="/especialidades" class="saibaMais">Saiba Mais <span>→</span></RouterLink>
   </div>
 
@@ -235,7 +235,7 @@ import { RouterLink } from 'vue-router'
 
     <div class="a">
         <a href="" class="botaoAgendar">Agendar agora<img src="/src/imagem/Calendario.png" alt=""></a>
-        <a href="" class="botaoConta">Criar conta</a>
+        <RouterLink to="/cadastro-usuario" class="botaoConta">Criar conta</RouterLink>
     </div>
 </div>
 

@@ -1,28 +1,30 @@
 <script setup>
+
 import { pacientesBase } from '@/components/data/data';
 import { ref } from 'vue';
 
-let i = 3;
+let i = pacientesBase.length + 1;
 const nomePaciente = ref('');
 const cpfPaciente = ref('');
 const telPaciente = ref('');
 const genPaciente = ref('');
 const emailPaciente = ref('');
 const senhaPaciente = ref('');
-let cadastroFeito = false;
+const cadastroFeito = ref(false);
 
 function cadastrarConsulta() {
   pacientesBase.push({
-    nome: nomePaciente,
+    nome: nomePaciente.value,
     peso: '',
-    genero: genPaciente,
-    email: emailPaciente,
-    senha: senhaPaciente,
-    tel: telPaciente
+    genero: genPaciente.value,
+    email: emailPaciente.value,
+    senha: senhaPaciente.value,
+    tel: telPaciente.value,
+    cpf: cpfPaciente.value
   })
-  alert(pacientesBase[i].nome.value + " " + pacientesBase[i].email.value + " " + pacientesBase[i].senha.value + " " + pacientesBase[i].tel.value);
+  alert(pacientesBase[i].nome + " " + pacientesBase[i].email + " " + pacientesBase[i].senha + " " + pacientesBase[i].tel);
   i += 1;
-  cadastroFeito = !cadastroFeito;
+  cadastroFeito.value = !cadastroFeito.value;
   return cadastroFeito.value;
 }
 </script>
@@ -52,11 +54,13 @@ function cadastrarConsulta() {
       <button class="submeter" @click="cadastrarConsulta">Cadastrar</button>
     </div>
     <div class="feito" v-else>
+      <img src="../../public/ant-design--check-circle-twotone.png" alt="check" width="100px" height="100px">
       <h2>Cadastro Feito!</h2>
       <p>Analisaremos usas informações para o cadastro.</p>
       <p><span>O cadastro será confirmado por email.</span></p>
     </div>
   </section>
+
 </template>
 
 <style scoped>
@@ -105,5 +109,20 @@ form input {
   justify-content: center;
   margin: 2vw 0 0 0;
   font-weight: bold;
+}
+
+.feito {
+  text-align: center;
+  margin: 20% 0 20% 0;
+}
+.feito h2 {
+  font-size: 2rem;
+  margin: 0 0 20px 0;
+}
+.feito p {
+  font-size: 1.7rem;
+}
+.feito p span {
+  font-size: 1.3rem;
 }
 </style>

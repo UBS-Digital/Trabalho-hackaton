@@ -24,14 +24,14 @@ import { RouterLink } from 'vue-router';
       <RouterLink to="/medico-familiar">Medico-Familiar</RouterLink>
       <RouterLink to="/especialidades">Especialidades</RouterLink>
       <RouterLink to="/contato-site">Contato</RouterLink>
-      <RouterLink to="cadastro-usuario">Cadastro</RouterLink>
+
      </div>
 
 
 
         <div class="botoes">
           <RouterLink to="/MinhaArea" class="btn"> <img src="/src/imagem//icon-minha-area.svg" alt="" class="imgiconzinho">Minha Área</RouterLink>
-          <RouterLink to="/AgendarAgora" class="btn-2">Agendar Agora</RouterLink>
+          <RouterLink to="/cadastro-usuario" class="btn-2">Cadastro</RouterLink>
         </div>
     </nav>
   </header>
