@@ -342,7 +342,7 @@ const resetar = () => {
 
 .card-info p {
   margin: 0;
-  color: #f8f5f5;
+  color: #000000;
   font-size: 0.95rem;
 }
 
