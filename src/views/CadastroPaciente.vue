@@ -9,6 +9,7 @@ const telPaciente = ref('');
 const genPaciente = ref('');
 const emailPaciente = ref('');
 const senhaPaciente = ref('');
+let cadastroFeito = false;
 
 function cadastrarConsulta() {
   pacientesBase.push({
@@ -20,11 +21,12 @@ function cadastrarConsulta() {
   })
   alert(pacientesBase[i].nome.value + " " + pacientesBase[i].email.value + " " + pacientesBase[i].senha.value + " " + pacientesBase[i].tel.value);
   i += 1;
+  cadastroFeito = !cadastroFeito
 }
 </script>
 <template>
   <section class="cadastro">
-    <div class="formulario">
+    <div class="formulario" v-if="!cadastroFeito">
       <h2>Cadastre-se:</h2>
       <form action="cadastroUs">
         <label for="nome">Nome Completo:</label>
@@ -46,6 +48,11 @@ function cadastrarConsulta() {
         <input type="password" name="senha" id="senha" required placeholder="Criar Senha*" v-model="senhaPaciente">
       </form>
       <button class="submeter" @click="cadastrarConsulta">Cadastrar</button>
+    </div>
+    <div class="feito" v-if="cadastroFeito">
+      <h2>Cadastro Feito!</h2>
+      <p>Analisaremos usas informações para o cadastro.</p>
+      <p><span>O cadastro será confirmado por email.</span></p>
     </div>
   </section>
 </template>
