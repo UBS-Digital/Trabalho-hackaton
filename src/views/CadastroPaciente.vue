@@ -2,7 +2,7 @@
 import { pacientesBase } from '@/components/data/data';
 import { ref } from 'vue';
 
-const i = 3;
+let i = 3;
 const nomePaciente = ref('');
 const cpfPaciente = ref('');
 const telPaciente = ref('');
@@ -77,9 +77,11 @@ form label {
   margin: 10px 0 0 0;
 }
 form input {
-  padding: 15px 15px;
-  border-radius: 10px;
-  border: 1px solid rgb(43, 43, 43);
+
+  padding: 1vw 1.5vw;
+  border-radius: 5px;
+  border: 1px solid #000;
+  font-size: 1rem;
 }
 .submeter {
   background-color: #4D41EF;
