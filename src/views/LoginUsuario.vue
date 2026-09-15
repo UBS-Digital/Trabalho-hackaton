@@ -6,7 +6,16 @@ import { pacientesBase } from '@/components/data/data';
 const email = ref('');
 const senha = ref('');
 const chaveUsuario = ref(null);
-let mostrarMensagem = ref((chaveUsuario.value !== null) ? true : false);
+let mostrarMensagem = ref(false);
+
+function normalizarCpf(cpf) {
+  return cpf ? cpf.replace(/\D/g, '') : '';
+}
+
+function gerarChaveUsuario(cpf, emailUsuario) {
+  const cpfLimpo = normalizarCpf(cpf);
+  return `${cpfLimpo}_${emailUsuario.trim().toLowerCase()}`;
+}
 
 function login() {
   const usuarioEncontrado = pacientesBase.find(
@@ -14,19 +23,21 @@ function login() {
   );
   if(usuarioEncontrado) {
     chaveUsuario.value = usuarioEncontrado.cpf;
-    mostrarMensagem.value = true; 
+    mostrarMensagem.value = true;
   } else {
     alert('E-mail ou senha incorretos.');
   }
 }
 
 function obterUsuario() {
-  if (chaveUsuario.value) {
-    const usuarioLogado = pacientesBase.value.find(
-      (paciente) => paciente.cpf === chaveUsuario.value
-    );
-    return usuarioLogado;
-  }
+  const chaveSalva = sessionStorage.getItem('usuarioChave');
+
+  if (!chaveSalva) return null;
+
+  return pacientesBase.find((paciente) => {
+    const chaveGerada = gerarChaveUsuario(paciente.cpf, paciente.email);
+    return chaveGerada === chaveSalva;
+  });
 }
 </script>
 <template>

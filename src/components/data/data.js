@@ -1,3 +1,4 @@
+import { ref } from 'vue';
 const paginas = [
   {
     pagina: 'agendarConsulta',
@@ -25,7 +26,7 @@ const paginas = [
     subtitulo: 'Conheça todas as especialidades disponíveis na UBS Digital e agende sua consulta'
   }
 ];
-const pacientesBase = [
+const pacientesBase = ref([
   {
     nome: 'Gamaliel',
     peso: 72,
@@ -108,8 +109,8 @@ const pacientesBase = [
       }
     ]
   }
-]
-const medicosBase = [
+])
+const medicosBase = ref([
   {
     nome: 'Dr. Carlos Mendes',
     certificado: '', //inserir url de um certificado
@@ -178,7 +179,7 @@ const medicosBase = [
       }
     ]
   }
-]
+])
 
 export default paginas;
 export { pacientesBase };
