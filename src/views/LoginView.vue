@@ -10,7 +10,7 @@
         <label for="cpf">CPF:</label>
         <input type="text" id="cpf" placeholder="CPF*">
         <label for="telefone">Telefone:</label>
-        <input type="number" id="telefone" placeholder="Número de Telefone*">
+        <input type="text" id="telefone" placeholder="Número de Telefone*">
         <div class="gen">
           <p>Gênero:</p>
           <label for="genero">M</label>
@@ -20,7 +20,7 @@
         </div>
         <label for="email">E-mail</label>
         <input type="email" name="email" id="email" required placeholder="Email*">
-        <label for="">Crar Senha</label>
+        <label for="">Criar Senha</label>
         <input type="password" name="senha" id="senha" required placeholder="Criar Senha*">
       </form>
       <button class="submeter">Cadastrar</button>
@@ -31,13 +31,13 @@
 <style scoped>
 .cadastro {
   background-color: #F4F3F3;
-  padding: 2vw 15%;
+  padding: 2vw 20%;
 }
 
 .formulario {
   background-color: white;
   box-shadow: 3px 3px 3px 2px rgba(0, 0, 0, 25%);
-  padding: 2vw;
+  padding: 2vw 5vw;
 }
 
 .formulario h2 {
@@ -55,7 +55,7 @@ form label {
   margin: 10px 0 0 0;
 }
 form input {
-  padding: 10px 10px;
+  padding: 15px 15px;
   border-radius: 10px;
   border: 1px solid rgb(43, 43, 43);
 }
@@ -71,5 +71,6 @@ form input {
   align-items: center;
   justify-content: center;
   margin: 2vw 0 0 0;
+  font-weight: bold;
 }
 </style>
