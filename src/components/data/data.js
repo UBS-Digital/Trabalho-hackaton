@@ -29,6 +29,8 @@ const pacientesBase = [
   {
     nome: 'Gamaliel',
     peso: 72,
+    genero: 'M',
+    cpf: '123.456.789-00', //CPF de exemplo
     email: 'gamaliel@gmail.com', //esqueci seu email, Gama, foi mal
     tel: '4002-8922', //telefone de exemplo
     senha: 'senha', //Essa parte define o que será mostrado na páginah Minha Área ao realizar o login
@@ -70,6 +72,8 @@ const pacientesBase = [
   {
     nome: 'Lucas',
     peso: 75,
+    genero: 'M',
+    cpf: '183.156.459-90', //CPF de exemplo
     email: 'lucaseliel15032010@gamil.com',
     tel: '47 99183-3045',
     senha: 'Senha2',

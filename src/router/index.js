@@ -9,7 +9,8 @@ import ColesterolView from '../views/ColesterolView.vue'
 import RaioXView from '../views/RaioXView.vue'
 import ContatoSite from '../views/ContatoSite.vue'
 import EspecialidadesMedicos from '../views/EspecialidadesMedicos.vue'
-import MinhaArea from '../views/MinhaArea.vue'    
+import MinhaArea from '../views/MinhaArea.vue'
+import CadastroPaciente from '@/views/CadastroPaciente.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -69,6 +70,11 @@ const router = createRouter({
       path: '/MinhaArea',
       name: 'minha-area',
       component: MinhaArea,
+    },
+    {
+      path: '/cadastro-usuario',
+      name: 'cadastro-usuario',
+      component: CadastroPaciente
     }
   ],
 })

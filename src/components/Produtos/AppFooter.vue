@@ -26,6 +26,7 @@ import { RouterLink } from 'vue-router'
           <li><RouterLink to="/MedicoFamilia" >Médico da familia</RouterLink></li>
           <li><RouterLink to="/Especialidades" >Especialidades</RouterLink></li>
           <li><RouterLink to="/Contato" > Contato</RouterLink></li>
+          <li><RouterLink to="/cadastro-usuario">Cadastro</RouterLink></li>
         </ul>
       </nav>
     </div>
