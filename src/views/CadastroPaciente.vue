@@ -15,13 +15,15 @@ function cadastrarConsulta() {
   pacientesBase.push({
     nome: nomePaciente,
     peso: '',
+    genero: genPaciente,
     email: emailPaciente,
     senha: senhaPaciente,
     tel: telPaciente
   })
   alert(pacientesBase[i].nome.value + " " + pacientesBase[i].email.value + " " + pacientesBase[i].senha.value + " " + pacientesBase[i].tel.value);
   i += 1;
-  cadastroFeito = !cadastroFeito
+  cadastroFeito = !cadastroFeito;
+  return cadastroFeito.value;
 }
 </script>
 <template>
@@ -34,13 +36,13 @@ function cadastrarConsulta() {
         <label for="cpf">CPF:</label>
         <input type="text" id="cpf" placeholder="CPF*" v-model="cpfPaciente">
         <label for="telefone">Telefone:</label>
-        <input type="text" id="telefone" placeholder="Número de Telefone*" v-model="telPaciente">
+        <input type="text" id="telefone" placeholder="Número de Telefone*" v-model="telPaciente" required>
         <div class="gen">
           <p>Gênero:</p>
           <label for="genero">M</label>
-          <input type="radio" id="genero" name="genero" value="'M'" v-model="genPaciente">
+          <input type="radio" id="genero" name="genero" value="'M'" v-model="genPaciente" required>
           <label for="genero">F</label>
-          <input type="radio" name="genero" id="genero" value="'F'" v-model="genPaciente">
+          <input type="radio" name="genero" id="genero" value="'F'" v-model="genPaciente" required>
         </div>
         <label for="email">E-mail</label>
         <input type="email" name="email" id="email" required placeholder="Email*" v-model="emailPaciente">
@@ -49,7 +51,7 @@ function cadastrarConsulta() {
       </form>
       <button class="submeter" @click="cadastrarConsulta">Cadastrar</button>
     </div>
-    <div class="feito" v-if="cadastroFeito">
+    <div class="feito" v-else>
       <h2>Cadastro Feito!</h2>
       <p>Analisaremos usas informações para o cadastro.</p>
       <p><span>O cadastro será confirmado por email.</span></p>
