@@ -106,7 +106,7 @@ const medicoFamiliarUs = computed(() => (usuarioAtual.value ? usuarioAtual.value
       <div class="cabecalho-cartao">
         <div class="titulo-cabecalho">
           <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%232563eb%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%3Cpath%20d%3D%22M8%202v3%22%20%2F%3E%3Cpath%20d%3D%22M16%202v3%22%20%2F%3E%3Crect%20x%3D%223%22%20y%3D%223%22%20width%3D%2218%22%20height%3D%2218%22%20rx%3D%222%22%20%2F%3E%3Cpath%20d%3D%22M3%209h18%22%20%2F%3E%3C%2Fsvg%3E" width="20" height="20" alt="">
-          <h2>Próximos Agendamentos</h2>
+          <h2>Próximas Consultas</h2>
         </div>
       <router-link to="/agendar-exame">
   <button class="botao-contorno-azul">Agendar Novo</button>
@@ -122,30 +122,30 @@ const medicoFamiliarUs = computed(() => (usuarioAtual.value ? usuarioAtual.value
 
 
       <!-- Consulta -->
-      <div class="item-agendamento">
+      <div class="item-agendamento" v-for="consulta in consultasUs" :key="consulta.id">
         <div class="emblemas">
           <span class="emblema emblema-azul">Consulta</span>
           <span class="emblema emblema-verde">
             <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%3Cpath%20d%3D%22M21.801%2010A10%2010%200%201%201%2017%203.335%22%20%2F%3E%3Cpath%20d%3D%22m9%2011%203%203L22%204%22%20%2F%3E%3C%2Fsvg%3E" width="13" height="13" alt="">
-            Confirmado
+            Confirmada
           </span>
         </div>
 
-        <h3 class="titulo-agendamento">Clínico Geral</h3>
+        <h3 class="titulo-agendamento">{{ consulta.especialidade }}</h3>
 
         <p class="medico-agendamento">
           <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%239ca3af%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%3Cpath%20d%3D%22M19%2021v-2a4%204%200%200%200-4-4H9a4%204%200%200%200-4%204v2%22%20%2F%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%227%22%20r%3D%224%22%20%2F%3E%3C%2Fsvg%3E" width="15" height="15" alt="">
-          Dr. Carlos Mendes
+          {{ consulta.medico }}
         </p>
 
         <div class="detalhes-agendamento">
           <span class="item-detalhe">
             <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%239ca3af%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%3Cpath%20d%3D%22M8%202v3%22%20%2F%3E%3Cpath%20d%3D%22M16%202v3%22%20%2F%3E%3Crect%20x%3D%223%22%20y%3D%223%22%20width%3D%2218%22%20height%3D%2218%22%20rx%3D%222%22%20%2F%3E%3Cpath%20d%3D%22M3%209h18%22%20%2F%3E%3C%2Fsvg%3E" width="16" height="16" alt="">
-            15 Mai 2026
+            {{ consulta.data }}
           </span>
           <span class="item-detalhe">
             <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%239ca3af%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%2210%22%20%2F%3E%3Cpath%20d%3D%22M12%206v6l4%202%22%20%2F%3E%3C%2Fsvg%3E" width="16" height="16" alt="">
-            14:30
+            {{ consulta.horario }}
           </span>
         </div>
 
@@ -164,7 +164,7 @@ const medicoFamiliarUs = computed(() => (usuarioAtual.value ? usuarioAtual.value
 </router-link>
       </div>
 
-      <!-- Exame -->
+      <!-- Exame
       <div class="item-agendamento">
         <div class="emblemas">
           <span class="emblema emblema-roxo">Exame</span>
@@ -204,7 +204,7 @@ const medicoFamiliarUs = computed(() => (usuarioAtual.value ? usuarioAtual.value
 </router-link>
 
         </div>
-      </div>
+      </div>-->
     </div>
 
 

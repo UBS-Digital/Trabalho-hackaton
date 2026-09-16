@@ -55,13 +55,15 @@ const pacientesBase = [
         id: 1,
         tipo: 'Hemograma Completo',
         data: '02 de maio de 2026',
-        medico: 'Dr. Carlos Mendes'
+        medico: 'Dr. Carlos Mendes',
+        horario: '14:30'
       },
       {
         id: 2,
         tipo: 'Raio-X Tórax',
         data: '20 de abril de 2026',
-        medico: 'Dr. Paulo Costa'
+        medico: 'Dr. Paulo Costa',
+        horario: '10:00'
       }
     ],
     consultas: [
@@ -70,7 +72,8 @@ const pacientesBase = [
         especialidade: 'Clínico Geral',
         motivo: 'Dor no Abdômen',
         data: '02 de maio de 2026',
-        medico: 'Dr. Carlos Mendes'
+        medico: 'Dr. Carlos Mendes',
+        horario: '14:30'
       }
     ]
   },
@@ -104,7 +107,8 @@ const pacientesBase = [
         id: 1,
         tipo: 'Hemograma Completo',
         data: '02 de maio de 2026',
-        medico: 'Dr. Carlos Mendes'
+        medico: 'Dr. Carlos Mendes',
+        horario: '14:30'
       },
     ],
     consultas: [
@@ -113,7 +117,8 @@ const pacientesBase = [
         especialidade: 'Pneumologista',
         motivo: 'Dificuldade para respirar',
         data: '02 de maio de 2026',
-        medico: 'Dr. Carlos Mendes'
+        medico: 'Dr. Carlos Mendes',
+        horario: '14:30'
       }
     ]
   }
