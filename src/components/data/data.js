@@ -26,7 +26,7 @@ const paginas = [
     subtitulo: 'Conheça todas as especialidades disponíveis na UBS Digital e agende sua consulta'
   }
 ];
-const pacientesBase = [
+let pacientesBase = [
   {
     nome: 'Gamaliel',
     peso: 72,
@@ -123,7 +123,7 @@ const pacientesBase = [
     ]
   }
 ]
-const medicosBase = ref([
+const medicosBase = [
   {
     nome: 'Dr. Carlos Mendes',
     certificado: '', //inserir url de um certificado
@@ -192,7 +192,7 @@ const medicosBase = ref([
       }
     ]
   }
-])
+]
 
 export default paginas;
 export { pacientesBase };

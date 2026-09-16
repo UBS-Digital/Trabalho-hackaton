@@ -3,18 +3,26 @@ import { computed } from 'vue';
 import { useUsuario } from '@/composables/usePaciente';
 
 const { usuarioAtual } = useUsuario();
-const nomeUsuario = computed(() => (usuarioAtual.value ? usuarioAtual.value.nome : ''));
-const consultasUs = computed(() => (usuarioAtual.value ? usuarioAtual.value.consultas : []));
-const examesUs = computed(() => (usuarioAtual.value ? usuarioAtual.value.exames : []));
-const pesoUs = computed(() => (usuarioAtual.value ? usuarioAtual.value.peso : ''));
-const medicamentosUs = computed(() => (usuarioAtual.value ? usuarioAtual.value.medicamentos : []));
-const medicoFamiliarUs = computed(() => (usuarioAtual.value ? usuarioAtual.value.medicoFamiliar : ''));
+const nomeUsuario = computed(() => usuarioAtual.value?.nome ?? '');
+const consultasUs = computed(() => usuarioAtual.value?.consultas ?? []);
+const examesUs = computed(() => usuarioAtual.value?.exames ?? []);
+const pesoUs = computed(() => usuarioAtual.value?.peso ?? '');
+const medicamentosUs = computed(() => usuarioAtual.value?.medicamentos ?? []);
+const medicoFamiliarUs = computed(() => usuarioAtual.value?.medicoFamiliar ?? '');
+
+function checkUsuario(usuario) {
+  if (usuario === null || usuario === undefined || usuario === '') {
+    return false;
+  }
+  return true;
+}
 </script>
 <template>
 
 
 <main class="tudors">
- <div class="topo">
+  <section class="usuarioEncontrado" v-if="checkUsuario(usuarioAtual)">
+    <div class="topo">
     <div class="topo__esquerda">
       <div class="avatar" aria-hidden="true">{{ nomeUsuario.charAt(0) }}</div>
       <div class="topo__texto">
@@ -112,7 +120,9 @@ const medicoFamiliarUs = computed(() => (usuarioAtual.value ? usuarioAtual.value
   <button class="botao-contorno-azul">Agendar Novo</button>
 </router-link>
       </div>
-
+      <div v-if="consultasUs.tipo === 'undefined' || consultasUs.length === 0" class="nenhum-agendamento-container">
+        <p class="nenhum-agendamento">Nenhuma consulta agendada...</p>
+      </div>
 
 
 
@@ -126,6 +136,7 @@ const medicoFamiliarUs = computed(() => (usuarioAtual.value ? usuarioAtual.value
         <div class="emblemas">
           <span class="emblema emblema-azul">Consulta</span>
           <span class="emblema emblema-verde">
+
             <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%3Cpath%20d%3D%22M21.801%2010A10%2010%200%201%201%2017%203.335%22%20%2F%3E%3Cpath%20d%3D%22m9%2011%203%203L22%204%22%20%2F%3E%3C%2Fsvg%3E" width="13" height="13" alt="">
             Confirmada
           </span>
@@ -229,7 +240,9 @@ const medicoFamiliarUs = computed(() => (usuarioAtual.value ? usuarioAtual.value
         </div>
 <router-link to="/minha-area" class="link-ver-todos">Ver Todos</router-link>
  </div>
-
+ <div v-if="examesUs.tipo === 'undefined' || examesUs.length === 0" class="nenhum-agendamento-container">
+        <p class="nenhum-agendamento">Nenhum exame concluído...</p>
+      </div>
       <div class="item-exame" v-for="(exame) in examesUs" :key="exame.id">
         <div class="item-exame-esquerda">
           <div class="icone-situacao-exame icone-situacao-verde">
@@ -348,6 +361,15 @@ const medicoFamiliarUs = computed(() => (usuarioAtual.value ? usuarioAtual.value
   </div>
 
 </div>
+  </section>
+  <section v-else class="nenhum-usuario">
+    <h2 class="nenhum-agendamento">Nenhum Usuário encontrado...</h2>
+    <p>Faça login para ver seus dados.</p>
+    <Router-link to="/login-usuario">
+      <button class="botao-login">Login</button>
+    </Router-link>
+  </section>
+
 
 </main>
 
@@ -964,5 +986,21 @@ main{
 
 .botao-historico:hover {
   background: #eff6ff;
+}
+.nenhum-usuario {
+  display: block;
+  text-align: center;
+  padding: 20% 25%;
+  font-size: 2rem;
+}
+.botao-login {
+  padding: 0.7vw 3vw;
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.5rem;
+  margin: 1vw;
+  cursor: pointer;
 }
 </style>
