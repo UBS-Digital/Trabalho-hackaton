@@ -26,7 +26,7 @@ const paginas = [
     subtitulo: 'Conheça todas as especialidades disponíveis na UBS Digital e agende sua consulta'
   }
 ];
-const pacientesBase = ref([
+const pacientesBase = [
   {
     nome: 'Gamaliel',
     peso: 72,
@@ -109,7 +109,7 @@ const pacientesBase = ref([
       }
     ]
   }
-])
+]
 const medicosBase = ref([
   {
     nome: 'Dr. Carlos Mendes',

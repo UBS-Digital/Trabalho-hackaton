@@ -1,12 +1,13 @@
 <script setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { pacientesBase } from '@/components/data/data';
-
 
 const email = ref('');
 const senha = ref('');
-const chaveUsuario = ref(null);
-let mostrarMensagem = ref(false);
+const chaveUsuario = ref(sessionStorage.getItem('usuarioChave') || null);
+const mostrarMensagem = ref(false);
+const erroLogin = ref('');
+const usuarioLogado = ref(null);
 
 function normalizarCpf(cpf) {
   return cpf ? cpf.replace(/\D/g, '') : '';
@@ -17,56 +18,68 @@ function gerarChaveUsuario(cpf, emailUsuario) {
   return `${cpfLimpo}_${emailUsuario.trim().toLowerCase()}`;
 }
 
-function login() {
-  const usuarioEncontrado = pacientesBase.find(
-    (paciente) => paciente.email === email.value && paciente.senha === senha.value
-  );
-  if(usuarioEncontrado) {
-    chaveUsuario.value = usuarioEncontrado.cpf;
-    mostrarMensagem.value = true;
-  } else {
-    alert('E-mail ou senha incorretos.');
-  }
-}
+const usuarioAtual = computed(() => {
+  const chaveAtual = chaveUsuario.value || sessionStorage.getItem('usuarioChave');
 
-function obterUsuario() {
-  const chaveSalva = sessionStorage.getItem('usuarioChave');
-
-  if (!chaveSalva) return null;
+  if (!chaveAtual) return null;
 
   return pacientesBase.find((paciente) => {
     const chaveGerada = gerarChaveUsuario(paciente.cpf, paciente.email);
-    return chaveGerada === chaveSalva;
+    return chaveGerada === chaveAtual;
   });
+});
+
+function login() {
+  const usuarioEncontrado = pacientesBase.find(
+    (paciente) =>
+      paciente.email.trim().toLowerCase() === email.value.trim().toLowerCase() &&
+      paciente.senha === senha.value
+  );
+
+  if (!usuarioEncontrado) {
+    erroLogin.value = 'E-mail ou senha incorretos.';
+    mostrarMensagem.value = false;
+    return;
+  }
+
+  usuarioLogado.value = usuarioEncontrado;
+  mostrarMensagem.value = true;
+  console.log('usuarioEncontrado:', usuarioEncontrado);
+  console.log('cpf:', usuarioEncontrado?.cpf);
+  console.log('email:', usuarioEncontrado?.email);
 }
+
 </script>
+
 <template>
   <section class="login">
     <div class="formulario">
       <h2>Login</h2>
-      <form>
+      <form @submit.prevent="login">
         <label for="email">E-mail:</label>
         <input type="email" id="email" v-model="email" required />
 
         <label for="senha">Senha:</label>
         <input type="password" id="senha" v-model="senha" required />
 
-        <button type="submit" class="submeter" @click.prevent="login()">Entrar</button>
+        <button type="submit" class="submeter">Entrar</button>
       </form>
-    </div>
-    <div class="feito" v-if="mostrarMensagem">
-      <h2>Login bem-sucedido!</h2>
-      <p>Bem-vindo(a), {{ obterUsuario().nome }}!</p>
-      <p>Seu CPF é: {{ obterUsuario().cpf }}</p>
-      </div>
-  </section>
 
+      <p v-if="erroLogin" class="erro">{{ erroLogin }}</p>
+    </div>
+
+    <div class="feito" v-if="mostrarMensagem && usuarioLogado">
+      <h2>Login bem-sucedido!</h2>
+      <p>Bem-vindo(a), {{ usuarioLogado.nome }}!</p>
+      <p>Seu CPF é: {{ usuarioLogado.cpf }}</p>
+    </div>
+  </section>
 </template>
 
 <style scoped>
 .login {
   background-color: #F4F3F3;
-  padding: 2vw 20%;
+  padding: 5vw 20%;
 }
 
 .formulario {
