@@ -1,25 +1,19 @@
 <script setup>
 
 import { ref } from 'vue';
-import { medicosBase, pacientesBase } from '@/components/data/data';
+import { pacientesBase } from '@/components/data/data';
+import { useUsuario } from '@/composables/usePaciente';
+
+const { chaveUsuario, usuarioLogado, gerarChaveUsuario } = useUsuario();
 
 const email = ref('');
 const senha = ref('');
-const chaveUsuario = ref(sessionStorage.getItem('usuarioChave') || null);
-const usuarioLogado = ref(null);
 const mostrarMensagem = ref(false);
 const erroLogin = ref('');
 
-function normalizarCpf(cpf) {
-  return cpf ? cpf.replace(/\D/g, '') : '';
-}
-
-function gerarChaveUsuario(cpf, emailUsuario) {
-  return `${normalizarCpf(cpf)}_${emailUsuario.trim().toLowerCase()}`;
-}
 
 function login() {
-  const usuarioEncontrado = [...pacientesBase, ...medicosBase.value].find(
+  const usuarioEncontrado = pacientesBase.find(
     (paciente) =>
       paciente.email.trim().toLowerCase() === email.value.trim().toLowerCase() &&
       paciente.senha === senha.value
@@ -37,6 +31,7 @@ function login() {
   sessionStorage.setItem('usuarioChave', chave);
   usuarioLogado.value = usuarioEncontrado;
   mostrarMensagem.value = true;
+
 
   return usuarioLogado.value;
 }
@@ -63,6 +58,7 @@ function login() {
       <h2>Login bem-sucedido!</h2>
       <p><span>Bem-vindo(a), {{ usuarioLogado.nome }}!</span></p>
       <p>Agora você pode acessar a página 'Minha Área' com suas informações.</p>
+      <RouterLink to="/MinhaArea" class="btn">Ir para Minha Área</RouterLink>
     </div>
   </section>
 </template>

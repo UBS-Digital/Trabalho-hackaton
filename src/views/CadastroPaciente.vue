@@ -53,6 +53,16 @@ function validarFormulario() {
   return Object.keys(erros.value).length === 0;
 }
 
+function resetarFormulario() {
+  nomePaciente.value = '';
+  cpfPaciente.value = '';
+  telPaciente.value = '';
+  genPaciente.value = '';
+  emailPaciente.value = '';
+  senhaPaciente.value = '';
+  limparErros();
+}
+
 function cadastrarConsulta() {
   if (!validarFormulario()) {
     return;
@@ -71,10 +81,11 @@ function cadastrarConsulta() {
     exames: [],
     consultas: []
   });
-
+  resetarFormulario();
   cadastroFeito.value = true;
   router.push('/home');
 }
+
 </script>
 <template>
   <section class="cadastro">
