@@ -65,7 +65,11 @@ function cadastrarConsulta() {
     email: emailPaciente.value,
     senha: senhaPaciente.value,
     tel: telPaciente.value,
-    cpf: cpfPaciente.value
+    cpf: cpfPaciente.value,
+    medicamentos: [],
+    medicoFamiliar: 'Não informado',
+    exames: [],
+    consultas: []
   });
 
   cadastroFeito.value = true;
@@ -82,30 +86,30 @@ function cadastrarConsulta() {
       <form @submit.prevent="cadastrarConsulta">
         <label for="nome">Nome Completo:</label>
         <input id="nome" v-model="nomePaciente" placeholder="Nome Completo*" />
-        <small v-if="erros.nome" class="erro">{{ erros.nome }}</small>
+        <span v-if="erros.nome" class="erro">{{ erros.nome }}</span>
 
         <label for="cpf">CPF:</label>
         <input id="cpf" v-model="cpfPaciente" placeholder="CPF*" />
-        <small v-if="erros.cpf" class="erro">{{ erros.cpf }}</small>
+        <span v-if="erros.cpf" class="erro">{{ erros.cpf }}</span>
 
         <label for="telefone">Telefone:</label>
         <input id="telefone" v-model="telPaciente" placeholder="Número de Telefone*" />
-        <small v-if="erros.telefone" class="erro">{{ erros.telefone }}</small>
+        <span v-if="erros.telefone" class="erro">{{ erros.telefone }}</span>
 
         <div class="gen">
           <p>Gênero:</p>
           <label><input type="radio" name="genero" value="M" v-model="genPaciente" /> M</label>
           <label><input type="radio" name="genero" value="F" v-model="genPaciente" /> F</label>
         </div>
-        <small v-if="erros.genero" class="erro">{{ erros.genero }}</small>
+        <span v-if="erros.genero" class="erro">{{ erros.genero }}</span>
 
         <label for="email">E-mail</label>
         <input id="email" type="email" v-model="emailPaciente" placeholder="Email*" />
-        <small v-if="erros.email" class="erro">{{ erros.email }}</small>
+        <span v-if="erros.email" class="erro">{{ erros.email }}</span>
 
         <label for="senha">Criar Senha</label>
         <input id="senha" type="password" v-model="senhaPaciente" placeholder="Criar Senha*" />
-        <small v-if="erros.senha" class="erro">{{ erros.senha }}</small>
+        <span v-if="erros.senha" class="erro">{{ erros.senha }}</span>
 
         <button type="submit" class="submeter">Cadastrar</button>
         <button type="button" class="cancelar" @click="router.push('/escolha-cadastro')">Cancelar</button>
