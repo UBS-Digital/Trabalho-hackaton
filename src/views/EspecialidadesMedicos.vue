@@ -1,14 +1,17 @@
 <script setup>
 import { RouterLink } from 'vue-router'
+import AppBanner from '@/components/Produtos/AppBanner.vue';
+import paginas from '@/components/data/data';
 </script>
 <template>
-  <div class="banner">
+  <AppBanner key="paginas[4].pagina" :titulo="paginas[4].titulo" :subtitulo="paginas[4].subtitulo"/>
+  <!-- <div class="banner">
     <div class="voltar">
       <RouterLink to="/">← Voltar</RouterLink>
     </div>
     <h2>Especialidades Médicas</h2>
     <p>Conheça todas as especialidades disponíveis na UBS Digital e agende sua consulta</p>
-  </div>
+  </div> -->
   <section>
     <ul>
       <li>
@@ -30,7 +33,7 @@ import { RouterLink } from 'vue-router'
         </RouterLink>
       </li>
       <li>
-        <img src="../imagem/pediatra.png" alt="" />
+        <img src="../imagem/pediatra1.png" alt="" />
         <h3>Pediatra</h3>
         <p>Cuidado especializado para a saúde e desenvolvimento das crianças de 0 a 18 anos.</p>
         <h4>Serviços:</h4>
