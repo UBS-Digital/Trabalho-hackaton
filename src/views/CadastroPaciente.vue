@@ -3,8 +3,10 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUsuario } from '@/composables/usePaciente';
 
+
 const router = useRouter();
 const { registrarUsuario } = useUsuario();
+
 
 const nomePaciente = ref('');
 const cpfPaciente = ref('');
@@ -53,7 +55,7 @@ function validarFormulario() {
 
   return Object.keys(erros.value).length === 0;
 }
-
+/*
 function resetarFormulario() {
   nomePaciente.value = '';
   cpfPaciente.value = '';
@@ -63,6 +65,7 @@ function resetarFormulario() {
   senhaPaciente.value = '';
   limparErros();
 }
+*/
 
 function cadastrarConsulta() {
   if (!validarFormulario()) {
