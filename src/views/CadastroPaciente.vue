@@ -61,7 +61,8 @@ function cadastrarConsulta() {
     genero: genPaciente.value,
     email: emailPaciente.value,
     senha: senhaPaciente.value,
-    tel: telPaciente.value
+    tel: telPaciente.value,
+    cpf: cpfPaciente.value
   });
 
   cadastroFeito.value = true;

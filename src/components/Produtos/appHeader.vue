@@ -32,6 +32,7 @@ import { RouterLink } from 'vue-router';
         <div class="botoes">
           <RouterLink to="/MinhaArea" class="btn"> <img src="/src/imagem//icon-minha-area.svg" alt="" class="imgiconzinho">Minha Área</RouterLink>
           <RouterLink to="/cadastro-usuario" class="btn-2">Cadastro</RouterLink>
+          <RouterLink to="/login-usuario" class="btn-2">Login</RouterLink>
         </div>
     </nav>
   </header>

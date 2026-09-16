@@ -11,6 +11,7 @@ import ContatoSite from '../views/ContatoSite.vue'
 import EspecialidadesMedicos from '../views/EspecialidadesMedicos.vue'
 import MinhaArea from '../views/MinhaArea.vue'
 import CadastroPaciente from '@/views/CadastroPaciente.vue'
+import LoginUsuario from '@/views/LoginUsuario.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -75,6 +76,11 @@ const router = createRouter({
       path: '/cadastro-usuario',
       name: 'cadastro-usuario',
       component: CadastroPaciente
+    },
+    {
+      path: '/login-usuario',
+      name: 'login-usuario',
+      component: LoginUsuario
     }
   ],
 })

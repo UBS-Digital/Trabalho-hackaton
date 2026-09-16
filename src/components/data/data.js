@@ -1,3 +1,4 @@
+import { ref } from 'vue';
 const paginas = [
   {
     pagina: 'agendarConsulta',
@@ -109,7 +110,7 @@ const pacientesBase = [
     ]
   }
 ]
-const medicosBase = [
+const medicosBase = ref([
   {
     nome: 'Dr. Carlos Mendes',
     certificado: '', //inserir url de um certificado
@@ -178,7 +179,7 @@ const medicosBase = [
       }
     ]
   }
-]
+])
 
 export default paginas;
 export { pacientesBase };
