@@ -42,13 +42,17 @@ function login() {
     return;
   }
 
+  const chave = gerarChaveUsuario(usuarioEncontrado.cpf, usuarioEncontrado.email);
+
+  chaveUsuario.value = chave;
+  sessionStorage.setItem('usuarioChave', chave);
+
   usuarioLogado.value = usuarioEncontrado;
   mostrarMensagem.value = true;
-  console.log('usuarioEncontrado:', usuarioEncontrado);
-  console.log('cpf:', usuarioEncontrado?.cpf);
-  console.log('email:', usuarioEncontrado?.email);
-}
 
+  return usuarioLogado.value;
+}
+export { chaveUsuario, usuarioAtual, usuarioLogado };
 </script>
 
 <template>
