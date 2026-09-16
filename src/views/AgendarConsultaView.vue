@@ -1,7 +1,6 @@
 <script setup>
+import { RouterLink } from 'vue-router'
 import { computed, ref } from 'vue'
-import paginas from '@/components/data/data'
-import AppBanner from '@/components/Produtos/AppBanner.vue'
 
 const especialidades = [
   { nome: 'Pediatria', descricao: 'Saúde infantil', icone: '👩‍⚕️', cor: 'pink' },
@@ -70,7 +69,13 @@ const resetar = () => {
 
 <template>
   <main class="content">
-    <AppBanner key="paginas[0].pagina" :titulo="paginas[0].titulo" :subtitulo="paginas[0].subtitulo" />
+    <div class="banner">
+      <div class="voltar">
+        <RouterLink to="/">← Voltar</RouterLink>
+      </div>
+      <h2>Agendar Consulta</h2>
+      <p>Escolha a especialidade, profissional e horário</p>
+    </div>
 
     <section class="steps" aria-label="etapas de agendamento">
       <div :class="['step', { active: etapa === 1 }]">

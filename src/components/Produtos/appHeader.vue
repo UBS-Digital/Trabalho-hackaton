@@ -1,12 +1,5 @@
 <script setup>
 import { RouterLink } from 'vue-router';
-
-defineProps({
-  compact: {
-    type: Boolean,
-    default: false
-  }
-});
 </script>
 
 <template>
@@ -16,35 +9,33 @@ defineProps({
     </RouterLink>
 
     <div class="h1eP">
-  <h1>UBS Digital</h1>
+  <h1>UBS Digital</h1> 
     <p class="mini">Saúde ao seu alcance
 
 </p>
   </div>
     </div>
-    <nav v-if="!compact">
+    <nav>
 
       <div class="listas">
-      <RouterLink to="/home">Home</RouterLink>
-      <RouterLink to="/agendar-consulta">Agendar-Consulta</RouterLink>
+       <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/agendar-consulta">Agendar-Consulta</RouterLink> 
       <RouterLink to="/agendar-exame">Agendar-Exame</RouterLink>
-      <RouterLink to="/medico-familiar">Medico-Familiar</RouterLink>
+      <RouterLink to="/medico-familiar">Medico-Familiar</RouterLink> 
       <RouterLink to="/especialidades">Especialidades</RouterLink>
       <RouterLink to="/contato-site">Contato</RouterLink>
-
      </div>
-
-
+ 
+ 
 
         <div class="botoes">
           <RouterLink to="/MinhaArea" class="btn"> <img src="/src/imagem//icon-minha-area.svg" alt="" class="imgiconzinho">Minha Área</RouterLink>
-
-
+          <RouterLink to="/AgendarAgora" class="btn-2">Agendar Agora</RouterLink>
         </div>
     </nav>
   </header>
 
-
+  
 
 
 </template>
@@ -75,7 +66,7 @@ h1{
 }
 
 .h1-icon {
-
+  
   color: black;
   display: flex;
   padding-right: 2vw;
@@ -104,12 +95,12 @@ a{
 nav {
   display: flex;
   align-items: center;
-
+  
 }
 .botoes {
   display: flex;
   padding-left: 1vw;
-
+  
 }
 .atual {
   color: rgb(4, 132, 51);
@@ -118,12 +109,12 @@ nav {
   height: 1vw;
   width: 1vw;
   margin-right: 1px;
-
+  
 }
 
 
 .listas {
-
+  
   display: flex;
   gap:  0.7vw;
 

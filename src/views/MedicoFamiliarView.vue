@@ -1,85 +1,85 @@
-<script setup>
-
-import AppBanner from '@/components/Produtos/AppBanner.vue';
-import paginas, { horarios } from '@/components/data/data';
-import chart1 from '../imagem/img1.jpg';
-import chart2 from  '../imagem/image2.jpg';
-
-</script>
-
 <template>
-   <AppBanner key="paginas[3].pagina" :titulo="paginas[3].titulo" :subtitulo="paginas[3].subtitulo"/>
-  <div class="pagina-medico">
-    <main class="recipiente">
+  <div class="doctor-page">
+    <header class="hero">
+      <div class="hero-inner">
+        <h1>Médico da Família</h1>
+        <p>Acompanhamento contínuo e integral da saúde de você e sua família.</p>
+      </div>
+    </header>
+
+    <main class="container">
       <section class="conteudo">
-        <div class="cartao-perfil">
-          <div class="cabecalho-perfil">
-            <div class="imagem-perfil">PLACEHOLDER</div>
-            <div class="informacoes-perfil">
+        <div class="profile-card">
+          <div class="profile-header">
+            <div class="avatar">PLACEHOLDER</div>
+            <div class="profile-info">
               <h2>Dr. Carlos Mendes</h2>
-              <p class="subtitulo">Médico da Família • 15 anos de experiência</p>
-              <p class="descricao">
+              <p class="subtitle">Médico da Família • 15 anos de experiência</p>
+              <p class="desc">
                 Especialista em Medicina de Família e Comunidade, com foco em atendimento integral e preventivo. Acompanha você e sua família desde Janeiro de 2024.
               </p>
-              <div class="acoes">
-                <RouterLink to="/agendar-consulta" class="botao primario">Agendar Consulta</RouterLink>
-                <RouterLink to="/contato-site" class="botao contorno">Contato</RouterLink>
+              <div class="actions">
+                <RouterLink to="/agendar-consulta" class="btn primary">Agendar Consulta</RouterLink>
+                <RouterLink to="/contato-site" class="btn outline">Contato</RouterLink>
               </div>
             </div>
           </div>
 
           <div class="graficos">
             <h2>Acompanhamento de Saúde</h2>
-            <div class="painel espaco-imagem">
+            <div class="panel image-slot">
               <h3>Evolução peso (kg)</h3>
-              <img class="grafico" :src="chart1" alt="Gráfico 1 - Pressão" />
+              <img class="chart" :src="chart1" alt="Gráfico 1 - Pressão" />
             </div>
 
-            <div class="painel espaco-imagem">
+            <div class="panel image-slot">
               <h3>Evolução pressão arterial (mmHg)</h3>
-              <img class="grafico" :src="chart2" alt="Gráfico 2 - Pressão" />
+              <img class="chart" :src="chart2" alt="Gráfico 2 - Pressão" />
             </div>
           </div>
 
           <div class="historico">
             <h3>Histórico de Consultas</h3>
-            <div class="item-historico">
+            <div class="historico-item">
               <div>
                 <strong>Consulta de Rotina</strong>
-                <div class="informacao-adicional">02 Mai 2024 · Pressão arterial controlada. Manter medicação.</div>
+                <div class="meta">02 Mai 2024 · Pressão arterial controlada. Manter medicação.</div>
               </div>
-              <button class="botao pequeno">Ver Detalhes</button>
+              <button class="btn small">Ver Detalhes</button>
             </div>
-            <div class="item-historico">
+            <div class="historico-item">
               <div>
                 <strong>Consulta de Rotina</strong>
-                <div class="informacao-adicional">01 Mar 2024 · Pressão arterial controlada. Manter medicação.</div>
+                <div class="meta">01 Mar 2024 · Pressão arterial controlada. Manter medicação.</div>
               </div>
-              <button class="botao pequeno">Ver Detalhes</button>
+              <button class="btn small">Ver Detalhes</button>
             </div>
           </div>
         </div>
 
-        <aside class="barra-lateral">
-          <div class="cartao contato">
+        <aside class="barraLateral">
+          <div class="card contact">
             <h4>Informações de Contato</h4>
             <p>Tel: (11) 3456-7890</p>
             <p>Email: dr.carlos@ubsdigital.gov.br</p>
           </div>
 
-          <div class="cartao horarios-atendimento">
+          <div class="card-hours">
             <h4>Horário de Atendimento</h4>
             <ul>
-              <li v-for="horario in horarios" :key="horario.id">
-                {{ horario.dia }}:
-                <span>{{ horario.horariosDisponiveis.join(', ') }}</span>
-              </li>
+              <li>Segunda–Feira: <span>8h – 17h</span></li>
+              <li>Terça–Feira: <span>8h – 17h</span></li>
+              <li>Quarta–Feira: <span>8h – 17h</span></li>
+              <li>Quinta–Feira: <span>8h – 17h</span></li>
+              <li>Sexta–Feira: <span>8h – 17h</span></li>
+              <li>Sábado: <span>8h – 12h</span></li>
+              <li>Domingo: <span>FECHADO</span></li>
             </ul>
           </div>
 
-          <div class="cartao chamada-acao">
+          <div class="card-cta">
             <h4>Programa Família Saudável</h4>
-            <button class="botao primario cheio">Saiba Mais</button>
+            <button class="btn primary full">Saiba Mais</button>
           </div>
         </aside>
       </section>
@@ -87,11 +87,30 @@ import chart2 from  '../imagem/image2.jpg';
   </div>
 </template>
 
-
+<script setup>
+import chart1 from '../imagem/img1.jpg';
+import chart2 from  '../imagem/image2.jpg';
+</script>
 
 <style scoped>
-
-.recipiente {
+.hero {
+  background: linear-gradient(90deg, #1a9df7, #27a96b);
+  color: white;
+  padding: 38px 0;
+}
+.hero-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 24px;
+}
+.hero h1 {
+  margin: 0;
+  font-size: 44px;
+}
+.hero p {
+  margin: 6px 0 0;
+}
+.container {
   max-width: 1440px;
   margin: 34px auto;
   padding: 0 24px;
@@ -100,21 +119,21 @@ import chart2 from  '../imagem/image2.jpg';
   display: flex;
   gap: 30px;
 }
-.cartao-perfil {
+.profile-card {
   flex: 1;
   background: #ffffff;
   border-radius: 10px;
   padding: 22px;
 
 }
-.cabecalho-perfil {
+.profile-header {
   display: flex;
   gap: 20px;
   align-items: center;
   box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
   padding: 20px;
 }
-.imagem-perfil {
+.avatar {
   width: 144px;
   height: 144px;
   background: #eee;
@@ -125,23 +144,23 @@ import chart2 from  '../imagem/image2.jpg';
   color: #999;
   font-size: 22px;
 }
-.informacoes-perfil h2 {
+.profile-info h2 {
   margin: 0;
   font-size: 32px;
 }
-.subtitulo {
+.subtitle {
   color: #666;
   margin: 6px 0;
 }
-.descricao {
+.desc {
   color: #444;
   margin: 6px 0 12px;
 }
-.acoes {
+.actions {
   display: flex;
   gap: 10px;
 }
-.botao {
+.btn {
   padding: 12px 20px;
   border-radius: 10px;
   border: 1px solid #d0d7de;
@@ -149,15 +168,15 @@ import chart2 from  '../imagem/image2.jpg';
   cursor: pointer;
   font-size: 18px;
 }
-.botao.primario {
+.btn.primary {
   background: #1a9df7;
   color: white;
   border-color: #1787d6;
 }
-.botao.contorno {
+.btn.outline {
   background: white;
 }
-.botao.pequeno {
+.btn.small {
   padding: 6px 10px;
   font-size: 13px;
 }
@@ -182,13 +201,13 @@ import chart2 from  '../imagem/image2.jpg';
   font-size: 1.5rem;
 }
 
-.painel {
+.panel {
   width: 70%;
   background: #ffffff;
   border-radius: 8px;
   padding: 12px;
 }
-.grafico {
+.chart {
   display: block;
   width: 100%;
   height: auto;
@@ -196,7 +215,7 @@ import chart2 from  '../imagem/image2.jpg';
   object-fit: cover;
   box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
 }
-.grafico-linha {
+.line-chart {
   width: 100%;
   height: 100%;
 }
@@ -205,7 +224,7 @@ import chart2 from  '../imagem/image2.jpg';
   box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
   padding: 10px;
 }
-.item-historico {
+.historico-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -216,7 +235,7 @@ import chart2 from  '../imagem/image2.jpg';
 
 }
 
-.barra-lateral {
+.barraLateral {
   width: 340px;
   display: flex;
   flex-direction: column;
@@ -225,35 +244,35 @@ import chart2 from  '../imagem/image2.jpg';
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(15, 23, 42, 0.03);
 }
-.cartao {
+.card, .card-hours, .card-cta  {
   background: #fff;
   padding: 14px;
   border-radius: 10px;
   box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
 }
-.horarios-atendimento h4 {
+.card-hours h4 {
   margin: 0 0 8px;
 }
 
-.horarios-atendimento ul li {
+.card-hours ul li {
   display: flex;
   justify-content: space-between;
   padding: 4px 0;
 }
 
-.horarios-atendimento ul li span {
+.card-hours ul li span {
   font-weight: bold;
 }
 
-.botao.cheio {
+.btn.full {
   width: 100%;
 }
 
 @media (max-width: 900px) {
-  .conteudo {
+  .content {
     flex-direction: column;
   }
-  .barra-lateral {
+  .sidebar {
     width: 100%;
   }
 }

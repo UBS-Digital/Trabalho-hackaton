@@ -9,12 +9,7 @@ import ColesterolView from '../views/ColesterolView.vue'
 import RaioXView from '../views/RaioXView.vue'
 import ContatoSite from '../views/ContatoSite.vue'
 import EspecialidadesMedicos from '../views/EspecialidadesMedicos.vue'
-import MinhaArea from '../views/MinhaArea.vue'
-import CadastroPaciente from '@/views/CadastroPaciente.vue'
-import CadastroMedico from '@/views/CadastroMedico.vue'
-import EscolhaCadastro from '@/views/EscolhaCadastro.vue'
-import LoginUsuario from '@/views/LoginUsuario.vue'
-
+import MinhaArea from '../views/MinhaArea.vue'    
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,16 +17,6 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: EscolhaCadastro
-    },
-    {
-      path: '/escolha-cadastro',
-      name: 'escolha-cadastro',
-      component: EscolhaCadastro
-    },
-    {
-      path: '/home',
-      name: 'home-conteudo',
       component: HomeView,
     },
     {
@@ -84,22 +69,7 @@ const router = createRouter({
       path: '/MinhaArea',
       name: 'minha-area',
       component: MinhaArea,
-    },
-    {
-      path: '/cadastro-usuario',
-      name: 'cadastro-usuario',
-      component: CadastroPaciente
-    },
-    {
-      path: '/cadastro-medico',
-      name: 'cadastro-medico',
-      component: CadastroMedico
-    },
-    {
-      path: '/login-usuario',
-      name: 'login-usuario',
-      component: LoginUsuario
-    },
+    }
   ],
 })
 

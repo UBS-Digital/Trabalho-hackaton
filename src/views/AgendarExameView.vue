@@ -1,8 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-
-import AppBanner from '@/components/Produtos/AppBanner.vue';
-import paginas from '@/components/data/data';
+import { RouterLink } from 'vue-router';
 
 
 import { useRouter } from 'vue-router';
@@ -55,12 +53,19 @@ function cadastrarExame (id){
 
 </script>
 <template>
-  <AppBanner key="paginas[1].pagina" :titulo="paginas[1].titulo" :subtitulo="paginas[1].subtitulo"  />
+<header>
+    
+    
 
-
-
-        <!-- <div class="Banner">
-
+        <div class="Banner">
+            <div>
+                <h1>
+                    <RouterLink to="/">Agendar Exame</RouterLink>
+                </h1>
+                <p>
+                    Escolha o exame e horário que melhor se adequa à sua necessidade
+                </p>
+            </div>
 
             <div>
 
@@ -68,10 +73,10 @@ function cadastrarExame (id){
 
             </div>
 
-        </div>-->
+        </div>
 
-
-
+    </header>
+  
 <div class="container">
 
 
