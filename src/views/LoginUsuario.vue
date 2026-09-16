@@ -53,7 +53,7 @@ function login() {
 
 <template>
   <section class="login">
-    <div class="formulario">
+    <div class="formulario" v-if="!mostrarMensagem">
       <h2>Login</h2>
       <form @submit.prevent="login">
         <label for="email">E-mail:</label>
@@ -68,10 +68,10 @@ function login() {
       <p v-if="erroLogin" class="erro">{{ erroLogin }}</p>
     </div>
 
-    <div class="feito" v-if="mostrarMensagem && usuarioLogado">
+    <div class="feito" v-else-if="usuarioLogado">
       <h2>Login bem-sucedido!</h2>
-      <p>Bem-vindo(a), {{ usuarioLogado.nome }}!</p>
-      <p>Seu CPF é: {{ usuarioLogado.cpf }}</p>
+      <p><span>Bem-vindo(a), {{ usuarioLogado.nome }}!</span></p>
+      <p>Agora você pode acessar a página 'Minha Área' com suas informações.</p>
     </div>
   </section>
 </template>
@@ -133,10 +133,11 @@ form input {
   margin: 0 0 20px 0;
 }
 .feito p {
-  font-size: 1.7rem;
+  font-size: 1.5rem;
 }
 .feito p span {
-  font-size: 1.3rem;
+  font-size: 1.7rem;
+  font-weight: bold;
 }
 
 .erro {
