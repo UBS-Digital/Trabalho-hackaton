@@ -52,21 +52,28 @@ const pacientesBase = [
     medicoFamiliar: 'Dr. Carlos Mendes',
     exames: [
       {
+        id: 1,
         tipo: 'Hemograma Completo',
         data: '02 de maio de 2026',
-        medico: 'Dr. Carlos Mendes'
+        medico: 'Dr. Carlos Mendes',
+        horario: '14:30'
       },
       {
+        id: 2,
         tipo: 'Raio-X Tórax',
         data: '20 de abril de 2026',
-        medico: 'Dr. Paulo Costa'
+        medico: 'Dr. Paulo Costa',
+        horario: '10:00'
       }
     ],
     consultas: [
       {
+        id: 1,
+        especialidade: 'Clínico Geral',
         motivo: 'Dor no Abdômen',
         data: '02 de maio de 2026',
-        medico: 'Dr. Carlos Mendes'
+        medico: 'Dr. Carlos Mendes',
+        horario: '14:30'
       }
     ]
   },
@@ -80,12 +87,14 @@ const pacientesBase = [
     senha: 'Senha2',
     medicamentos: [
       {
+        id: 1,
         nome: 'PuranT4',
         dose: 37.5,
         vezes: 1,
         horarios: ['Manhã']
       },
       {
+        id: 2,
         nome: 'Symbicort',
         dose: 200,
         vezes: 2,
@@ -95,17 +104,21 @@ const pacientesBase = [
     medicoFamiliar: 'Dr. Marcos',
     exames: [
       {
+        id: 1,
         tipo: 'Hemograma Completo',
         data: '02 de maio de 2026',
-        medico: 'Dr. Carlos Mendes'
+        medico: 'Dr. Carlos Mendes',
+        horario: '14:30'
       },
     ],
     consultas: [
       {
+        id: 1,
         especialidade: 'Pneumologista',
         motivo: 'Dificuldade para respirar',
         data: '02 de maio de 2026',
-        medico: 'Dr. Carlos Mendes'
+        medico: 'Dr. Carlos Mendes',
+        horario: '14:30'
       }
     ]
   }
@@ -178,44 +191,6 @@ const medicosBase = ref([
         paciente: 'Lucas'
       }
     ]
-  }
-])
-
-export const horarios = ref([
-  {
-    id: 1,
-    dia: 'Segunda-feira',
-    horariosDisponiveis: ['08:00 - 20:00'],
-  },
-  {
-    id: 2,
-    dia: 'Terça-feira',
-    horariosDisponiveis: ['08:00 - 20:00'],
-  },
-  {
-    id: 3,
-    dia: 'Quarta-feira',
-    horariosDisponiveis: ['08:00 - 20:00'],
-  },
-  {
-    id: 4,
-    dia: 'Quinta-feira',
-    horariosDisponiveis: ['08:00 - 20:00'],
-  },
-  {
-    id: 5,
-    dia: 'Sexta-feira',
-    horariosDisponiveis: ['08:00 - 20:00'],
-  },
-  {
-    id: 6,
-    dia: 'Sabado',
-    horariosDisponiveis: ['08:00 - 17:00'],
-  },
-  {
-    id: 7,
-    dia: 'Domingo',
-    horariosDisponiveis: ['FECHADO'],
   }
 ])
 
