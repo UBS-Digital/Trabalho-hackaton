@@ -1,29 +1,18 @@
 <script setup>
 
 import { ref } from 'vue';
-import { medicosBase, pacientesBase } from '@/components/data/data';
+import { useUsuario } from '@/composables/usePaciente';
+
+const { usuarioLogado, iniciarSessao, encontrarUsuario } = useUsuario();
 
 const email = ref('');
 const senha = ref('');
-const chaveUsuario = ref(sessionStorage.getItem('usuarioChave') || null);
-const usuarioLogado = ref(null);
 const mostrarMensagem = ref(false);
 const erroLogin = ref('');
 
-function normalizarCpf(cpf) {
-  return cpf ? cpf.replace(/\D/g, '') : '';
-}
-
-function gerarChaveUsuario(cpf, emailUsuario) {
-  return `${normalizarCpf(cpf)}_${emailUsuario.trim().toLowerCase()}`;
-}
 
 function login() {
-  const usuarioEncontrado = [...pacientesBase, ...medicosBase.value].find(
-    (paciente) =>
-      paciente.email.trim().toLowerCase() === email.value.trim().toLowerCase() &&
-      paciente.senha === senha.value
-  );
+  const usuarioEncontrado = encontrarUsuario(email.value, senha.value);
 
   if (!usuarioEncontrado) {
     erroLogin.value = 'E-mail ou senha incorretos.';
@@ -31,12 +20,9 @@ function login() {
     return;
   }
 
-  const chave = gerarChaveUsuario(usuarioEncontrado.cpf, usuarioEncontrado.email);
-
-  chaveUsuario.value = chave;
-  sessionStorage.setItem('usuarioChave', chave);
-  usuarioLogado.value = usuarioEncontrado;
+  iniciarSessao(usuarioEncontrado);
   mostrarMensagem.value = true;
+
 
   return usuarioLogado.value;
 }
@@ -63,11 +49,24 @@ function login() {
       <h2>Login bem-sucedido!</h2>
       <p><span>Bem-vindo(a), {{ usuarioLogado.nome }}!</span></p>
       <p>Agora você pode acessar a página 'Minha Área' com suas informações.</p>
+      <RouterLink to="/MinhaArea" class="area">Ir para Minha Área</RouterLink>
     </div>
   </section>
 </template>
 
 <style scoped>
+
+.area {
+  margin-top: 10px;
+  display: inline-block;
+  border-radius: 0%;
+  padding: 10px 20px;
+  background-color: #4D41EF;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
 .login {
   background-color: #F4F3F3;
   padding: 5vw 20%;
