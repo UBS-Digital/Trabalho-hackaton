@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue';
-import { pacientesBase } from '@/components/data/data';
+import { medicosBase, pacientesBase } from '@/components/data/data';
 
 const email = ref('');
 const senha = ref('');
@@ -30,7 +30,7 @@ const usuarioAtual = computed(() => {
 });
 
 function login() {
-  const usuarioEncontrado = pacientesBase.find(
+  const usuarioEncontrado = [...pacientesBase, ...medicosBase.value].find(
     (paciente) =>
       paciente.email.trim().toLowerCase() === email.value.trim().toLowerCase() &&
       paciente.senha === senha.value
