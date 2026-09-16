@@ -1,8 +1,14 @@
 <script setup>
-import { usuarioLogado, chaveUsuario, usuarioAtual } from './LoginUsuario.vue';
+import { computed } from 'vue';
+import { useUsuario } from '@/composables/usePaciente';
 
-const chaveAtual = sessionStorage.getItem('usuarioChave');
-
+const { usuarioAtual } = useUsuario();
+const nomeUsuario = computed(() => (usuarioAtual.value ? usuarioAtual.value.nome : ''));
+const consultasUs = computed(() => (usuarioAtual.value ? usuarioAtual.value.consultas : []));
+const examesUs = computed(() => (usuarioAtual.value ? usuarioAtual.value.exames : []));
+const pesoUs = computed(() => (usuarioAtual.value ? usuarioAtual.value.peso : ''));
+const medicamentosUs = computed(() => (usuarioAtual.value ? usuarioAtual.value.medicamentos : []));
+const medicoFamiliarUs = computed(() => (usuarioAtual.value ? usuarioAtual.value.medicoFamiliar : ''));
 </script>
 <template>
 
@@ -10,7 +16,7 @@ const chaveAtual = sessionStorage.getItem('usuarioChave');
 <main class="tudors">
  <div class="topo">
     <div class="topo__esquerda">
-      <div class="avatar" aria-hidden="true">G</div>
+      <div class="avatar" aria-hidden="true">{{ nomeUsuario.charAt(0) }}</div>
       <div class="topo__texto">
         <h1>Olá, {{ nomeUsuario }}!</h1>
         <p>Bem-vindo de volta à sua área do paciente</p>
@@ -39,7 +45,7 @@ const chaveAtual = sessionStorage.getItem('usuarioChave');
           <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23d1d5db%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%3Cpath%20d%3D%22M7%207h10v10%22%20%2F%3E%3Cpath%20d%3D%22M7%2017%2017%207%22%20%2F%3E%3C%2Fsvg%3E" width="15" height="15" alt="">
         </div>
         <p class="rotulo-estatistica">Última Consulta</p>
-        <p class="valor-estatistica">02 Mai 2026</p>
+        <p class="valor-estatistica">{{ consultasUs.length > 0 ? consultasUs[consultasUs.length - 1].data : 'Nenhuma consulta agendada' }}</p>
       </div>
 
       <div class="cartao-estatistica">
@@ -50,7 +56,7 @@ const chaveAtual = sessionStorage.getItem('usuarioChave');
           <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23d1d5db%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%3Cpath%20d%3D%22M7%207h10v10%22%20%2F%3E%3Cpath%20d%3D%22M7%2017%2017%207%22%20%2F%3E%3C%2Fsvg%3E" width="15" height="15" alt="">
         </div>
         <p class="rotulo-estatistica">Próximo Exame</p>
-        <p class="valor-estatistica">18 Mai 2026</p>
+        <p class="valor-estatistica">{{ examesUs.length > 0 ? examesUs[examesUs.length - 1].data : 'Nenhum exame agendado' }}</p>
       </div>
 
       <div class="cartao-estatistica">
@@ -72,7 +78,7 @@ const chaveAtual = sessionStorage.getItem('usuarioChave');
           <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23d1d5db%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%3Cpath%20d%3D%22M7%207h10v10%22%20%2F%3E%3Cpath%20d%3D%22M7%2017%2017%207%22%20%2F%3E%3C%2Fsvg%3E" width="15" height="15" alt="">
         </div>
         <p class="rotulo-estatistica">Peso</p>
-        <p class="valor-estatistica">72 kg</p>
+        <p class="valor-estatistica">{{ pesoUs + "Kg"|| 'Peso não informado' }}</p>
       </div>
     </div>
   </div>
@@ -224,14 +230,14 @@ const chaveAtual = sessionStorage.getItem('usuarioChave');
 <router-link to="/minha-area" class="link-ver-todos">Ver Todos</router-link>
  </div>
 
-      <div class="item-exame">
+      <div class="item-exame" v-for="(exame) in examesUs" :key="exame.id">
         <div class="item-exame-esquerda">
           <div class="icone-situacao-exame icone-situacao-verde">
             <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%2316a34a%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%3Cpath%20d%3D%22M21.801%2010A10%2010%200%201%201%2017%203.335%22%20%2F%3E%3Cpath%20d%3D%22m9%2011%203%203L22%204%22%20%2F%3E%3C%2Fsvg%3E" width="18" height="18" alt="">
           </div>
           <div>
-            <p class="titulo-exame">Hemograma Completo</p>
-            <p class="subtitulo-exame">02 Mai 2026 • Dr. Carlos Mendes</p>
+            <p class="titulo-exame">{{ exame.tipo || 'Nenhum exame agendado' }}</p>
+            <p class="subtitulo-exame">{{ exame.data }} • {{ exame.medico }}</p>
           </div>
         </div>
 
@@ -244,27 +250,7 @@ const chaveAtual = sessionStorage.getItem('usuarioChave');
         </button>
           </a>
       </div>
-
-
-      <div class="item-exame">
-        <div class="item-exame-esquerda">
-          <div class="icone-situacao-exame icone-situacao-verde">
-            <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%2316a34a%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%3Cpath%20d%3D%22M21.801%2010A10%2010%200%201%201%2017%203.335%22%20%2F%3E%3Cpath%20d%3D%22m9%2011%203%203L22%204%22%20%2F%3E%3C%2Fsvg%3E" width="18" height="18" alt="">
-          </div>
-          <div>
-            <p class="titulo-exame">Glicemia em Jejum</p>
-            <p class="subtitulo-exame">28 Abr 2026 • Dra. Ana Silva</p>
-          </div>
-        </div>
-
-        <a href="/src/imagem/preview.webp" download="resultado-exame.webp">
-        <button class="botao-baixar">
-          <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%232563eb%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%3Cpath%20d%3D%22M12%2015V3%22%20%2F%3E%3Cpath%20d%3D%22M21%2015v4a2%202%200%200%201-2%202H5a2%202%200%200%201-2-2v-4%22%20%2F%3E%3Cpath%20d%3D%22m7%2010%205%205%205-5%22%20%2F%3E%3C%2Fsvg%3E" width="14" height="14" alt="">
-          Baixar
-        </button>
-      </a>
-      </div>
-
+      <!-- Não vamos usar
       <div class="item-exame">
         <div class="item-exame-esquerda">
           <div class="icone-situacao-exame icone-situacao-laranja">
@@ -276,7 +262,7 @@ const chaveAtual = sessionStorage.getItem('usuarioChave');
           </div>
         </div>
         <span class="emblema-processando">Processando</span>
-      </div>
+      </div>   -->
     </div>
 
   </div>
@@ -289,9 +275,9 @@ const chaveAtual = sessionStorage.getItem('usuarioChave');
         <h2>Medicamentos</h2>
       </div>
 
-      <div class="item-medicamento">
-        <h3 class="titulo-medicamento">Losartana 50mg</h3>
-        <p class="subtitulo-medicamento">1x ao dia - Manhã</p>
+      <div class="item-medicamento" v-for="(medicamento) in medicamentosUs" :key="medicamento.id">
+        <h3 class="titulo-medicamento">{{ medicamento.nome }}</h3>
+        <p class="subtitulo-medicamento">{{medicamento.dose}}mg - {{ medicamento.vezes }}x ao dia. De {{ medicamento.horarios.join(' e de ') }}</p>
         <p class="situacao-medicamento situacao-verde">
           <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%2316a34a%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%3Cpath%20d%3D%22M21.801%2010A10%2010%200%201%201%2017%203.335%22%20%2F%3E%3Cpath%20d%3D%22m9%2011%203%203L22%204%22%20%2F%3E%3C%2Fsvg%3E" width="15" height="15" alt="">
           15 dias restantes
@@ -308,7 +294,7 @@ const chaveAtual = sessionStorage.getItem('usuarioChave');
 
 
 
-      <!-- Item 2 -->
+      <!-- Item 2 Ainda não vamos usar
       <div class="item-medicamento">
         <h3 class="titulo-medicamento">Metformina 850mg</h3>
         <p class="subtitulo-medicamento">2x ao dia - Manhã e Noite</p>
@@ -318,8 +304,9 @@ const chaveAtual = sessionStorage.getItem('usuarioChave');
         </p>
       </div>
 
-      <button class="botao-renovar">Renovar Receita</button>
+      <button class="botao-renovar">Renovar Receita</button>-->
     </div>
+
 
 
 
@@ -334,8 +321,8 @@ const chaveAtual = sessionStorage.getItem('usuarioChave');
       </div>
 
       <div class="informacoes-medico">
-        <div class="avatar-medico">CM</div>
-        <p class="nome-medico">Dr. Carlos Mendes</p>
+        <div class="avatar-medico">{{ medicoFamiliarUs.charAt(medicoFamiliarUs.split("").indexOf('Dr.') + 5) }}</div>
+        <p class="nome-medico">{{ medicoFamiliarUs }}</p>
       </div>
 <router-link to="/medico-familiar">
   <button class="botao-historico">Ver Histórico</button>
