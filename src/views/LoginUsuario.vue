@@ -1,4 +1,5 @@
 <script setup>
+
 import { ref } from 'vue';
 import { medicosBase, pacientesBase } from '@/components/data/data';
 const email = ref('');
@@ -15,8 +16,6 @@ function normalizarCpf(cpf) {
 function gerarChaveUsuario(cpf, emailUsuario) {
   return `${normalizarCpf(cpf)}_${emailUsuario.trim().toLowerCase()}`;
 }
-
-
 
 function login() {
   const usuarioEncontrado = [...pacientesBase, ...medicosBase.value].find(
@@ -37,6 +36,7 @@ function login() {
   sessionStorage.setItem('usuarioChave', chave);
   usuarioLogado.value = usuarioEncontrado;
   mostrarMensagem.value = true;
+ dev
 
 
   return usuarioLogado.value;
