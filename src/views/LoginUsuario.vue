@@ -1,4 +1,5 @@
 <script setup>
+
 import { ref } from 'vue';
 import { pacientesBase } from '@/components/data/data';
 import { useUsuario } from '@/composables/usePaciente';
@@ -9,6 +10,7 @@ const email = ref('');
 const senha = ref('');
 const mostrarMensagem = ref(false);
 const erroLogin = ref('');
+
 
 function login() {
   const usuarioEncontrado = pacientesBase.find(
@@ -29,6 +31,7 @@ function login() {
   sessionStorage.setItem('usuarioChave', chave);
   usuarioLogado.value = usuarioEncontrado;
   mostrarMensagem.value = true;
+ dev
 
   return usuarioLogado.value;
 }

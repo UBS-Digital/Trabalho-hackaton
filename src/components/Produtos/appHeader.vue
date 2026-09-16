@@ -1,5 +1,12 @@
 <script setup>
 import { RouterLink } from 'vue-router';
+
+defineProps({
+  compact: {
+    type: Boolean,
+    default: false
+  }
+});
 </script>
 
 <template>
@@ -15,10 +22,10 @@ import { RouterLink } from 'vue-router';
 </p>
   </div>
     </div>
-    <nav>
+    <nav v-if="!compact">
 
       <div class="listas">
-       <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/home">Home</RouterLink>
       <RouterLink to="/agendar-consulta">Agendar-Consulta</RouterLink>
       <RouterLink to="/agendar-exame">Agendar-Exame</RouterLink>
       <RouterLink to="/medico-familiar">Medico-Familiar</RouterLink>
@@ -31,8 +38,8 @@ import { RouterLink } from 'vue-router';
 
         <div class="botoes">
           <RouterLink to="/MinhaArea" class="btn"> <img src="/src/imagem//icon-minha-area.svg" alt="" class="imgiconzinho">Minha Área</RouterLink>
-          <RouterLink to="/cadastro-usuario" class="btn-2">Cadastro</RouterLink>
-          <RouterLink to="/login-usuario" class="btn-2">Login</RouterLink>
+
+
         </div>
     </nav>
   </header>
