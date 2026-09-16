@@ -1,20 +1,25 @@
 <script setup>
 import { ref } from 'vue';
-import { pacientesBase } from '@/components/data/data';
-import { useUsuario } from '@/composables/usePaciente';
-
-const { chaveUsuario, usuarioLogado, gerarChaveUsuario } = useUsuario();
-
+import { medicosBase, pacientesBase } from '@/components/data/data';
 const email = ref('');
 const senha = ref('');
+const chaveUsuario = ref(sessionStorage.getItem('usuarioChave') || null);
+const usuarioLogado = ref(null);
 const mostrarMensagem = ref(false);
 const erroLogin = ref('');
 
+function normalizarCpf(cpf) {
+  return cpf ? cpf.replace(/\D/g, '') : '';
+}
+
+function gerarChaveUsuario(cpf, emailUsuario) {
+  return `${normalizarCpf(cpf)}_${emailUsuario.trim().toLowerCase()}`;
+}
 
 
 
 function login() {
-  const usuarioEncontrado = pacientesBase.find(
+  const usuarioEncontrado = [...pacientesBase, ...medicosBase.value].find(
     (paciente) =>
       paciente.email.trim().toLowerCase() === email.value.trim().toLowerCase() &&
       paciente.senha === senha.value
@@ -32,6 +37,7 @@ function login() {
   sessionStorage.setItem('usuarioChave', chave);
   usuarioLogado.value = usuarioEncontrado;
   mostrarMensagem.value = true;
+
 
   return usuarioLogado.value;
 }

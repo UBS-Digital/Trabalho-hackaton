@@ -83,7 +83,7 @@ function cadastrarMedico() {
   });
 
   cadastroFeito.value = true;
-
+  router.push('/home');
 }
 </script>
 <template>

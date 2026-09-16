@@ -69,6 +69,7 @@ function cadastrarConsulta() {
   });
 
   cadastroFeito.value = true;
+  router.push('/home');
 }
 </script>
 <template>
