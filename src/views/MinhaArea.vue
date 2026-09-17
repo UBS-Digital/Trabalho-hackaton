@@ -62,7 +62,7 @@ function checkUsuario(usuario) {
                 width="15" height="15" alt="">
             </div>
             <p class="rotulo-estatistica">Última Consulta</p>
-            <p class="valor-estatistica">{{ consultasUs.length > 0 ? consultasUs[consultasUs.split("").length - 1].data : 'Nenhuma consulta agendada' }}</p>
+            <p class="valor-estatistica">{{ consultasUs.length > 0 ? consultasUs[consultasUs.length - 1].data : 'Nenhuma consulta agendada' }}</p>
           </div>
 
           <div class="cartao-estatistica">
@@ -380,11 +380,10 @@ function checkUsuario(usuario) {
               <h2>Seu Médico da Família</h2>
             </div>
 
-            <div class="informacoes-medico">
+            <div class="informacoes-medico">_
               <div class="avatar-medico">{{ medicoFamiliarUs && medicoFamiliarUs.nome ?
                 medicoFamiliarUs.nome.charAt(medicoFamiliarUs.nome.indexOf('Dr.') + 4) : '' }}</div>
-              <p class="nome-medico">{{ medicoFamiliarUs && medicoFamiliarUs.nome ? medicoFamiliarUs.nome : 'Não
-                informado' }}</p>
+              <p class="nome-medico">{{ medicoFamiliarUs && medicoFamiliarUs.nome ? medicoFamiliarUs.nome : 'Nãoinformado' }}</p>
             </div>
             <router-link to="/medico-familiar">
               <button class="botao-historico">Ver Histórico</button>

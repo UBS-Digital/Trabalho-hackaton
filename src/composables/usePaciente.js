@@ -64,7 +64,7 @@ function encontrarUsuario(email, senha) {
   )
 }
 
-const watch(usuarioAtual) = computed(() => {
+const usuarioAtual = computed(() => {
   const chaveAtual = chaveUsuario.value || sessionStorage.getItem('usuarioChave')
 
   if (!chaveAtual) return null
