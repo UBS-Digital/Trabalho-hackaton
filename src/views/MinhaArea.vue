@@ -9,6 +9,10 @@ const examesUs = computed(() => usuarioAtual.value?.exames ?? []);
 const pesoUs = computed(() => usuarioAtual.value?.peso ?? '');
 const medicamentosUs = computed(() => usuarioAtual.value?.medicamentos ?? []);
 const medicoFamiliarUs = computed(() => usuarioAtual.value?.medicoFamiliar ?? '');
+const medicoFamiliarNome = computed(() => {
+  const medico = medicoFamiliarUs.value;
+  return typeof medico === 'string' ? medico : medico?.nome ?? '';
+});
 
 function checkUsuario(usuario) {
   if (usuario === null || usuario === undefined || usuario === '') {
@@ -335,8 +339,8 @@ function checkUsuario(usuario) {
       </div>
 
       <div class="informacoes-medico">
-        <div class="avatar-medico">{{ medicoFamiliarUs.charAt(medicoFamiliarUs.split("").indexOf('Dr.') + 5) }}</div>
-        <p class="nome-medico">{{ medicoFamiliarUs }}</p>
+        <div class="avatar-medico">{{ medicoFamiliarNome.charAt(0) || '?' }}</div>
+        <p class="nome-medico">{{ medicoFamiliarNome || 'Nenhum médico cadastrado' }}</p>
       </div>
 <router-link to="/medico-familiar">
   <button class="botao-historico">Ver Histórico</button>

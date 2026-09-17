@@ -1,4 +1,3 @@
-import { ref } from 'vue';
 const paginas = [
   {
     pagina: 'agendarConsulta',
@@ -194,7 +193,7 @@ const pacientesBase = [
 ]
 
 
-export const horarios = ref([
+export const horarios = [
   {
     id: 1,
     dia: 'Segunda-feira',
@@ -230,7 +229,7 @@ export const horarios = ref([
     dia: 'Domingo',
     horariosDisponiveis: ['FECHADO'],
   }
-])
+]
 
 export default paginas;
 export { pacientesBase };
