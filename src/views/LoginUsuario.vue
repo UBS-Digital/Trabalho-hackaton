@@ -1,8 +1,8 @@
 <script setup>
-
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUsuario } from '@/composables/usePaciente'
+
 const router = useRouter()
 
 const { usuarioLogado, iniciarSessao, encontrarUsuario } = useUsuario()
@@ -72,7 +72,6 @@ function login() {
 }
 
 .login {
-  background-color: #F4F3F3;
   background-color: #f4f3f3;
   padding: 5vw 20%;
 }
@@ -84,7 +83,6 @@ form label {
   margin: 10px 0 0 0;
 }
 
-
 form input {
   padding: 1vw 1.5vw;
   border-radius: 5px;
@@ -93,11 +91,17 @@ form input {
 }
 
 .submeter {
-  background-color: #4D41EF;
   background-color: #4d41ef;
   color: white;
   padding: 0.5vw 2.5vw 0.5vw 3vw;
   border-radius: 10px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1vw 0 1vw 0;
   font-weight: bold;
 }
 
