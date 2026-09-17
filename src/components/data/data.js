@@ -49,7 +49,13 @@ const pacientesBase = [
         horarios: ['manhã', 'noite']
       }
     ],
-    medicoFamiliar: 'Dr. Carlos Mendes',
+    medicoFamiliar: {
+      nome: 'Dr. Carlos Mendes',
+      id: medicosBase.find(medico => medico.nome === 'Dr. Carlos Mendes')?.id || null,
+      experiencia: medicosBase.find(medico => medico.nome === 'Dr. Carlos Mendes')?.experiencia || null,
+      acompanhamento: 'Janeiro de 2024',
+      especialidade: medicosBase.find(medico => medico.nome === 'Dr. Carlos Mendes')?.especialidades[0] || null
+    },
     exames: [
       {
         tipo: 'Hemograma Completo',
@@ -92,7 +98,13 @@ const pacientesBase = [
         horarios: ['manhã', 'noite']
       }
     ],
-    medicoFamiliar: 'Dr. Marcos',
+    medicoFamiliar: {
+      nome: 'Dr. Paulo Henrique Viana',
+      id: medicosBase.find(medico => medico.nome === 'Dr. Paulo Henrique Viana')?.id || null,
+      experiencia: medicosBase.find(medico => medico.nome === 'Dr. Paulo Henrique Viana')?.experiencia || null,
+      acompanhamento: 'Fevereiro de 2021',
+      especialidade: medicosBase.find(medico => medico.nome === 'Dr. Paulo Henrique Viana')?.especialidades[0] || null
+    },
     exames: [
       {
         tipo: 'Hemograma Completo',
