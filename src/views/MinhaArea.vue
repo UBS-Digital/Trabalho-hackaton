@@ -16,6 +16,9 @@ function checkUsuario(usuario) {
   }
   return true;
 }
+
+
+
 </script>
 <template>
 
@@ -50,7 +53,6 @@ function checkUsuario(usuario) {
           <div class="caixa-icone icone-azul">
             <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%233b82f6%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%3Cpath%20d%3D%22M8%202v3%22%20%2F%3E%3Cpath%20d%3D%22M16%202v3%22%20%2F%3E%3Crect%20x%3D%223%22%20y%3D%223%22%20width%3D%2218%22%20height%3D%2218%22%20rx%3D%222%22%20%2F%3E%3Cpath%20d%3D%22M3%209h18%22%20%2F%3E%3C%2Fsvg%3E" width="18" height="18" alt="">
           </div>
-          <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23d1d5db%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%3Cpath%20d%3D%22M7%207h10v10%22%20%2F%3E%3Cpath%20d%3D%22M7%2017%2017%207%22%20%2F%3E%3C%2Fsvg%3E" width="15" height="15" alt="">
         </div>
         <p class="rotulo-estatistica">Última Consulta</p>
         <p class="valor-estatistica">{{ consultasUs.length > 0 ? consultasUs[consultasUs.length - 1].data : 'Nenhuma consulta agendada' }}</p>
@@ -83,7 +85,6 @@ function checkUsuario(usuario) {
           <div class="caixa-icone icone-roxo">
             <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23a855f7%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%3Cpath%20d%3D%22M22%2012h-2.48a2%202%200%200%200-1.93%201.46l-2.35%208.36a.25.25%200%200%201-.48%200L9.24%202.18a.25.25%200%200%200-.48%200l-2.35%208.36A2%202%200%200%201%204.49%2012H2%22%20%2F%3E%3C%2Fsvg%3E" width="18" height="18" alt="">
           </div>
-          <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23d1d5db%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%3Cpath%20d%3D%22M7%207h10v10%22%20%2F%3E%3Cpath%20d%3D%22M7%2017%2017%207%22%20%2F%3E%3C%2Fsvg%3E" width="15" height="15" alt="">
         </div>
         <p class="rotulo-estatistica">Peso</p>
         <p class="valor-estatistica">{{ pesoUs + "Kg"|| 'Peso não informado' }}</p>
@@ -171,7 +172,7 @@ function checkUsuario(usuario) {
   <button class="botao-reagendar">Reagendar</button>
 </router-link>
 <router-link to="/agendar-exame">
-  <button class="botao-cancelar">Cancelar</button>
+    <button class="botao-cancelar" @click="cancelarConsulta(consulta.id)">Cancelar</button>
 </router-link>
       </div>
 
@@ -254,8 +255,8 @@ function checkUsuario(usuario) {
           </div>
         </div>
 
-     <a href="/src/imagem/preview.webp" download="resultado-exame.webp">
-        <button class="botao-baixar">
+              <a href="/src/imagem/preview.webp" download="resultado-exame.webp">
+                <button class="botao-baixar">
 
 
           <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%232563eb%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%3Cpath%20d%3D%22M12%2015V3%22%20%2F%3E%3Cpath%20d%3D%22M21%2015v4a2%202%200%200%201-2%202H5a2%202%200%200%201-2-2v-4%22%20%2F%3E%3Cpath%20d%3D%22m7%2010%205%205%205-5%22%20%2F%3E%3C%2Fsvg%3E" width="14" height="14" alt="">
@@ -349,9 +350,9 @@ function checkUsuario(usuario) {
   <button class="botao-acao-rapida">Agendar Consulta</button>
 </router-link>
 
-<router-link to="/agendar-exame">
-  <button class="botao-acao-rapida">Agendar Exame</button>
-</router-link>
+            <router-link to="/agendar-exame">
+              <button class="botao-acao-rapida">Agendar Exame</button>
+            </router-link>
 
 <a href="/src/imagem/preview.webp" download="resultado-exame.webp">
   <button class="botao-acao-rapida">Baixar Resultados</button>
@@ -390,8 +391,8 @@ function checkUsuario(usuario) {
 
 
 <style scoped>
-main{
-  background-color:#f3f4f6;
+main {
+  background-color: #f3f4f6;
 }
 
 .topo{
@@ -425,7 +426,7 @@ main{
   justify-content: center;
   font-size: 26px;
   font-weight: 700;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
 }
 
 .topo__texto {
@@ -457,8 +458,8 @@ main{
   gap: 8px;
   padding: 10px 18px;
   border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.55);
-  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.12);
   color: #ffffff;
   font-size: 14px;
   font-weight: 500;
@@ -698,7 +699,7 @@ main{
 }
 
 .botao-reagendar {
- flex: 1;
+  flex: 1;
   padding: 10px 6vw;
   border-radius: 8px;
   font-size: 14px;

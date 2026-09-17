@@ -234,7 +234,7 @@
     <p>Agende sua consulta agora mesmo e tenha acesso a um atendimento de qualidade</p>
 
     <div class="a">
-        <a href="" class="botaoAgendar">Agendar agora<img src="/src/imagem/Calendario.png" alt=""></a>
+        <RouterLink to="/agendar-consulta" class="botaoAgendar" >Agendar agora <img src="/src/imagem/Calendario.png" alt=""></RouterLink>
         <RouterLink to="/cadastro-usuario" class="botaoConta">Criar conta</RouterLink>
     </div>
 </div>

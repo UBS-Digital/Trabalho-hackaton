@@ -76,21 +76,6 @@ function login() {
   padding: 5vw 20%;
 }
 
-.formulario {
-  background-color: white;
-  box-shadow: 3px 3px 3px 2px rgba(0, 0, 0, 25%);
-  padding: 2vw 5vw;
-}
-
-.formulario h2 {
-  font-size: 1.8rem;
-  margin: 0 0 20px 0;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-}
 
 form label {
   font-weight: bold;
@@ -116,7 +101,7 @@ form input {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 2vw 0 0 0;
+  margin: 1vw 0 1vw 0;
   font-weight: bold;
 }
 
