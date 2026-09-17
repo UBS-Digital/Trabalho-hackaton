@@ -1,18 +1,40 @@
 <script setup>
-
-import { ref } from 'vue';
-import { useUsuario } from '@/composables/usePaciente';
-
-const { usuarioLogado, iniciarSessao, encontrarUsuario } = useUsuario();
+import { computed, ref } from 'vue';
+import { medicosBase, pacientesBase } from '@/components/data/data';
 
 const email = ref('');
 const senha = ref('');
+const chaveUsuario = ref(sessionStorage.getItem('usuarioChave') || null);
 const mostrarMensagem = ref(false);
 const erroLogin = ref('');
+const usuarioLogado = ref(null);
 
+function normalizarCpf(cpf) {
+  return cpf ? cpf.replace(/\D/g, '') : '';
+}
+
+function gerarChaveUsuario(cpf, emailUsuario) {
+  const cpfLimpo = normalizarCpf(cpf);
+  return `${cpfLimpo}_${emailUsuario.trim().toLowerCase()}`;
+}
+
+const usuarioAtual = computed(() => {
+  const chaveAtual = chaveUsuario.value || sessionStorage.getItem('usuarioChave');
+
+  if (!chaveAtual) return null;
+
+  return pacientesBase.find((paciente) => {
+    const chaveGerada = gerarChaveUsuario(paciente.cpf, paciente.email);
+    return chaveGerada === chaveAtual;
+  });
+});
 
 function login() {
-  const usuarioEncontrado = encontrarUsuario(email.value, senha.value);
+  const usuarioEncontrado = [...pacientesBase, ...medicosBase.value].find(
+    (paciente) =>
+      paciente.email.trim().toLowerCase() === email.value.trim().toLowerCase() &&
+      paciente.senha === senha.value
+  );
 
   if (!usuarioEncontrado) {
     erroLogin.value = 'E-mail ou senha incorretos.';
@@ -20,12 +42,13 @@ function login() {
     return;
   }
 
-  iniciarSessao(usuarioEncontrado);
+  usuarioLogado.value = usuarioEncontrado;
   mostrarMensagem.value = true;
-
-
-  return usuarioLogado.value;
+  console.log('usuarioEncontrado:', usuarioEncontrado);
+  console.log('cpf:', usuarioEncontrado?.cpf);
+  console.log('email:', usuarioEncontrado?.email);
 }
+
 </script>
 
 <template>
@@ -49,24 +72,11 @@ function login() {
       <h2>Login bem-sucedido!</h2>
       <p><span>Bem-vindo(a), {{ usuarioLogado.nome }}!</span></p>
       <p>Agora você pode acessar a página 'Minha Área' com suas informações.</p>
-      <RouterLink to="/MinhaArea" class="area">Ir para Minha Área</RouterLink>
     </div>
   </section>
 </template>
 
 <style scoped>
-
-.area {
-  margin-top: 10px;
-  display: inline-block;
-  border-radius: 0%;
-  padding: 10px 20px;
-  background-color: #4D41EF;
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-}
-
 .login {
   background-color: #F4F3F3;
   padding: 5vw 20%;
@@ -87,13 +97,11 @@ form {
   display: flex;
   flex-direction: column;
 }
-
 form label {
   font-weight: bold;
   font-size: 1rem;
   margin: 10px 0 0 0;
 }
-
 form input {
 
   padding: 1vw 1.5vw;
@@ -101,7 +109,6 @@ form input {
   border: 1px solid #000;
   font-size: 1rem;
 }
-
 .submeter {
   background-color: #4D41EF;
   color: white;
@@ -121,16 +128,13 @@ form input {
   text-align: center;
   margin: 20% 0 20% 0;
 }
-
 .feito h2 {
   font-size: 2rem;
   margin: 0 0 20px 0;
 }
-
 .feito p {
   font-size: 1.5rem;
 }
-
 .feito p span {
   font-size: 1.7rem;
   font-weight: bold;
