@@ -110,25 +110,26 @@ const localAtendimento = ref('')
 }
 
 .coluna1 {
-    background-color: white;
-    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(to right, #2a26ee, #3d7caf, #58a8c0);
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.7);
     max-width: 400px;
     border-radius: 20px;
     margin-top: 5.65rem;
     margin-bottom: 5.65rem;
-    margin-left: 17rem;    
+    margin-left: 17rem;  
+    color: aliceblue;
 }
+
 .imagem{
     margin: 9vw 0 2vw 0;
     transform: scale(1.7);
-    background: linear-gradient(to right, #4DDC45, #267154, #6949A8);
     border-radius: 2px;
     padding: 4px;
     }
 .data{
     margin: 5vw;
-     background: linear-gradient(to right, #6949A8, #267154, #4DDC45);
-      border-radius: 9px;
+    background: linear-gradient(to right, #2a26ee, #3d7caf, #58a8c0);
+    border-radius: 9px;
 }
 .imagem {
     display: flex;
@@ -176,6 +177,7 @@ div.Banner {
     align-items: center;
     justify-content: space-between;
     margin-bottom: 40px;
+    
 }
 
 .step {
