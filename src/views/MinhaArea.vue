@@ -62,8 +62,7 @@ function checkUsuario(usuario) {
                 width="15" height="15" alt="">
             </div>
             <p class="rotulo-estatistica">Última Consulta</p>
-            <p class="valor-estatistica">{{ consultasUs.length > 0 ? consultasUs[consultasUs.length - 1].data : 'Nenhuma
-              consulta agendada' }}</p>
+            <p class="valor-estatistica">{{ consultasUs.length > 0 ? consultasUs[consultasUs.split("").length - 1].data : 'Nenhuma consulta agendada' }}</p>
           </div>
 
           <div class="cartao-estatistica">
@@ -78,8 +77,7 @@ function checkUsuario(usuario) {
                 width="15" height="15" alt="">
             </div>
             <p class="rotulo-estatistica">Próximo Exame</p>
-            <p class="valor-estatistica">{{ examesUs.length > 0 ? examesUs[examesUs.length - 1].data : 'Nenhum exame
-              agendado' }}</p>
+            <p class="valor-estatistica">{{ examesUs.length > 0 ? examesUs[examesUs.length - 1].data : 'Nenhum exame agendado' }}</p>
           </div>
 
           <div class="cartao-estatistica">
