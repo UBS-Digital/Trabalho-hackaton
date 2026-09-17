@@ -20,13 +20,13 @@ import { RouterLink } from 'vue-router'
       <h3>Links Rápidos</h3>
       <nav>
         <ul>
-          <li><RouterLink to="/"> Home </RouterLink></li>
-          <li><RouterLink to="/AgendarConsulta" >Agendar Consulta</RouterLink></li>
-          <li><RouterLink to="/AgendarExame" >Agendar Exame</RouterLink></li>
-          <li><RouterLink to="/MedicoFamilia" >Médico da familia</RouterLink></li>
-          <li><RouterLink to="/Especialidades" >Especialidades</RouterLink></li>
-          <li><RouterLink to="/Contato" > Contato</RouterLink></li>
-          <li><RouterLink to="/cadastro-usuario">Cadastro</RouterLink></li>
+          <li><RouterLink to="/home"> Home </RouterLink></li>
+          <li><RouterLink to="/agendar-consulta" >Agendar Consulta</RouterLink></li>
+          <li><RouterLink to="/agendar-exame" >Agendar Exame</RouterLink></li>
+          <li><RouterLink to="/medico-familiar" >Médico da familia</RouterLink></li>
+          <li><RouterLink to="/especialidades" >Especialidades</RouterLink></li>
+          <li><RouterLink to="/contato-site" > Contato</RouterLink></li>
+          <li><RouterLink to="/MinhaArea">Cadastro</RouterLink></li>
         </ul>
       </nav>
     </div>
