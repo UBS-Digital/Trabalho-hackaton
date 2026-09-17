@@ -1,9 +1,12 @@
 <script setup>
-
+import { ref } from 'vue';
 import AppBanner from '@/components/Produtos/AppBanner.vue';
 import paginas, { horarios } from '@/components/data/data';
 import chart1 from '../imagem/img1.jpg';
 import chart2 from  '../imagem/image2.jpg';
+import { useUsuario } from '@/composables/usePaciente';
+const { usuarioAtual } = useUsuario();
+const medicoFamiliar = ref(usuarioAtual.value?.medicoFamiliar || null);
 
 </script>
 
@@ -16,10 +19,10 @@ import chart2 from  '../imagem/image2.jpg';
           <div class="cabecalho-perfil">
             <div class="imagem-perfil">PLACEHOLDER</div>
             <div class="informacoes-perfil">
-              <h2>Dr. Carlos Mendes</h2>
-              <p class="subtitulo">Médico da Família • 15 anos de experiência</p>
+              <h2>{{ medicoFamiliar?.nome || 'Dr. Carlos Mendes' }}</h2>
+              <p class="subtitulo">Médico da Família • {{ medicoFamiliar?.experiencia != null ? + medicoFamiliar?.experiencia + ' anos de experiência' : 'Nenhum médico cadastrado' }} </p>
               <p class="descricao">
-                Especialista em Medicina de Família e Comunidade, com foco em atendimento integral e preventivo. Acompanha você e sua família desde Janeiro de 2024.
+                Especialista em {{ medicoFamiliar?.especialidade != null || 'Medicina de Família e Comunidade' }}, com foco em atendimento integral e preventivo. Acompanha você e sua família desde {{ medicoFamiliar?.acompanhamento || 'Janeiro de 2024' }}.
               </p>
               <div class="acoes">
                 <RouterLink to="/agendar-consulta" class="botao primario">Agendar Consulta</RouterLink>

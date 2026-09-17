@@ -81,7 +81,13 @@ function cadastrarConsulta() {
     tel: telPaciente.value,
     cpf: cpfPaciente.value,
     medicamentos: [],
-    medicoFamiliar: 'Não informado',
+    medicoFamiliar: {
+      id: null,
+      nome: 'Não informado',
+      experiencia: null,
+      acompanhamento: '',
+      especialidade: ''
+    },
     exames: [],
     consultas: []
   }, 'paciente');
