@@ -2,21 +2,14 @@
 
 
 
-
-
-
-
-
-
-
-
-
 @import './base.css';
 
-
-
-
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: bold;
 }
 h3 {
@@ -25,7 +18,7 @@ h3 {
 a,
 .green {
   text-decoration: none;
-  color: #418CEF;
+  color: #418cef;
   transition: 0.4s;
   padding: 3px;
   font-weight: bold;
@@ -64,6 +57,6 @@ body {
     'Droid Sans',
     'Helvetica Neue',
     sans-serif;
-  font-size: 15px;
+  font-size: 1rem;
   text-rendering: optimizeLegibility;
 }
