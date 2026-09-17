@@ -26,6 +26,76 @@ const paginas = [
     subtitulo: 'Conheça todas as especialidades disponíveis na UBS Digital e agende sua consulta'
   }
 ];
+const medicosBase = [
+  {
+    nome: 'Dr. Carlos Mendes',
+    certificado: '', //inserir url de um certificado
+    email: 'carlosmender@gmail.com', //email de exemplo. Não existe
+    tel: '423-8922', //telefone de exemplo. Não funciona
+    senha: 'senha', //Essa parte define o que será mostrado na páginah Minha Área ao realizar o login
+    especialidades: ['Clínico Geral'],
+    familiasAssociadas: [
+      {
+        familia: 'Silva',
+        membros: ['Pedro Silva', 'Gabriel Silva'],
+        id: '1'
+      }
+    ],
+    exames: [
+      {
+        tipo: 'Hemograma Completo',
+        data: '02 de maio de 2026',
+        paciente: 'Samuel Costa'
+      },
+      {
+        tipo: 'Raio-X Tórax',
+        data: '20 de abril de 2026',
+        paciente: 'Paulo Vieira'
+      }
+    ],
+    consultas: [
+      {
+        motivo: 'Dor no Abdômen',
+        data: '02 de maio de 2026',
+        paciente: 'Romário Gomes'
+      }
+    ]
+  },
+  {
+    nome: 'Dr. Paulo Henrique Viana',
+    certificado: '', //inserir url de um certificado
+    email: 'carlosmender@gmail.com', //email de exemplo. Não existe
+    tel: '613-8032', //telefone de exemplo. Não funciona
+    senha: 'senha2', //Essa parte define o que será mostrado na páginah Minha Área ao realizar o login
+    especialidades: ['Pediatria', 'Pneumologia'], //Informações com base no(s) certificado(s)
+    familiasAssociadas: [
+      {
+        familia: 'Costa',
+        membros: ['Samuel Costa', 'Henrique Costa'],
+        id: '1'
+      }
+    ],
+    exames: [
+      {
+        tipo: 'Exame de Urina',
+        data: '12 de março de 2026',
+        paciente: 'Samuel Costa'
+      },
+      {
+        tipo: 'Glicemia em Jejum',
+        data: '20 de junho de 2026',
+        paciente: 'Marco Dias'
+      }
+    ],
+    consultas: [
+      {
+        motivo: 'Problemaas para respirar',
+        data: '02 de maio de 2026',
+        paciente: 'Lucas'
+      }
+    ]
+  }
+];
 const pacientesBase = [
   {
     nome: 'Gamaliel',
@@ -122,76 +192,7 @@ const pacientesBase = [
     ]
   }
 ]
-const medicosBase = ref([
-  {
-    nome: 'Dr. Carlos Mendes',
-    certificado: '', //inserir url de um certificado
-    email: 'carlosmender@gmail.com', //email de exemplo. Não existe
-    tel: '423-8922', //telefone de exemplo. Não funciona
-    senha: 'senha', //Essa parte define o que será mostrado na páginah Minha Área ao realizar o login
-    especialidades: ['Clínico Geral'],
-    familiasAssociadas: [
-      {
-        familia: 'Silva',
-        membros: ['Pedro Silva', 'Gabriel Silva'],
-        id: '1'
-      }
-    ],
-    exames: [
-      {
-        tipo: 'Hemograma Completo',
-        data: '02 de maio de 2026',
-        paciente: 'Samuel Costa'
-      },
-      {
-        tipo: 'Raio-X Tórax',
-        data: '20 de abril de 2026',
-        paciente: 'Paulo Vieira'
-      }
-    ],
-    consultas: [
-      {
-        motivo: 'Dor no Abdômen',
-        data: '02 de maio de 2026',
-        paciente: 'Romário Gomes'
-      }
-    ]
-  },
-  {
-    nome: 'Dr. Paulo Henrique Viana',
-    certificado: '', //inserir url de um certificado
-    email: 'carlosmender@gmail.com', //email de exemplo. Não existe
-    tel: '613-8032', //telefone de exemplo. Não funciona
-    senha: 'senha2', //Essa parte define o que será mostrado na páginah Minha Área ao realizar o login
-    especialidades: ['Pediatria', 'Pneumologia'], //Informações com base no(s) certificado(s)
-    familiasAssociadas: [
-      {
-        familia: 'Costa',
-        membros: ['Samuel Costa', 'Henrique Costa'],
-        id: '1'
-      }
-    ],
-    exames: [
-      {
-        tipo: 'Exame de Urina',
-        data: '12 de março de 2026',
-        paciente: 'Samuel Costa'
-      },
-      {
-        tipo: 'Glicemia em Jejum',
-        data: '20 de junho de 2026',
-        paciente: 'Marco Dias'
-      }
-    ],
-    consultas: [
-      {
-        motivo: 'Problemaas para respirar',
-        data: '02 de maio de 2026',
-        paciente: 'Lucas'
-      }
-    ]
-  }
-])
+
 
 export const horarios = ref([
   {
