@@ -1,31 +1,54 @@
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { useUsuario } from '@/composables/usePaciente'
+import { computed, ref } from 'vue';
+import { medicosBase, pacientesBase } from '@/components/data/data';
 
-const router = useRouter()
+const email = ref('');
+const senha = ref('');
+const chaveUsuario = ref(sessionStorage.getItem('usuarioChave') || null);
+const mostrarMensagem = ref(false);
+const erroLogin = ref('');
+const usuarioLogado = ref(null);
 
-const { usuarioLogado, iniciarSessao, encontrarUsuario } = useUsuario()
+function normalizarCpf(cpf) {
+  return cpf ? cpf.replace(/\D/g, '') : '';
+}
 
-const email = ref('')
-const senha = ref('')
-const mostrarMensagem = ref(false)
-const erroLogin = ref('')
+function gerarChaveUsuario(cpf, emailUsuario) {
+  const cpfLimpo = normalizarCpf(cpf);
+  return `${cpfLimpo}_${emailUsuario.trim().toLowerCase()}`;
+}
+
+const usuarioAtual = computed(() => {
+  const chaveAtual = chaveUsuario.value || sessionStorage.getItem('usuarioChave');
+
+  if (!chaveAtual) return null;
+
+  return pacientesBase.find((paciente) => {
+    const chaveGerada = gerarChaveUsuario(paciente.cpf, paciente.email);
+    return chaveGerada === chaveAtual;
+  });
+});
 
 function login() {
-  const usuarioEncontrado = encontrarUsuario(email.value, senha.value)
+  const usuarioEncontrado = [...pacientesBase, ...medicosBase.value].find(
+    (paciente) =>
+      paciente.email.trim().toLowerCase() === email.value.trim().toLowerCase() &&
+      paciente.senha === senha.value
+  );
 
   if (!usuarioEncontrado) {
-    erroLogin.value = 'E-mail ou senha incorretos.'
-    mostrarMensagem.value = false
-    return
+    erroLogin.value = 'E-mail ou senha incorretos.';
+    mostrarMensagem.value = false;
+    return;
   }
 
-  iniciarSessao(usuarioEncontrado)
-  mostrarMensagem.value = true
-
-  return usuarioLogado.value
+  usuarioLogado.value = usuarioEncontrado;
+  mostrarMensagem.value = true;
+  console.log('usuarioEncontrado:', usuarioEncontrado);
+  console.log('cpf:', usuarioEncontrado?.cpf);
+  console.log('email:', usuarioEncontrado?.email);
 }
+
 </script>
 
 <template>
@@ -40,9 +63,6 @@ function login() {
         <input type="password" id="senha" v-model="senha" required />
 
         <button type="submit" class="submeter">Entrar</button>
-        <button type="button" class="cancelar" @click="router.push('/escolha-cadastro')">
-          Cancelar
-        </button>
       </form>
 
       <p v-if="erroLogin" class="erro">{{ erroLogin }}</p>
@@ -50,29 +70,15 @@ function login() {
 
     <div class="feito" v-else-if="usuarioLogado">
       <h2>Login bem-sucedido!</h2>
-      <p>
-        <span>Bem-vindo(a), {{ usuarioLogado.nome }}!</span>
-      </p>
+      <p><span>Bem-vindo(a), {{ usuarioLogado.nome }}!</span></p>
       <p>Agora você pode acessar a página 'Minha Área' com suas informações.</p>
-      <RouterLink to="/MinhaArea" class="area">Ir para Minha Área</RouterLink>
     </div>
   </section>
 </template>
 
 <style scoped>
-.area {
-  margin-top: 10px;
-  display: inline-block;
-  border-radius: 0%;
-  padding: 10px 20px;
-  background-color: #4d41ef;
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-}
-
 .login {
-  background-color: #f4f3f3;
+  background-color: #F4F3F3;
   padding: 5vw 20%;
 }
 
@@ -91,22 +97,20 @@ form {
   display: flex;
   flex-direction: column;
 }
-
 form label {
   font-weight: bold;
   font-size: 1rem;
   margin: 10px 0 0 0;
 }
-
 form input {
+
   padding: 1vw 1.5vw;
   border-radius: 5px;
   border: 1px solid #000;
   font-size: 1rem;
 }
-
 .submeter {
-  background-color: #4d41ef;
+  background-color: #4D41EF;
   color: white;
   padding: 0.5vw 2.5vw 0.5vw 3vw;
   border-radius: 10px;
@@ -120,40 +124,21 @@ form input {
   font-weight: bold;
 }
 
-.cancelar {
-  background-color: #ef4141;
-  color: white;
-  padding: 0.5vw 2.5vw 0.5vw 3vw;
-  border-radius: 10px;
-  border: none;
-  font-size: 1rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 1vw 0 1vw 0;
-  font-weight: bold;
-}
-
 .feito {
   text-align: center;
   margin: 20% 0 20% 0;
 }
-
 .feito h2 {
   font-size: 2rem;
   margin: 0 0 20px 0;
 }
-
 .feito p {
   font-size: 1.5rem;
 }
-
 .feito p span {
   font-size: 1.7rem;
   font-weight: bold;
 }
-
 
 .erro {
   color: #d32f2f;

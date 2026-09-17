@@ -2,9 +2,6 @@
 import { computed, ref } from 'vue'
 import paginas from '@/components/data/data'
 import AppBanner from '@/components/Produtos/AppBanner.vue'
-import { useUsuario } from '@/composables/usePaciente';
-const { usuarioAtual } = useUsuario();
-const consultas = computed(() => usuarioAtual.value?.consultas ?? []);
 
 const especialidades = [
   { nome: 'Pediatria', descricao: 'Saúde infantil', icone: '👩‍⚕️', cor: 'pink' },
@@ -53,16 +50,7 @@ const avancar = () => {
 
   alert(
     `Consulta agendada com sucesso para ${especialidadeSelecionada.value} com ${profissionalSelecionado.value} em ${dataSelecionada.value} às ${horarioSelecionado.value}.`,
-  );
-
-  consultas.value.push({
-    especialidade: especialidadeSelecionada.value,
-    medico: profissionalSelecionado.value,
-    data: dataSelecionada.value,
-    horario: horarioSelecionado.value,
-  });
-
-  resetar();
+  )
 }
 
 const voltarEtapa = () => {
@@ -78,7 +66,6 @@ const resetar = () => {
   dataSelecionada.value = ''
   horarioSelecionado.value = ''
 }
-
 </script>
 
 <template>
