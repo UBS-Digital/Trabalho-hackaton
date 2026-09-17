@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue';
-import { useUsuario } from '@/composables/usePaciente';
+import { useUsuario } from '../composables/usePaciente';
 
 const { usuarioAtual } = useUsuario();
 const nomeUsuario = computed(() => usuarioAtual.value?.nome ?? '');
