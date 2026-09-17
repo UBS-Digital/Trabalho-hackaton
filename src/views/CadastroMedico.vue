@@ -1,9 +1,10 @@
 <script setup>
-import { medicosBase } from '@/components/data/data';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useUsuario } from '@/composables/usePaciente';
 
 const router = useRouter();
+const { registrarUsuario } = useUsuario();
 
 const nomeMedico = ref('');
 const cpfMedico = ref('');
@@ -68,7 +69,7 @@ function cadastrarMedico() {
     return;
   }
 
-  medicosBase.value.push({
+  registrarUsuario({
     nome: nomeMedico.value,
     cpf: cpfMedico.value,
     crm: crmMedico.value,
@@ -80,7 +81,7 @@ function cadastrarMedico() {
     familiasAssociadas: [],
     exames: [],
     consultas: []
-  });
+  }, 'medico');
 
   cadastroFeito.value = true;
 

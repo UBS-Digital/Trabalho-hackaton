@@ -53,7 +53,8 @@ function registrarUsuario(usuario, tipo = 'paciente') {
   const usuariosCadastrados = lerUsuariosCadastrados()
   usuariosCadastrados.push({ tipo, usuario })
   salvarUsuariosCadastrados(usuariosCadastrados)
-  iniciarSessao(usuario)
+
+  return usuario
 }
 
 function encontrarUsuario(email, senha) {
