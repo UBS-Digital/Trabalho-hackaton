@@ -380,8 +380,9 @@ function checkUsuario(usuario) {
               <h2>Seu Médico da Família</h2>
             </div>
 
-            <div class="informacoes-medico">
-              <div class="avatar-medico">{{ medicoFamiliarUs && medicoFamiliarUs.nome ? medicoFamiliarUs.nome.charAt(medicoFamiliarUs.nome.indexOf('Dr.') + 4) : '' }}</div>
+            <div class="informacoes-medico">_
+              <div class="avatar-medico">{{ medicoFamiliarUs && medicoFamiliarUs.nome ?
+                medicoFamiliarUs.nome.charAt(medicoFamiliarUs.nome.indexOf('Dr.') + 4) : '' }}</div>
               <p class="nome-medico">{{ medicoFamiliarUs && medicoFamiliarUs.nome ? medicoFamiliarUs.nome : 'Nãoinformado' }}</p>
             </div>
             <router-link to="/medico-familiar">

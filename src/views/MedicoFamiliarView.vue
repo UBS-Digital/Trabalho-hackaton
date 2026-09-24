@@ -20,9 +20,9 @@ const medicoFamiliar = ref(usuarioAtual.value?.medicoFamiliar || null);
             <div class="imagem-perfil">PLACEHOLDER</div>
             <div class="informacoes-perfil">
               <h2>{{ medicoFamiliar?.nome || 'Dr. Carlos Mendes' }}</h2>
-              <p class="subtitulo">Médico da Família • {{ medicoFamiliar?.experiencia || 15 }} anos de experiência</p>
+              <p class="subtitulo">Médico da Família • {{ medicoFamiliar?.experiencia != null ? + medicoFamiliar?.experiencia + ' anos de experiência' : 'Nenhum médico cadastrado' }} </p>
               <p class="descricao">
-                Especialista em {{ medicoFamiliar?.especialidade || 'Medicina de Família e Comunidade' }}, com foco em atendimento integral e preventivo. Acompanha você e sua família desde {{ medicoFamiliar?.acompanhamento || 'Janeiro de 2024' }}.
+                Especialista em {{ medicoFamiliar?.especialidade != null || 'Medicina de Família e Comunidade' }}, com foco em atendimento integral e preventivo. Acompanha você e sua família desde {{ medicoFamiliar?.acompanhamento || 'Janeiro de 2024' }}.
               </p>
               <div class="acoes">
                 <RouterLink to="/agendar-consulta" class="botao primario">Agendar Consulta</RouterLink>

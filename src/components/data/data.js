@@ -27,13 +27,12 @@ const paginas = [
   }
 ];
 
-
-const medicosBase = [
+let medicosBase = [
   {
     nome: 'Dr. Carlos Mendes',
-    id: 1,
+    id: 2,
     certificado: '', //inserir url de um certificado
-    experiencia: 12, //anos de experiência
+    experiencia: 15, //anos de experiência
     email: 'carlosmender@gmail.com', //email de exemplo. Não existe
     tel: '423-8922', //telefone de exemplo. Não funciona
     senha: 'senha', //Essa parte define o que será mostrado na páginah Minha Área ao realizar o login
@@ -67,9 +66,7 @@ const medicosBase = [
   },
   {
     nome: 'Dr. Paulo Henrique Viana',
-    id: 2,
     certificado: '', //inserir url de um certificado
-    experiencia: 15, //anos de experiência
     email: 'carlosmender@gmail.com', //email de exemplo. Não existe
     tel: '613-8032', //telefone de exemplo. Não funciona
     senha: 'senha2', //Essa parte define o que será mostrado na páginah Minha Área ao realizar o login
@@ -193,10 +190,15 @@ let pacientesBase = [
     exames: [
       {
         id: 1,
+        tipo: 'Exame de Urina',
+        data: '12 de março de 2026',
+        medico: 'Dr. Paulo Henrique Viana'
+      },
+      {
+        id: 2,
         tipo: 'Hemograma Completo',
         data: '02 de maio de 2026',
-        medico: 'Dr. Carlos Mendes',
-        horario: '14:30'
+        medico: 'Dr. Carlos Mendes'
       },
     ],
     consultas: [
@@ -205,22 +207,49 @@ let pacientesBase = [
         especialidade: 'Pneumologista',
         motivo: 'Dificuldade para respirar',
         data: '02 de maio de 2026',
-        medico: 'Dr. Carlos Mendes',
-        horario: '14:30'
+        medico: 'Dr. Carlos Mendes'
       }
     ]
   }
 ]
 
 export const horarios = ref([
-  { id: 1, dia: 'Segunda-feira', horariosDisponiveis: ['08:00 - 20:00'] },
-  { id: 2, dia: 'Terça-feira', horariosDisponiveis: ['08:00 - 20:00'] },
-  { id: 3, dia: 'Quarta-feira', horariosDisponiveis: ['08:00 - 20:00'] },
-  { id: 4, dia: 'Quinta-feira', horariosDisponiveis: ['08:00 - 20:00'] },
-  { id: 5, dia: 'Sexta-feira', horariosDisponiveis: ['08:00 - 20:00'] },
-  { id: 6, dia: 'Sabado', horariosDisponiveis: ['08:00 - 17:00'] },
-  { id: 7, dia: 'Domingo', horariosDisponiveis: ['FECHADO'] }
-]);
+  {
+    id: 1,
+    dia: 'Segunda-feira',
+    horariosDisponiveis: ['08:00 - 20:00'],
+  },
+  {
+    id: 2,
+    dia: 'Terça-feira',
+    horariosDisponiveis: ['08:00 - 20:00'],
+  },
+  {
+    id: 3,
+    dia: 'Quarta-feira',
+    horariosDisponiveis: ['08:00 - 20:00'],
+  },
+  {
+    id: 4,
+    dia: 'Quinta-feira',
+    horariosDisponiveis: ['08:00 - 20:00'],
+  },
+  {
+    id: 5,
+    dia: 'Sexta-feira',
+    horariosDisponiveis: ['08:00 - 20:00'],
+  },
+  {
+    id: 6,
+    dia: 'Sabado',
+    horariosDisponiveis: ['08:00 - 17:00'],
+  },
+  {
+    id: 7,
+    dia: 'Domingo',
+    horariosDisponiveis: ['FECHADO'],
+  }
+])
 
 export default paginas;
 export { pacientesBase };

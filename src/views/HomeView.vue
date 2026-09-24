@@ -18,7 +18,7 @@
 
 
           <div class="a">
-            <RouterLink to="/login" class="botaoum">Agendar consultas </RouterLink>
+            <RouterLink to="/login-usuario" class="botaoum">Agendar consultas </RouterLink>
             <RouterLink to="/agendar-exame" class="botao">Agendar exames<img src="/src/imagem/hospital.png" alt=""></RouterLink>
           </div>
         </div>
@@ -234,7 +234,7 @@
     <p>Agende sua consulta agora mesmo e tenha acesso a um atendimento de qualidade</p>
 
     <div class="a">
-        <a href="" class="botaoAgendar">Agendar agora<img src="/src/imagem/Calendario.png" alt=""></a>
+        <RouterLink to="/agendar-consulta" class="botaoAgendar" >Agendar agora <img src="/src/imagem/Calendario.png" alt=""></RouterLink>
         <RouterLink to="/cadastro-usuario" class="botaoConta">Criar conta</RouterLink>
     </div>
 </div>
