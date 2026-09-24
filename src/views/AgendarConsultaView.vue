@@ -56,6 +56,7 @@ const avancar = () => {
   );
 
   consultas.value.push({
+    id: consultas.value.length + 1,
     especialidade: especialidadeSelecionada.value,
     medico: profissionalSelecionado.value,
     data: dataSelecionada.value,
