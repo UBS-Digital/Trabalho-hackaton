@@ -13,7 +13,11 @@ const mostrarMensagem = ref(false)
 const erroLogin = ref('')
 
 function login() {
-  const usuarioEncontrado = encontrarUsuario(email.value, senha.value)
+  const usuarioEncontrado = [...pacientesBase, ...medicosBase].find(
+    (usuario) =>
+      usuario.email.trim().toLowerCase() === email.value.trim().toLowerCase() &&
+      usuario.senha === senha.value
+  );
 
   if (!usuarioEncontrado) {
     erroLogin.value = 'E-mail ou senha incorretos.'
@@ -21,8 +25,16 @@ function login() {
     return
   }
 
-  iniciarSessao(usuarioEncontrado)
-  mostrarMensagem.value = true
+  erroLogin.value = '';
+  const chave = gerarChaveUsuario(usuarioEncontrado.cpf ?? '', usuarioEncontrado.email);
+  chaveUsuario.value = chave;
+  sessionStorage.setItem('usuarioChave', chave);
+  usuarioLogado.value = usuarioEncontrado;
+  mostrarMensagem.value = true;
+  console.log('usuarioEncontrado:', usuarioEncontrado);
+  console.log('cpf:', usuarioEncontrado?.cpf);
+  console.log('email:', usuarioEncontrado?.email);
+}
 
   return usuarioLogado.value
 }
@@ -55,6 +67,7 @@ function login() {
       </p>
       <p>Agora você pode acessar a página 'Minha Área' com suas informações.</p>
       <RouterLink to="/MinhaArea" class="area">Ir para Minha Área</RouterLink>
+    
     </div>
   </section>
 </template>
@@ -65,10 +78,15 @@ function login() {
   display: inline-block;
   border-radius: 0%;
   padding: 10px 20px;
-  background-color: #4d41ef;
+  background-color: #4D41EF;
   color: white;
   text-decoration: none;
   font-weight: bold;
+}
+
+.login {
+  background-color: #F4F3F3;
+  padding: 5vw 20%;
 }
 
 .login {

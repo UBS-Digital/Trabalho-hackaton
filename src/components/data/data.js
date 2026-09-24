@@ -26,106 +26,13 @@ const paginas = [
     subtitulo: 'Conheça todas as especialidades disponíveis na UBS Digital e agende sua consulta'
   }
 ];
-const pacientesBase = [
-  {
-    nome: 'Gamaliel',
-    peso: 72,
-    genero: 'M',
-    cpf: '123.456.789-00', //CPF de exemplo
-    email: 'gamaliel@gmail.com', //esqueci seu email, Gama, foi mal
-    tel: '4002-8922', //telefone de exemplo
-    senha: 'senha', //Essa parte define o que será mostrado na páginah Minha Área ao realizar o login
-    medicamentos: [
-      {
-        nome: 'Losartana',
-        dose: 50,
-        vezes: 1,
-        horarios: ['noite']
-      },
-      {
-        nome: 'Metformina',
-        dose: 850,
-        vezes: 2,
-        horarios: ['manhã', 'noite']
-      }
-    ],
-    medicoFamiliar: {
-      nome: 'Dr. Carlos Mendes',
-      id: medicosBase.find(medico => medico.nome === 'Dr. Carlos Mendes')?.id || null,
-      experiencia: medicosBase.find(medico => medico.nome === 'Dr. Carlos Mendes')?.experiencia || null,
-      acompanhamento: 'Janeiro de 2024',
-      especialidade: medicosBase.find(medico => medico.nome === 'Dr. Carlos Mendes')?.especialidades[0] || null
-    },
-    exames: [
-      {
-        tipo: 'Hemograma Completo',
-        data: '02 de maio de 2026',
-        medico: 'Dr. Carlos Mendes'
-      },
-      {
-        tipo: 'Raio-X Tórax',
-        data: '20 de abril de 2026',
-        medico: 'Dr. Paulo Costa'
-      }
-    ],
-    consultas: [
-      {
-        motivo: 'Dor no Abdômen',
-        data: '02 de maio de 2026',
-        medico: 'Dr. Carlos Mendes'
-      }
-    ]
-  },
-  {
-    nome: 'Lucas',
-    peso: 75,
-    genero: 'M',
-    cpf: '183.156.459-90', //CPF de exemplo
-    email: 'lucaseliel15032010@gamil.com',
-    tel: '47 99183-3045',
-    senha: 'Senha2',
-    medicamentos: [
-      {
-        nome: 'PuranT4',
-        dose: 37.5,
-        vezes: 1,
-        horarios: ['Manhã']
-      },
-      {
-        nome: 'Symbicort',
-        dose: 200,
-        vezes: 2,
-        horarios: ['manhã', 'noite']
-      }
-    ],
-    medicoFamiliar: {
-      nome: 'Dr. Paulo Henrique Viana',
-      id: medicosBase.find(medico => medico.nome === 'Dr. Paulo Henrique Viana')?.id || null,
-      experiencia: medicosBase.find(medico => medico.nome === 'Dr. Paulo Henrique Viana')?.experiencia || null,
-      acompanhamento: 'Fevereiro de 2021',
-      especialidade: medicosBase.find(medico => medico.nome === 'Dr. Paulo Henrique Viana')?.especialidades[0] || null
-    },
-    exames: [
-      {
-        tipo: 'Hemograma Completo',
-        data: '02 de maio de 2026',
-        medico: 'Dr. Carlos Mendes'
-      },
-    ],
-    consultas: [
-      {
-        especialidade: 'Pneumologista',
-        motivo: 'Dificuldade para respirar',
-        data: '02 de maio de 2026',
-        medico: 'Dr. Carlos Mendes'
-      }
-    ]
-  }
-]
-const medicosBase = ref([
+
+let medicosBase = [
   {
     nome: 'Dr. Carlos Mendes',
+    id: 2,
     certificado: '', //inserir url de um certificado
+    experiencia: 15, //anos de experiência
     email: 'carlosmender@gmail.com', //email de exemplo. Não existe
     tel: '423-8922', //telefone de exemplo. Não funciona
     senha: 'senha', //Essa parte define o que será mostrado na páginah Minha Área ao realizar o login
@@ -191,7 +98,120 @@ const medicosBase = ref([
       }
     ]
   }
-])
+]
+let pacientesBase = [
+  {
+    nome: 'Gamaliel',
+    peso: 72,
+    genero: 'M',
+    cpf: '123.456.789-00', //CPF de exemplo
+    email: 'gamaliel@gmail.com', //esqueci seu email, Gama, foi mal
+    tel: '4002-8922', //telefone de exemplo
+    senha: 'senha', //Essa parte define o que será mostrado na páginah Minha Área ao realizar o login
+    medicamentos: [
+      {
+        nome: 'Losartana',
+        dose: 50,
+        vezes: 1,
+        horarios: ['noite']
+      },
+      {
+        nome: 'Metformina',
+        dose: 850,
+        vezes: 2,
+        horarios: ['manhã', 'noite']
+      }
+    ],
+    medicoFamiliar: {
+      nome: 'Dr. Carlos Mendes',
+      id: medicosBase.find(medico => medico.nome === 'Dr. Carlos Mendes')?.id || null,
+      experiencia: medicosBase.find(medico => medico.nome === 'Dr. Carlos Mendes')?.experiencia || null,
+      acompanhamento: 'Janeiro de 2024',
+      especialidade: medicosBase.find(medico => medico.nome === 'Dr. Carlos Mendes')?.especialidades[0] || null
+    },
+    exames: [
+      {
+        id: 1,
+        tipo: 'Hemograma Completo',
+        data: '02 de maio de 2026',
+        medico: 'Dr. Carlos Mendes',
+        horario: '14:30'
+      },
+      {
+        id: 2,
+        tipo: 'Raio-X Tórax',
+        data: '20 de abril de 2026',
+        medico: 'Dr. Paulo Costa',
+        horario: '10:00'
+      }
+    ],
+    consultas: [
+      {
+        id: 1,
+        especialidade: 'Clínico Geral',
+        motivo: 'Dor no Abdômen',
+        data: '02 de maio de 2026',
+        medico: 'Dr. Carlos Mendes',
+        horario: '14:30'
+      }
+    ]
+  },
+  {
+    nome: 'Lucas',
+    peso: 75,
+    genero: 'M',
+    cpf: '183.156.459-90', //CPF de exemplo
+    email: 'lucaseliel15032010@gamil.com',
+    tel: '47 99183-3045',
+    senha: 'Senha2',
+    medicamentos: [
+      {
+        id: 1,
+        nome: 'PuranT4',
+        dose: 37.5,
+        vezes: 1,
+        horarios: ['Manhã']
+      },
+      {
+        id: 2,
+        nome: 'Symbicort',
+        dose: 200,
+        vezes: 2,
+        horarios: ['manhã', 'noite']
+      }
+    ],
+    medicoFamiliar: {
+      nome: 'Dr. Paulo Henrique Viana',
+      id: medicosBase.find(medico => medico.nome === 'Dr. Paulo Henrique Viana')?.id || null,
+      experiencia: medicosBase.find(medico => medico.nome === 'Dr. Paulo Henrique Viana')?.experiencia || null,
+      acompanhamento: 'Fevereiro de 2021',
+      especialidade: medicosBase.find(medico => medico.nome === 'Dr. Paulo Henrique Viana')?.especialidades[0] || null
+    },
+    exames: [
+      {
+        id: 1,
+        tipo: 'Exame de Urina',
+        data: '12 de março de 2026',
+        medico: 'Dr. Paulo Henrique Viana'
+      },
+      {
+        id: 2,
+        tipo: 'Hemograma Completo',
+        data: '02 de maio de 2026',
+        medico: 'Dr. Carlos Mendes'
+      },
+    ],
+    consultas: [
+      {
+        id: 1,
+        especialidade: 'Pneumologista',
+        motivo: 'Dificuldade para respirar',
+        data: '02 de maio de 2026',
+        medico: 'Dr. Carlos Mendes'
+      }
+    ]
+  }
+]
 
 export const horarios = ref([
   {

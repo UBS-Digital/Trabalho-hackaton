@@ -18,7 +18,7 @@
 
 
           <div class="a">
-            <RouterLink to="/login" class="botaoum">Agendar consultas </RouterLink>
+            <RouterLink to="/login-usuario" class="botaoum">Agendar consultas </RouterLink>
             <RouterLink to="/agendar-exame" class="botao">Agendar exames<img src="/src/imagem/hospital.png" alt=""></RouterLink>
           </div>
         </div>
