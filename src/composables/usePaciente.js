@@ -1,9 +1,9 @@
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { medicosBase, pacientesBase } from '@/components/data/data'
 
-const chaveUsuario = ref(sessionStorage.getItem('usuarioChave') || null)
-const usuarioLogado = ref(null)
-const USUARIOS_STORAGE_KEY = 'usuariosCadastrados'
+let chaveUsuario = sessionStorage.getItem('usuarioChave') || null
+let usuarioLogado = null
+let USUARIOS_STORAGE_KEY = 'usuariosCadastrados'
 
 function lerUsuariosCadastrados() {
   try {
@@ -36,13 +36,13 @@ function normalizarCpf(cpf) {
 
 function gerarChaveUsuario(cpf, emailUsuario) {
   const cpfLimpo = normalizarCpf(cpf)
-  return `${cpfLimpo}_${emailUsuario.trim().toLowerCase()}`
+  return `${cpfLimpo}_${emailUsuario}`
 }
 
 function iniciarSessao(usuario) {
   const chave = gerarChaveUsuario(usuario.cpf, usuario.email)
-  chaveUsuario.value = chave
-  usuarioLogado.value = usuario
+  chaveUsuario = chave
+  usuarioLogado = usuario
   sessionStorage.setItem('usuarioChave', chave)
 }
 
@@ -57,7 +57,7 @@ function registrarUsuario(usuario, tipo = 'paciente') {
 }
 
 function encontrarUsuario(email, senha) {
-  return [...pacientesBase, ...medicosBase].find(
+  return [pacientesBase, medicosBase].find(
     (usuario) =>
       usuario.email.trim().toLowerCase() === email.trim().toLowerCase() &&
       usuario.senha === senha
@@ -69,7 +69,7 @@ const usuarioAtual = computed(() => {
 
   if (!chaveAtual) return null
 
-  return [...pacientesBase, ...medicosBase].find((usuario) => {
+  return [pacientesBase, medicosBase].find((usuario) => {
     const chaveGerada = gerarChaveUsuario(usuario.cpf, usuario.email)
     return chaveGerada === chaveAtual
   })
