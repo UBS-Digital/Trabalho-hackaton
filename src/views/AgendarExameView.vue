@@ -69,6 +69,7 @@ function avancar() {
   if (!exame) return
 
   examesAgendados.value.push({
+    id: examesAgendados.value.length + 1,
     tipo: exame.nome,
     data: dataSelecionada.value,
     medico: 'Dr. Carlos Mendes',
