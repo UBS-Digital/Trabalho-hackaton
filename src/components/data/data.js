@@ -67,7 +67,7 @@ let medicosBase = [
   {
     nome: 'Dr. Paulo Henrique Viana',
     certificado: '', //inserir url de um certificado
-    email: 'carlosmender@gmail.com', //email de exemplo. Não existe
+    email: 'parulohenriquedr@gmail.com', //email de exemplo. Não existe
     tel: '613-8032', //telefone de exemplo. Não funciona
     senha: 'senha2', //Essa parte define o que será mostrado na páginah Minha Área ao realizar o login
     especialidades: ['Pediatria', 'Pneumologia'], //Informações com base no(s) certificado(s)

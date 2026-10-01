@@ -1,11 +1,24 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { useUsuario } from '@/composables/usePaciente'
 import { pacientesBase, medicosBase } from '@/components/data/data'
+import { useUsuario } from '@/composables/usePaciente'
 
-const router = useRouter()
-const { usuarioLogado, chaveUsuario, gerarChaveUsuario } = useUsuario()
+const router = useRouter();
+const { usuarioLogado, chaveUsuario, gerarChaveUsuario } = useUsuario();
+const usuarioDaSessao = computed(() => {
+  const chave = sessionStorage.getItem('usuarioChave')
+  if (!chave) return null
+
+  return [...pacientesBase, ...medicosBase].find((usuario) => {
+    const gerada = gerarChaveUsuario(usuario.cpf, usuario.email)
+    return gerada === chave
+  })
+})
+
+if (usuarioDaSessao.value) {
+  usuarioLogado.value = usuarioDaSessao.value
+}
 
 const email = ref('')
 const senha = ref('')
@@ -13,28 +26,26 @@ const mostrarMensagem = ref(false)
 const erroLogin = ref('')
 
 function login() {
+  const emailDigitado = email.value.trim()
+  const senhaDigitada = senha.value
+
   const usuarioEncontrado = [...pacientesBase, ...medicosBase].find(
     (usuario) =>
-      usuario.email === email.value &&
-      usuario.senha === senha.value
-  );
+      usuario.email.trim().toLowerCase() === emailDigitado &&
+      usuario.senha === senhaDigitada
+  )
 
   if (!usuarioEncontrado) {
     erroLogin.value = 'E-mail ou senha incorretos.'
     mostrarMensagem.value = false
-    return mostrarMensagem;
+    return
   }
 
-  erroLogin.value = '';
-  const chave = gerarChaveUsuario(usuarioEncontrado.cpf ?? '', usuarioEncontrado.email);
-  chaveUsuario.value = chave;
-  sessionStorage.setItem('usuarioChave', chave);
-  usuarioLogado.value = usuarioEncontrado;
-  mostrarMensagem.value = true;
-  console.log('usuarioEncontrado:', usuarioEncontrado);
-  console.log('cpf:', usuarioEncontrado?.cpf);
-  console.log('email:', usuarioEncontrado?.email);
-  return usuarioLogado.value;
+  const chave = gerarChaveUsuario(usuarioEncontrado.cpf ?? '', usuarioEncontrado.email)
+  chaveUsuario.value = chave
+  sessionStorage.setItem('usuarioChave', chave)
+  usuarioLogado.value = usuarioEncontrado
+  mostrarMensagem.value = true
 }
 
 
@@ -52,7 +63,7 @@ function login() {
         <label for="senha">Senha:</label>
         <input type="password" id="senha" v-model="senha" required />
 
-        <button type="submit" class="submeter" @click="login">Entrar</button>
+        <button type="submit" class="submeter">Entrar</button>
         <button type="button" class="cancelar" @click="router.push('/escolha-cadastro')">
           Cancelar
         </button>
