@@ -61,7 +61,7 @@ function checkUsuario(usuario) {
                 src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23d1d5db%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%3Cpath%20d%3D%22M7%207h10v10%22%20%2F%3E%3Cpath%20d%3D%22M7%2017%2017%207%22%20%2F%3E%3C%2Fsvg%3E"
                 width="15" height="15" alt="">
             </div>
-            <p class="rotulo-estatistica">Última Consulta</p>
+            <p class="rotulo-estatistica">Última Consulta Agendada</p>
             <p class="valor-estatistica">{{ consultasUs.length > 0 ? consultasUs[consultasUs.length - 1].data : 'Nenhuma consulta agendada' }}</p>
           </div>
 
@@ -76,7 +76,7 @@ function checkUsuario(usuario) {
                 src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23d1d5db%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%3Cpath%20d%3D%22M7%207h10v10%22%20%2F%3E%3Cpath%20d%3D%22M7%2017%2017%207%22%20%2F%3E%3C%2Fsvg%3E"
                 width="15" height="15" alt="">
             </div>
-            <p class="rotulo-estatistica">Próximo Exame</p>
+            <p class="rotulo-estatistica">Últim Exame Agendado</p>
             <p class="valor-estatistica">{{ examesUs.length > 0 ? examesUs[examesUs.length - 1].data : 'Nenhum exame agendado' }}</p>
           </div>
 
@@ -272,7 +272,7 @@ function checkUsuario(usuario) {
                 <img
                   src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%2316a34a%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%3Cpath%20d%3D%22M6%2022a2%202%200%200%201-2-2V4a2%202%200%200%201%202-2h8a2.4%202.4%200%200%201%201.704.706l3.588%203.588A2.4%202.4%200%200%201%2020%208v12a2%202%200%200%201-2%202z%22%20%2F%3E%3Cpath%20d%3D%22M14%202v5a1%201%200%200%200%201%201h5%22%20%2F%3E%3Cpath%20d%3D%22M10%209H8%22%20%2F%3E%3Cpath%20d%3D%22M16%2013H8%22%20%2F%3E%3Cpath%20d%3D%22M16%2017H8%22%20%2F%3E%3C%2Fsvg%3E"
                   width="20" height="20" alt="">
-                <h2>Resultados de Exames</h2>
+                <h2>Seus Exames Agendados</h2>
               </div>
               <router-link to="/agendar-exame" class="botao-contorno-azul">Agendar Novo</router-link>
             </div>
