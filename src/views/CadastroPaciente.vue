@@ -67,7 +67,7 @@ function resetarFormulario() {
 }
 */
 
-function cadastrarConsulta() {
+function cadastrarUsuario() {
   if (!validarFormulario()) {
     return;
   }
@@ -102,7 +102,7 @@ function cadastrarConsulta() {
 
 
 
-      <form @submit.prevent="cadastrarConsulta">
+      <form @submit.prevent="cadastrarUsuario">
         <label for="nome">Nome Completo:</label>
         <input id="nome" v-model="nomePaciente" placeholder="Nome Completo*" />
         <span v-if="erros.nome" class="erro">{{ erros.nome }}</span>

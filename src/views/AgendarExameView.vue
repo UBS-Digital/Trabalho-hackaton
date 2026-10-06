@@ -81,7 +81,7 @@ function avancar() {
   )
 
   resetar()
-  router.push(exame.rota)
+  router.push("MinhaArea");
 }
 
 function voltarEtapa() {

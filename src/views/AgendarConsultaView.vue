@@ -3,7 +3,9 @@ import { computed, ref } from 'vue'
 import paginas from '@/components/data/data'
 import AppBanner from '@/components/Produtos/AppBanner.vue'
 import { useUsuario } from '@/composables/usePaciente'
+import { useRouter } from 'vue-router'
 
+const router = useRouter();
 const { usuarioAtual } = useUsuario()
 const consultas = computed(() => usuarioAtual.value?.consultas ?? [])
 
@@ -72,6 +74,7 @@ const avancar = () => {
   )
 
   resetar()
+  router.push("MinhaArea")
 }
 
 const voltarEtapa = () => {

@@ -26,9 +26,9 @@ defineProps({
 
       <div class="listas">
       <RouterLink to="/home">Home</RouterLink>
-      <RouterLink to="/agendar-consulta">Agendar-Consulta</RouterLink>
-      <RouterLink to="/agendar-exame">Agendar-Exame</RouterLink>
-      <RouterLink to="/medico-familiar">Medico-Familiar</RouterLink>
+      <RouterLink to="/agendar-consulta">Agendar Consulta</RouterLink>
+      <RouterLink to="/agendar-exame">Agendar Exame</RouterLink>
+      <RouterLink to="/medico-familiar">Medico Familiar</RouterLink>
       <RouterLink to="/especialidades">Especialidades</RouterLink>
       <RouterLink to="/contato-site">Contato</RouterLink>
 
