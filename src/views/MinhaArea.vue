@@ -107,7 +107,7 @@ function checkUsuario(usuario) {
                 width="15" height="15" alt="">
             </div>
             <p class="rotulo-estatistica">Peso</p>
-            <p class="valor-estatistica">{{ pesoUs + "Kg" || 'Peso não informado' }}</p>
+            <p class="valor-estatistica">{{ (pesoUs !== "")? pesoUs + "Kg" : "Peso não informado" }}</p>
           </div>
         </div>
       </div>
@@ -139,7 +139,7 @@ function checkUsuario(usuario) {
                   width="20" height="20" alt="">
                 <h2>Próximas Consultas</h2>
               </div>
-              <router-link to="/agendar-exame">
+              <router-link to="/agendar-consulta">
                 <button class="botao-contorno-azul">Agendar Novo</button>
               </router-link>
             </div>
@@ -274,7 +274,7 @@ function checkUsuario(usuario) {
                   width="20" height="20" alt="">
                 <h2>Resultados de Exames</h2>
               </div>
-              <router-link to="/minha-area" class="link-ver-todos">Ver Todos</router-link>
+              <router-link to="/agendar-exame" class="botao-contorno-azul">Agendar Novo</router-link>
             </div>
             <div v-if="examesUs.tipo === 'undefined' || examesUs.length === 0" class="nenhum-agendamento-container">
               <p class="nenhum-agendamento">Nenhum exame concluído...</p>
