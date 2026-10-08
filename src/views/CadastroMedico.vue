@@ -2,9 +2,9 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUsuario } from '@/composables/usePaciente';
-
-const router = useRouter();
 const { registrarUsuario } = useUsuario();
+const router = useRouter();
+
 
 const nomeMedico = ref('');
 const cpfMedico = ref('');
@@ -64,27 +64,25 @@ function validarFormulario() {
   return Object.keys(erros.value).length === 0;
 }
 
-function cadastrarMedico() {
+function cadastrarUsuario() {
   if (!validarFormulario()) {
     return;
   }
 
   registrarUsuario({
     nome: nomeMedico.value,
-    cpf: cpfMedico.value,
     crm: crmMedico.value,
+    especialidade: especialidadeMedico.value,
     certificado: certificadoMedico.value,
     email: emailMedico.value,
-    tel: telMedico.value,
     senha: senhaMedico.value,
-    especialidades: [especialidadeMedico.value],
+    tel: telMedico.value,
+    cpf: cpfMedico.value,
     familiasAssociadas: [],
     exames: [],
     consultas: []
   }, 'medico');
-
-  cadastroFeito.value = true;
-
+  router.push('/MinhaArea');
 }
 </script>
 <template>
@@ -94,7 +92,7 @@ function cadastrarMedico() {
 
 
 
-      <form @submit.prevent="cadastrarMedico">
+      <form @submit.prevent="cadastrarUsuario">
         <label for="nome">Nome Completo:</label>
         <input id="nome" v-model="nomeMedico" placeholder="Nome Completo*" />
         <small v-if="erros.nome" class="erro">{{ erros.nome }}</small>

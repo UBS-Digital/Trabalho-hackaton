@@ -2,6 +2,12 @@
 import { computed, ref } from 'vue'
 import paginas from '@/components/data/data'
 import AppBanner from '@/components/Produtos/AppBanner.vue'
+import { useUsuario } from '@/composables/usePaciente'
+import { useRouter } from 'vue-router'
+
+const router = useRouter();
+const { usuarioAtual } = useUsuario()
+const consultas = computed(() => usuarioAtual.value?.consultas ?? [])
 
 const especialidades = [
   { nome: 'Pediatria', descricao: 'Saúde infantil', icone: '👩‍⚕️', cor: 'pink' },
@@ -48,9 +54,27 @@ const avancar = () => {
     return
   }
 
+  if (!usuarioAtual.value) {
+    alert('Você precisa estar logado para agendar uma consulta.')
+    return
+  }
+
+  const novaConsulta = {
+    id: (consultas.value.length || 0) + 1,
+    especialidade: especialidadeSelecionada.value,
+    medico: profissionalSelecionado.value,
+    data: dataSelecionada.value,
+    horario: horarioSelecionado.value,
+  }
+
+  usuarioAtual.value.consultas = [...(usuarioAtual.value.consultas || []), novaConsulta]
+
   alert(
     `Consulta agendada com sucesso para ${especialidadeSelecionada.value} com ${profissionalSelecionado.value} em ${dataSelecionada.value} às ${horarioSelecionado.value}.`,
   )
+
+  resetar()
+  router.push("MinhaArea")
 }
 
 const voltarEtapa = () => {
@@ -95,12 +119,9 @@ const resetar = () => {
       <div v-if="etapa === 1" class="panel-block">
         <h2>Selecione a Especialidade</h2>
         <div class="specialty-grid">
-          <article
-            v-for="item in especialidades"
-            :key="item.nome"
+          <article v-for="item in especialidades" :key="item.nome"
             :class="['specialty-card', { selected: especialidadeSelecionada === item.nome }]"
-            @click="especialidadeSelecionada = item.nome"
-          >
+            @click="especialidadeSelecionada = item.nome">
             <div :class="['icon-box', item.cor]">
               <span>{{ item.icone }}</span>
             </div>
@@ -115,12 +136,9 @@ const resetar = () => {
       <div v-else-if="etapa === 2" class="panel-block">
         <h2>Selecione o Profissional</h2>
         <div class="professional-list">
-          <button
-            v-for="profissional in profissionalLista"
-            :key="profissional"
+          <button v-for="profissional in profissionalLista" :key="profissional"
             :class="['professional-btn', { selected: profissionalSelecionado === profissional }]"
-            @click="profissionalSelecionado = profissional"
-          >
+            @click="profissionalSelecionado = profissional">
             {{ profissional }}
           </button>
         </div>
@@ -459,6 +477,7 @@ const resetar = () => {
 }
 
 @media (max-width: 980px) {
+
   .schedule-grid,
   .professional-list,
   .specialty-grid {

@@ -25,10 +25,13 @@ const paginas = [
     subtitulo: 'Conheça todas as especialidades disponíveis na UBS Digital e agende sua consulta'
   }
 ];
-const medicosBase = [
+
+let medicosBase = [
   {
     nome: 'Dr. Carlos Mendes',
+    id: 2,
     certificado: '', //inserir url de um certificado
+    experiencia: 15, //anos de experiência
     email: 'carlosmender@gmail.com', //email de exemplo. Não existe
     tel: '423-8922', //telefone de exemplo. Não funciona
     senha: 'senha', //Essa parte define o que será mostrado na páginah Minha Área ao realizar o login
@@ -63,7 +66,7 @@ const medicosBase = [
   {
     nome: 'Dr. Paulo Henrique Viana',
     certificado: '', //inserir url de um certificado
-    email: 'carlosmender@gmail.com', //email de exemplo. Não existe
+    email: 'parulohenriquedr@gmail.com', //email de exemplo. Não existe
     tel: '613-8032', //telefone de exemplo. Não funciona
     senha: 'senha2', //Essa parte define o que será mostrado na páginah Minha Área ao realizar o login
     especialidades: ['Pediatria', 'Pneumologia'], //Informações com base no(s) certificado(s)
@@ -94,8 +97,8 @@ const medicosBase = [
       }
     ]
   }
-];
-const pacientesBase = [
+]
+let pacientesBase = [
   {
     nome: 'Gamaliel',
     peso: 72,
@@ -127,21 +130,28 @@ const pacientesBase = [
     },
     exames: [
       {
+        id: 1,
         tipo: 'Hemograma Completo',
         data: '02 de maio de 2026',
-        medico: 'Dr. Carlos Mendes'
+        medico: 'Dr. Carlos Mendes',
+        horario: '14:30'
       },
       {
+        id: 2,
         tipo: 'Raio-X Tórax',
         data: '20 de abril de 2026',
-        medico: 'Dr. Paulo Costa'
+        medico: 'Dr. Paulo Costa',
+        horario: '10:00'
       }
     ],
     consultas: [
       {
+        id: 1,
+        especialidade: 'Clínico Geral',
         motivo: 'Dor no Abdômen',
         data: '02 de maio de 2026',
-        medico: 'Dr. Carlos Mendes'
+        medico: 'Dr. Carlos Mendes',
+        horario: '14:30'
       }
     ]
   },
@@ -155,12 +165,14 @@ const pacientesBase = [
     senha: 'Senha2',
     medicamentos: [
       {
+        id: 1,
         nome: 'PuranT4',
         dose: 37.5,
         vezes: 1,
         horarios: ['Manhã']
       },
       {
+        id: 2,
         nome: 'Symbicort',
         dose: 200,
         vezes: 2,
@@ -176,6 +188,13 @@ const pacientesBase = [
     },
     exames: [
       {
+        id: 1,
+        tipo: 'Exame de Urina',
+        data: '12 de março de 2026',
+        medico: 'Dr. Paulo Henrique Viana'
+      },
+      {
+        id: 2,
         tipo: 'Hemograma Completo',
         data: '02 de maio de 2026',
         medico: 'Dr. Carlos Mendes'
@@ -183,6 +202,7 @@ const pacientesBase = [
     ],
     consultas: [
       {
+        id: 1,
         especialidade: 'Pneumologista',
         motivo: 'Dificuldade para respirar',
         data: '02 de maio de 2026',
