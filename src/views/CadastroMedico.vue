@@ -2,10 +2,9 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUsuario } from '@/composables/usePaciente';
-
 const { registrarUsuario } = useUsuario();
 const router = useRouter();
-const { registrarUsuario } = useUsuario();
+
 
 const nomeMedico = ref('');
 const cpfMedico = ref('');
