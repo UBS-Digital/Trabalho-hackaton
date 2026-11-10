@@ -1,8 +1,20 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { pacientesBase, medicosBase } from '@/components/data/data'
 import { useUsuario } from '@/composables/usePaciente'
+
+const API_URL = "http://localhost:3000/";
+const usuarios = ref([]);
+const loading =  ref(true);
+
+async function carregarDados() {
+  const respostaUsuario = await fetch(`${API_URL}/pacientes`);
+  usuarios.value = await respostaUsuario.json();
+  loading.value = false;
+}
+
+onMounted(carregarDados);
 
 const router = useRouter();
 const { usuarioLogado, chaveUsuario, gerarChaveUsuario } = useUsuario();
