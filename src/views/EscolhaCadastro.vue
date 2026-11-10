@@ -80,7 +80,7 @@ const mostrarOpcoesCadastro = ref(false)
   min-height: 70vh;
   padding: 5rem 8vw 6rem;
   background: #f4f8f6;
-  color: #153b39;
+  color: white;
 }
 
 .apresentacao {
@@ -93,7 +93,7 @@ const mostrarOpcoesCadastro = ref(false)
   margin: 0 auto;
   padding: 5rem 5vw 4rem;
   overflow: hidden;
-  background: linear-gradient(120deg, #d8eee7 8%, #d0f2df 45%, #c0fcc2 90%);
+  background: linear-gradient(170deg, #2053ac, #447cdb, #267154, #267154, #37c22f);
   background-repeat: no-repeat;
   border-radius: 2px;
 }
@@ -117,7 +117,7 @@ const mostrarOpcoesCadastro = ref(false)
 
 .etiqueta {
   margin-bottom: 1rem;
-  color: #000000;
+  color: white;
   font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.14em;
@@ -126,7 +126,7 @@ const mostrarOpcoesCadastro = ref(false)
 
 h1 {
   margin-bottom: 1.3rem;
-  color: black;
+  color: white;
   font-size: clamp(3.5rem, 9vw, 7.5rem);
   font-weight: 800;
   letter-spacing: -0.06em;
@@ -135,7 +135,7 @@ h1 {
 
 .descricao {
   max-width: 560px;
-  color: #315653;
+  color: white;
   font-size: 1.15rem;
   line-height: 1.6;
 }
@@ -154,8 +154,8 @@ h1 {
   justify-content: center;
   min-height: 48px;
   padding: 0.8rem 1.5rem;
-  border: 1px solid #153b39;
-  border-radius: 2px;
+  border: 1px solid black;
+  border-radius: 10px;
   font: inherit;
   font-weight: 800;
   text-decoration: none;
@@ -164,12 +164,13 @@ h1 {
 
 .botao-primario {
   background: #1787d6;
-  color: rgb(255, 255, 255);
+  color: white;
+  border: none
 }
 
 .botao-secundario {
   background: transparent;
-  color: #153b39;
+  color: white;
 }
 
 .botao-primario:hover,
@@ -189,7 +190,7 @@ h1 {
 }
 
 .numero {
-  color: #000000;
+  color: white;
   font-size: 3rem;
   font-weight: 800;
 }
@@ -200,7 +201,7 @@ h1 {
 
 .destaque p {
   margin-top: 0.5rem;
-  color: #315653;
+  color: white;
   line-height: 1.5;
 }
 

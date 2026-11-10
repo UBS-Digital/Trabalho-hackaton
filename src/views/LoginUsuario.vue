@@ -1,11 +1,24 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { pacientesBase, medicosBase } from '@/components/data/data'
 import { useUsuario } from '@/composables/usePaciente'
 
-const router = useRouter()
+const router = useRouter();
+const { usuarioLogado, chaveUsuario, gerarChaveUsuario } = useUsuario();
+const usuarioDaSessao = computed(() => {
+  const chave = sessionStorage.getItem('usuarioChave')
+  if (!chave) return null
 
-const { usuarioLogado, iniciarSessao, encontrarUsuario } = useUsuario()
+  return [...pacientesBase, ...medicosBase].find((usuario) => {
+    const gerada = gerarChaveUsuario(usuario.cpf, usuario.email)
+    return gerada === chave
+  })
+})
+
+if (usuarioDaSessao.value) {
+  usuarioLogado.value = usuarioDaSessao.value
+}
 
 const email = ref('')
 const senha = ref('')
@@ -13,7 +26,14 @@ const mostrarMensagem = ref(false)
 const erroLogin = ref('')
 
 function login() {
-  const usuarioEncontrado = encontrarUsuario(email.value, senha.value)
+  const emailDigitado = email.value.trim()
+  const senhaDigitada = senha.value
+
+  const usuarioEncontrado = [...pacientesBase, ...medicosBase].find(
+    (usuario) =>
+      usuario.email.trim().toLowerCase() === emailDigitado &&
+      usuario.senha === senhaDigitada
+  )
 
   if (!usuarioEncontrado) {
     erroLogin.value = 'E-mail ou senha incorretos.'
@@ -21,11 +41,15 @@ function login() {
     return
   }
 
-  iniciarSessao(usuarioEncontrado)
+  const chave = gerarChaveUsuario(usuarioEncontrado.cpf ?? '', usuarioEncontrado.email)
+  chaveUsuario.value = chave
+  sessionStorage.setItem('usuarioChave', chave)
+  usuarioLogado.value = usuarioEncontrado
   mostrarMensagem.value = true
-
-  return usuarioLogado.value
 }
+
+
+
 </script>
 
 <template>
@@ -55,56 +79,12 @@ function login() {
       </p>
       <p>Agora você pode acessar a página 'Minha Área' com suas informações.</p>
       <RouterLink to="/MinhaArea" class="area">Ir para Minha Área</RouterLink>
+
     </div>
   </section>
 </template>
 
 <style scoped>
-.area {
-  margin-top: 10px;
-  display: inline-block;
-  border-radius: 0%;
-  padding: 10px 20px;
-  background-color: #4d41ef;
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.login {
-  background-color: #f4f3f3;
-  padding: 5vw 20%;
-}
-
-
-form label {
-  font-weight: bold;
-  font-size: 1rem;
-  margin: 10px 0 0 0;
-}
-
-form input {
-  padding: 1vw 1.5vw;
-  border-radius: 5px;
-  border: 1px solid #000;
-  font-size: 1rem;
-}
-
-.submeter {
-  background-color: #4d41ef;
-  color: white;
-  padding: 0.5vw 2.5vw 0.5vw 3vw;
-  border-radius: 10px;
-  border: none;
-  font-size: 1rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 1vw 0 1vw 0;
-  font-weight: bold;
-}
-
 .cancelar {
   background-color: #ef4141;
   color: white;
@@ -120,25 +100,68 @@ form input {
   font-weight: bold;
 }
 
+.login {
+  background-color: #F4F3F3;
+  padding: 5vw 20%;
+}
+
+.formulario {
+  background-color: white;
+  box-shadow: 3px 3px 3px 2px rgba(0, 0, 0, 25%);
+  padding: 2vw 5vw;
+}
+
+.formulario h2 {
+  font-size: 1.8rem;
+  margin: 0 0 20px 0;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+form label {
+  font-weight: bold;
+  font-size: 1rem;
+  margin: 10px 0 0 0;
+}
+form input {
+
+  padding: 1vw 1.5vw;
+  border-radius: 5px;
+  border: 1px solid #000;
+  font-size: 1rem;
+}
+.submeter {
+  background-color: #4D41EF;
+  color: white;
+  padding: 0.5vw 2.5vw 0.5vw 3vw;
+  border-radius: 10px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2vw 0 0 0;
+  font-weight: bold;
+}
+
 .feito {
   text-align: center;
   margin: 20% 0 20% 0;
 }
-
 .feito h2 {
   font-size: 2rem;
   margin: 0 0 20px 0;
 }
-
 .feito p {
   font-size: 1.5rem;
 }
-
 .feito p span {
   font-size: 1.7rem;
   font-weight: bold;
 }
-
 
 .erro {
   color: #d32f2f;
