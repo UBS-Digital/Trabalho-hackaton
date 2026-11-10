@@ -14,7 +14,7 @@
       "nome": "Dr. Paulo Henrique Viana",
       "id": 3,
       "certificado": "",
-      "email": "parulohenriquedr@gmail.com",
+      "email": "paulohenriquedr@gmail.com",
       "tel": "613-8032",
       "senha": "senha2",
       "especialidades": ["Pediatria", "Pneumologia"]
@@ -22,6 +22,7 @@
   ],
   "pacientes": [
     {
+      "id": 1,
       "nome": "Gamaliel",
       "peso": 72,
       "genero": "M",
@@ -31,23 +32,15 @@
       "senha": "senha"
     },
     {
+      "id": 2,
       "nome": "Lucas",
       "peso": 75,
       "genero": "M",
       "cpf": "183.156.459-90",
-      "email": "lucaseliel15032010@gamil.com",
+      "email": "lucaseliel15032010@gmail.com",
       "tel": "47 99183-3045",
       "senha": "Senha2"
-    },
-    {"medicamentos": [
-    {
-      "id": 1,
-      "nome": "Paracetamol"
-    },
-    {
-      "id": 2,
-      "nome": "Ibuprofeno"
-    }]}
+    }
   ],
   "exames": [
     {
@@ -90,11 +83,13 @@
   "medicamentos": [
     {
       "id": 1,
-      "nome": "Paracetamol"
+      "nome": "Paracetamol",
+      "pacienteId": 1
     },
     {
       "id": 2,
-      "nome": "Ibuprofeno"
+      "nome": "Ibuprofeno",
+      "pacienteId": 2
     }
   ]
 }
