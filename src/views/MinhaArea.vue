@@ -1,8 +1,26 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useUsuario } from '../composables/usePaciente';
 
-const { usuarioAtual } = useUsuario();
+// Modelo antigo, mantido em comentário para facilitar desfazer:
+// const { usuarioAtual } = useUsuario();
+// const nomeUsuario = computed(() => usuarioAtual.value?.nome ?? '');
+// const consultasUs = computed(() => usuarioAtual.value?.consultas ?? []);
+// const examesUs = computed(() => usuarioAtual.value?.exames ?? []);
+// const pesoUs = computed(() => usuarioAtual.value?.peso ?? '');
+// const medicamentosUs = computed(() => usuarioAtual.value?.medicamentos ?? []);
+// const medicoFamiliarUs = computed(() => usuarioAtual.value?.medicoFamiliar ?? {});
+//
+// function checkUsuario(usuario) {
+//   const u = usuario && typeof usuario === 'object' && 'value' in usuario ? usuario.value : usuario;
+//   if (u === null || u === undefined || u === '') {
+//     return false;
+//   }
+//   return true;
+// }
+
+const { usuarioLogado, carregarUsuarioPorId } = useUsuario();
+const usuarioAtual = computed(() => usuarioLogado.value)
 const nomeUsuario = computed(() => usuarioAtual.value?.nome ?? '');
 const consultasUs = computed(() => usuarioAtual.value?.consultas ?? []);
 const examesUs = computed(() => usuarioAtual.value?.exames ?? []);
@@ -17,6 +35,10 @@ function checkUsuario(usuario) {
   }
   return true;
 }
+
+onMounted(async () => {
+  await carregarUsuarioPorId();
+})
 </script>
 <template>
 

@@ -1,31 +1,111 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { pacientesBase, medicosBase } from '@/components/data/data'
 import { useUsuario } from '@/composables/usePaciente'
 
-const API_URL = "http://localhost:3000/";
-const usuarios = ref([]);
-const loading =  ref(true);
+// Código antigo, mantido como comentário para facilitar a reversão:
+// import { pacientesBase, medicosBase } from '@/components/data/data'
+// const API_URL = "http://localhost:3000/";
+// const usuarios = ref([]);
+// const loading =  ref(true);
+//
+// async function carregarDados() {
+//   const respostaUsuario = await fetch(`${API_URL}/pacientes`);
+//   usuarios.value = await respostaUsuario.json();
+//   loading.value = false;
+// }
+//
+// onMounted(carregarDados);
+//
+// const router = useRouter();
+// const { usuarioLogado, chaveUsuario, gerarChaveUsuario } = useUsuario();
+// const usuarioDaSessao = computed(() => {
+//   const chave = sessionStorage.getItem('usuarioChave')
+//   if (!chave) return null
+//
+//   return [...pacientesBase, ...medicosBase].find((usuario) => {
+//     const gerada = gerarChaveUsuario(usuario.cpf, usuario.email)
+//     return gerada === chave
+//   })
+// })
+//
+// if (usuarioDaSessao.value) {
+//   usuarioLogado.value = usuarioDaSessao.value
+// }
+//
+// const email = ref('')
+// const senha = ref('')
+// const mostrarMensagem = ref(false)
+// const erroLogin = ref('')
+//
+// function login() {
+//   const emailDigitado = email.value.trim()
+//   const senhaDigitada = senha.value
+//
+//   const usuarioEncontrado = [...pacientesBase, ...medicosBase].find(
+//     (usuario) =>
+//       usuario.email.trim().toLowerCase() === emailDigitado &&
+//       usuario.senha === senhaDigitada
+//   )
+//
+//   if (!usuarioEncontrado) {
+//     erroLogin.value = 'E-mail ou senha incorretos.'
+//     mostrarMensagem.value = false
+//     return
+//   }
+//
+//   const chave = gerarChaveUsuario(usuarioEncontrado.cpf ?? '', usuarioEncontrado.email)
+//   chaveUsuario.value = chave
+//   sessionStorage.setItem('usuarioChave', chave)
+//   usuarioLogado.value = usuarioEncontrado
+//   mostrarMensagem.value = true
+// }
+
+const API_URL = 'http://localhost:3000'
+const usuarios = ref([])
+const loading = ref(true)
 
 async function carregarDados() {
-  const respostaUsuario = await fetch(`${API_URL}/pacientes`);
-  usuarios.value = await respostaUsuario.json();
-  loading.value = false;
+  try {
+    const [pacientesResponse, medicosResponse] = await Promise.all([
+      fetch(`${API_URL}/pacientes`),
+      fetch(`${API_URL}/medicos`)
+    ])
+
+    const pacientes = pacientesResponse.ok ? await pacientesResponse.json() : []
+    const medicos = medicosResponse.ok ? await medicosResponse.json() : []
+
+    usuarios.value = [...pacientes, ...medicos]
+  } catch (error) {
+    console.error('Erro ao carregar usuários do JSON Server:', error)
+    usuarios.value = []
+  } finally {
+    loading.value = false
+  }
 }
 
-onMounted(carregarDados);
+onMounted(carregarDados)
 
-const router = useRouter();
-const { usuarioLogado, chaveUsuario, gerarChaveUsuario } = useUsuario();
+const router = useRouter()
+const { usuarioLogado, chaveUsuario, gerarChaveUsuario } = useUsuario()
+
 const usuarioDaSessao = computed(() => {
+  const usuarioId = sessionStorage.getItem('usuarioId')
+
+  if (usuarioId) {
+    const usuarioEncontrado = usuarios.value.find((usuario) => String(usuario.id) === String(usuarioId))
+    if (usuarioEncontrado) return usuarioEncontrado
+  }
+
   const chave = sessionStorage.getItem('usuarioChave')
   if (!chave) return null
 
-  return [...pacientesBase, ...medicosBase].find((usuario) => {
-    const gerada = gerarChaveUsuario(usuario.cpf, usuario.email)
-    return gerada === chave
-  })
+  if (chave.startsWith('id_')) {
+    const id = chave.replace('id_', '')
+    return usuarios.value.find((usuario) => String(usuario.id) === String(id)) || null
+  }
+
+  return null
 })
 
 if (usuarioDaSessao.value) {
@@ -37,31 +117,55 @@ const senha = ref('')
 const mostrarMensagem = ref(false)
 const erroLogin = ref('')
 
-function login() {
-  const emailDigitado = email.value.trim()
+async function login() {
+  const emailDigitado = email.value.trim().toLowerCase()
   const senhaDigitada = senha.value
 
-  const usuarioEncontrado = [...pacientesBase, ...medicosBase].find(
-    (usuario) =>
-      usuario.email.trim().toLowerCase() === emailDigitado &&
-      usuario.senha === senhaDigitada
-  )
-
-  if (!usuarioEncontrado) {
-    erroLogin.value = 'E-mail ou senha incorretos.'
+  if (!emailDigitado || !senhaDigitada) {
+    erroLogin.value = 'Informe e-mail e senha.'
     mostrarMensagem.value = false
     return
   }
 
-  const chave = gerarChaveUsuario(usuarioEncontrado.cpf ?? '', usuarioEncontrado.email)
-  chaveUsuario.value = chave
-  sessionStorage.setItem('usuarioChave', chave)
-  usuarioLogado.value = usuarioEncontrado
-  mostrarMensagem.value = true
+  try {
+    const [pacientesResponse, medicosResponse] = await Promise.all([
+      fetch(`${API_URL}/pacientes?email=${encodeURIComponent(emailDigitado)}&senha=${encodeURIComponent(senhaDigitada)}`),
+      fetch(`${API_URL}/medicos?email=${encodeURIComponent(emailDigitado)}&senha=${encodeURIComponent(senhaDigitada)}`)
+    ])
+
+    const pacientes = pacientesResponse.ok ? await pacientesResponse.json() : []
+    const medicos = medicosResponse.ok ? await medicosResponse.json() : []
+    const usuarioEncontrado = [...pacientes, ...medicos].find((usuario) => {
+      const emailBanco = usuario.email?.trim().toLowerCase()
+      return emailBanco === emailDigitado && usuario.senha === senhaDigitada
+    })
+
+    if (!usuarioEncontrado) {
+      erroLogin.value = 'E-mail ou senha incorretos.'
+      mostrarMensagem.value = false
+      return
+    }
+
+    const chavePrimaria = `id_${usuarioEncontrado.id}`
+    const chaveLegacy = gerarChaveUsuario?.(usuarioEncontrado.cpf ?? '', usuarioEncontrado.email ?? '')
+
+    chaveUsuario.value = chavePrimaria
+    sessionStorage.setItem('usuarioId', String(usuarioEncontrado.id))
+    sessionStorage.setItem('usuarioChave', chavePrimaria)
+
+    if (chaveLegacy) {
+      sessionStorage.setItem('usuarioChaveLegacy', chaveLegacy)
+    }
+
+    usuarioLogado.value = usuarioEncontrado
+    mostrarMensagem.value = true
+    erroLogin.value = ''
+  } catch (error) {
+    console.error('Erro ao autenticar usuário:', error)
+    erroLogin.value = 'Não foi possível realizar o login no momento.'
+    mostrarMensagem.value = false
+  }
 }
-
-
-
 </script>
 
 <template>
