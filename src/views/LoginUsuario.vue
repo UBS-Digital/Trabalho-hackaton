@@ -3,64 +3,6 @@ import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUsuario } from '@/composables/usePaciente'
 
-// Código antigo, mantido como comentário para facilitar a reversão:
-// import { pacientesBase, medicosBase } from '@/components/data/data'
-// const API_URL = "http://localhost:3000/";
-// const usuarios = ref([]);
-// const loading =  ref(true);
-//
-// async function carregarDados() {
-//   const respostaUsuario = await fetch(`${API_URL}/pacientes`);
-//   usuarios.value = await respostaUsuario.json();
-//   loading.value = false;
-// }
-//
-// onMounted(carregarDados);
-//
-// const router = useRouter();
-// const { usuarioLogado, chaveUsuario, gerarChaveUsuario } = useUsuario();
-// const usuarioDaSessao = computed(() => {
-//   const chave = sessionStorage.getItem('usuarioChave')
-//   if (!chave) return null
-//
-//   return [...pacientesBase, ...medicosBase].find((usuario) => {
-//     const gerada = gerarChaveUsuario(usuario.cpf, usuario.email)
-//     return gerada === chave
-//   })
-// })
-//
-// if (usuarioDaSessao.value) {
-//   usuarioLogado.value = usuarioDaSessao.value
-// }
-//
-// const email = ref('')
-// const senha = ref('')
-// const mostrarMensagem = ref(false)
-// const erroLogin = ref('')
-//
-// function login() {
-//   const emailDigitado = email.value.trim()
-//   const senhaDigitada = senha.value
-//
-//   const usuarioEncontrado = [...pacientesBase, ...medicosBase].find(
-//     (usuario) =>
-//       usuario.email.trim().toLowerCase() === emailDigitado &&
-//       usuario.senha === senhaDigitada
-//   )
-//
-//   if (!usuarioEncontrado) {
-//     erroLogin.value = 'E-mail ou senha incorretos.'
-//     mostrarMensagem.value = false
-//     return
-//   }
-//
-//   const chave = gerarChaveUsuario(usuarioEncontrado.cpf ?? '', usuarioEncontrado.email)
-//   chaveUsuario.value = chave
-//   sessionStorage.setItem('usuarioChave', chave)
-//   usuarioLogado.value = usuarioEncontrado
-//   mostrarMensagem.value = true
-// }
-
 const API_URL = 'http://localhost:3000'
 const usuarios = ref([])
 const loading = ref(true)

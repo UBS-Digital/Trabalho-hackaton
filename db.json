@@ -2,27 +2,32 @@
   "medicos": [
     {
       "nome": "Dr. Carlos Mendes",
-      "id": 2,
+      "id": "2",
       "certificado": "",
       "experiencia": 15,
       "email": "carlosmender@gmail.com",
       "tel": "423-8922",
       "senha": "senha",
-      "especialidades": ["Clínico Geral"]
+      "especialidades": [
+        "Clínico Geral"
+      ]
     },
     {
       "nome": "Dr. Paulo Henrique Viana",
-      "id": 3,
+      "id": "3",
       "certificado": "",
       "email": "paulohenriquedr@gmail.com",
       "tel": "613-8032",
       "senha": "senha2",
-      "especialidades": ["Pediatria", "Pneumologia"]
+      "especialidades": [
+        "Pediatria",
+        "Pneumologia"
+      ]
     }
   ],
   "pacientes": [
     {
-      "id": 1,
+      "id": "1",
       "nome": "Gamaliel",
       "peso": 72,
       "genero": "M",
@@ -32,9 +37,9 @@
       "senha": "senha"
     },
     {
-      "id": 2,
+      "id": "2",
       "nome": "Lucas",
-      "peso": 75,
+      "peso": 83,
       "genero": "M",
       "cpf": "183.156.459-90",
       "email": "lucaseliel15032010@gmail.com",
@@ -44,14 +49,14 @@
   ],
   "exames": [
     {
-      "id": 1,
+      "id": "1",
       "tipo": "Exame de Urina",
       "data": "12 de março de 2026",
       "medicoId": 3,
       "pacienteId": 1
     },
     {
-      "id": 2,
+      "id": "2",
       "tipo": "Hemograma Completo",
       "data": "02 de maio de 2026",
       "medicoId": 2,
@@ -60,7 +65,7 @@
   ],
   "consultas": [
     {
-      "id": 1,
+      "id": "1",
       "especialidade": "Pneumologista",
       "motivo": "Dificuldade para respirar",
       "data": "02 de maio de 2026",
@@ -70,11 +75,14 @@
   ],
   "familiasAssociadas": [
     {
-      "id": 1,
+      "id": "1",
       "nome": "Família Silva",
       "membros": [
         {
-          "idMembros": [1, 2]
+          "idMembros": [
+            1,
+            2
+          ]
         }
       ],
       "idMedico": 2
@@ -82,14 +90,15 @@
   ],
   "medicamentos": [
     {
-      "id": 1,
+      "id": "1",
       "nome": "Paracetamol",
       "pacienteId": 1
     },
     {
-      "id": 2,
+      "id": "2",
       "nome": "Ibuprofeno",
       "pacienteId": 2
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
