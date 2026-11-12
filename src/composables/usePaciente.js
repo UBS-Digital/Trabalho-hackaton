@@ -89,10 +89,23 @@ export async function carregarUsuarioPorId() {
   }
 }
 
-export async function carregarDadosPaciente() {
-  const usuarioId = Number(sessionStorage.getItem('usuarioId'))
+function normalizarPacienteId(valor) {
+  return valor === null || valor === undefined ? '' : String(valor).trim()
+}
 
-  if (!usuarioId) {
+function filtrarPorPacienteId(lista, pacienteId) {
+  if (!Array.isArray(lista)) {
+    return []
+  }
+
+  return lista.filter((item) => normalizarPacienteId(item?.pacienteId) === normalizarPacienteId(pacienteId))
+}
+
+export async function carregarDadosPaciente() {
+  const usuarioId = sessionStorage.getItem('usuarioId')
+  const pacienteIdNormalizado = normalizarPacienteId(usuarioId)
+
+  if (!pacienteIdNormalizado) {
     return {
       paciente: null,
       consultas: [],
@@ -103,10 +116,10 @@ export async function carregarDadosPaciente() {
 
   try {
     const [pacienteRes, consultasRes, examesRes, medicamentosRes] = await Promise.all([
-      fetch(`${API_URL}/pacientes/${usuarioId}`),
-      fetch(`${API_URL}/consultas?pacienteId=${usuarioId}`),
-      fetch(`${API_URL}/exames?pacienteId=${usuarioId}`),
-      fetch(`${API_URL}/medicamentos?pacienteId=${usuarioId}`)
+      fetch(`${API_URL}/pacientes/${ pacienteIdNormalizado }`),
+      fetch(`${API_URL}/consultas`),
+      fetch(`${API_URL}/exames`),
+      fetch(`${API_URL}/medicamentos`)
     ])
 
     const paciente = pacienteRes.ok ? await pacienteRes.json() : null
@@ -116,9 +129,9 @@ export async function carregarDadosPaciente() {
 
     return {
       paciente,
-      consultas,
-      exames,
-      medicamentos
+      consultas: filtrarPorPacienteId(consultas, pacienteIdNormalizado),
+      exames: filtrarPorPacienteId(exames, pacienteIdNormalizado),
+      medicamentos: filtrarPorPacienteId(medicamentos, pacienteIdNormalizado)
     }
   } catch (error) {
     console.error('Erro ao carregar dados do paciente:', error)
