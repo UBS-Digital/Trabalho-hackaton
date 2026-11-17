@@ -1,14 +1,17 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useUsuario } from '../composables/usePaciente';
 
-const { usuarioAtual } = useUsuario();
+const { usuarioLogado, carregarDadosPaciente, atualizarPesoPaciente, deletarRegistroPorId } = useUsuario();
+const usuarioAtual = computed(() => usuarioLogado.value)
 const nomeUsuario = computed(() => usuarioAtual.value?.nome ?? '');
-const consultasUs = computed(() => usuarioAtual.value?.consultas ?? []);
-const examesUs = computed(() => usuarioAtual.value?.exames ?? []);
+const consultasUs = ref([]);
+const examesUs = ref([]);
 const pesoUs = computed(() => usuarioAtual.value?.peso ?? '');
-const medicamentosUs = computed(() => usuarioAtual.value?.medicamentos ?? []);
+const medicamentosUs = ref([]);
 const medicoFamiliarUs = computed(() => usuarioAtual.value?.medicoFamiliar ?? {});
+const novoPeso = ref('');
+const mensagemPeso = ref('');
 
 function checkUsuario(usuario) {
   const u = usuario && typeof usuario === 'object' && 'value' in usuario ? usuario.value : usuario;
@@ -17,6 +20,69 @@ function checkUsuario(usuario) {
   }
   return true;
 }
+
+function normalizarPesoInput(valor) {
+  if (valor === '' || valor === null || valor === undefined) {
+    return '';
+  }
+
+  const numero = Number(valor);
+  if (Number.isNaN(numero)) {
+    return '';
+  }
+
+  return String(Math.max(0, numero));
+}
+
+function onPesoInput(event) {
+  novoPeso.value = normalizarPesoInput(event.target.value);
+}
+
+async function carregarDadosUsuario() {
+  const dados = await carregarDadosPaciente();
+
+  if (dados.paciente) {
+    usuarioLogado.value = { ...usuarioLogado.value, ...dados.paciente, tipo: 'paciente' }
+  }
+
+  consultasUs.value = dados.consultas || [];
+  examesUs.value = dados.exames || [];
+  medicamentosUs.value = dados.medicamentos || [];
+}
+
+async function alterarPeso() {
+  const pesoDigitado = Number(novoPeso.value)
+
+  if (!Number.isFinite(pesoDigitado) || pesoDigitado < 0) {
+    mensagemPeso.value = 'Informe um peso válido maior ou igual a 0.'
+    return
+  }
+
+  const pesoAtualizado = await atualizarPesoPaciente(Math.max(0, pesoDigitado))
+
+  if (pesoAtualizado) {
+    mensagemPeso.value = 'Peso atualizado com sucesso!'
+    novoPeso.value = ''
+    await carregarDadosUsuario();
+    return
+  }
+
+  mensagemPeso.value = 'Não foi possível atualizar o peso.'
+}
+
+async function cancelarItem(tipo, id) {
+  const removido = await deletarRegistroPorId(tipo, id)
+
+  if (!removido) {
+    return
+  }
+
+  await carregarDadosUsuario()
+}
+
+onMounted(async () => {
+  await carregarDadosUsuario();
+})
 </script>
 <template>
 
@@ -107,7 +173,22 @@ function checkUsuario(usuario) {
                 width="15" height="15" alt="">
             </div>
             <p class="rotulo-estatistica">Peso</p>
-            <p class="valor-estatistica">{{ (pesoUs !== "")? pesoUs + "Kg" : "Peso não informado" }}</p>
+            <p class="valor-estatistica">{{ (pesoUs !== "") ? pesoUs + "Kg" : "Peso não informado" }}</p>
+            <p class="subtitulo-exame">Paciente ID: {{ usuarioAtual?.id ?? '—' }}</p>
+
+            <div class="peso-edicao">
+              <input
+                v-model="novoPeso"
+                type="number"
+                min="0"
+                step="0.1"
+                placeholder="Novo peso"
+                @input="onPesoInput"
+              />
+              <button type="button" @click="alterarPeso">Atualizar peso</button>
+            </div>
+
+            <p v-if="mensagemPeso" class="mensagem-peso">{{ mensagemPeso }}</p>
           </div>
         </div>
       </div>
@@ -157,6 +238,7 @@ function checkUsuario(usuario) {
 
             <!-- Consulta -->
             <div class="item-agendamento" v-for="consulta in consultasUs" :key="consulta.id">
+              <p class="subtitulo-exame">Consulta ID: {{ consulta.id }} • Paciente ID: {{ consulta.pacienteId }}</p>
               <div class="emblemas">
                 <span class="emblema emblema-azul">Consulta</span>
                 <span class="emblema emblema-verde">
@@ -204,9 +286,7 @@ function checkUsuario(usuario) {
               <router-link to="/agendar-exame">
                 <button class="botao-reagendar">Reagendar</button>
               </router-link>
-              <router-link to="/agendar-exame">
-                <button class="botao-cancelar">Cancelar</button>
-              </router-link>
+              <button class="botao-cancelar" type="button" @click="cancelarItem('consultas', consulta.id)">Cancelar</button>
             </div>
 
             <!-- Exame
@@ -280,6 +360,7 @@ function checkUsuario(usuario) {
               <p class="nenhum-agendamento">Nenhum exame concluído...</p>
             </div>
             <div class="item-exame" v-for="(exame) in examesUs" :key="exame.id">
+              <p class="subtitulo-exame">Exame ID: {{ exame.id }} • Paciente ID: {{ exame.pacienteId }}</p>
               <div class="item-exame-esquerda">
                 <div class="icone-situacao-exame icone-situacao-verde">
                   <img
@@ -292,6 +373,7 @@ function checkUsuario(usuario) {
                 </div>
               </div>
 
+              <button class="botao-cancelar" type="button" @click="cancelarItem('exames', exame.id)">Cancelar</button>
               <a href="/src/imagem/preview.webp" download="resultado-exame.webp">
                 <button class="botao-baixar">
 
@@ -331,6 +413,7 @@ function checkUsuario(usuario) {
             </div>
 
             <div class="item-medicamento" v-for="(medicamento) in medicamentosUs" :key="medicamento.id">
+              <p class="subtitulo-exame">Medicamento ID: {{ medicamento.id }} • Paciente ID: {{ medicamento.pacienteId }}</p>
               <h3 class="titulo-medicamento">{{ medicamento.nome }}</h3>
               <p class="subtitulo-medicamento">{{ medicamento.dose }}mg - {{ medicamento.vezes }}x ao dia. De {{
                 medicamento.horarios.join(' e de ') }}</p>
@@ -1060,5 +1143,38 @@ main {
   font-size: 1.5rem;
   margin: 1vw;
   cursor: pointer;
+}
+
+.peso-edicao {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.peso-edicao input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 0.95rem;
+}
+
+.peso-edicao button {
+  border: none;
+  background: #2563eb;
+  color: #ffffff;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.mensagem-peso {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: #16a34a;
 }
 </style>

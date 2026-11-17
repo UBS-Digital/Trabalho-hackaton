@@ -1,63 +1,157 @@
 import { ref, computed } from 'vue'
-import { medicosBase, pacientesBase } from '@/components/data/data'
+
+const API_URL = 'http://localhost:3000'
 
 export const chaveUsuario = ref(sessionStorage.getItem('usuarioChave') || null)
-export const usuarioLogado = ref(null);
-const USUARIOS_STORAGE_KEY = 'usuariosCadastrados'
-function lerUsuariosCadastrados() {
+export const usuarioLogado = ref(null)
+
+
+export async function carregarUsuarioPorId() {
+  const usuarioId = sessionStorage.getItem('usuarioId')
+
+  if (!usuarioId) {
+    usuarioLogado.value = null
+    return null
+  }
+
   try {
-    return JSON.parse(localStorage.getItem(USUARIOS_STORAGE_KEY) || '[]')
-  } catch {
-    return []
+    const respostaPaciente = await fetch(`${API_URL}/pacientes/${usuarioId}`)
+    if (respostaPaciente.ok) {
+      const paciente = await respostaPaciente.json()
+      usuarioLogado.value = { ...paciente, tipo: 'paciente' }
+      return usuarioLogado.value
+    }
+
+    const respostaMedico = await fetch(`${API_URL}/medicos/${usuarioId}`)
+    if (respostaMedico.ok) {
+      const medico = await respostaMedico.json()
+      usuarioLogado.value = { ...medico, tipo: 'medico' }
+      return usuarioLogado.value
+    }
+
+    usuarioLogado.value = null
+    return null
+  } catch (error) {
+    console.error('Erro ao carregar usuário pela sessão:', error)
+    usuarioLogado.value = null
+    return null
   }
 }
 
-function normalizarCpf(cpf) {
-  return cpf ? cpf.replace(/\D/g, '') : ''
+function normalizarPacienteId(valor) {
+  return valor === null || valor === undefined ? '' : String(valor).trim()
 }
 
-function gerarChaveUsuario(cpf, emailUsuario) {
-  return `${normalizarCpf(cpf)}_${emailUsuario}`
+function filtrarPorPacienteId(lista, pacienteId) {
+  if (!Array.isArray(lista)) {
+    return []
+  }
+
+  return lista.filter((item) => normalizarPacienteId(item?.pacienteId) === normalizarPacienteId(pacienteId))
 }
 
-function iniciarSessao(usuario) {
-  const chave = gerarChaveUsuario(usuario.cpf, usuario.email)
-  chaveUsuario.value = chave
-  usuarioLogado.value = usuario
-  sessionStorage.setItem('usuarioChave', chave)
+export async function carregarDadosPaciente() {
+  const usuarioId = sessionStorage.getItem('usuarioId')
+  const pacienteIdNormalizado = normalizarPacienteId(usuarioId)
+
+  if (!pacienteIdNormalizado) {
+    return {
+      paciente: null,
+      consultas: [],
+      exames: [],
+      medicamentos: []
+    }
+  }
+
+  try {
+    const [pacienteRes, consultasRes, examesRes, medicamentosRes] = await Promise.all([
+      fetch(`${API_URL}/pacientes/${ pacienteIdNormalizado }`),
+      fetch(`${API_URL}/consultas`),
+      fetch(`${API_URL}/exames`),
+      fetch(`${API_URL}/medicamentos`)
+    ])
+
+    const paciente = pacienteRes.ok ? await pacienteRes.json() : null
+    const consultas = consultasRes.ok ? await consultasRes.json() : []
+    const exames = examesRes.ok ? await examesRes.json() : []
+    const medicamentos = medicamentosRes.ok ? await medicamentosRes.json() : []
+
+    return {
+      paciente,
+      consultas: filtrarPorPacienteId(consultas, pacienteIdNormalizado),
+      exames: filtrarPorPacienteId(exames, pacienteIdNormalizado),
+      medicamentos: filtrarPorPacienteId(medicamentos, pacienteIdNormalizado)
+    }
+  } catch (error) {
+    console.error('Erro ao carregar dados do paciente:', error)
+    return {
+      paciente: null,
+      consultas: [],
+      exames: [],
+      medicamentos: []
+    }
+  }
 }
-function salvarUsuariosCadastrados(usuarios) {
-  localStorage.setItem(USUARIOS_STORAGE_KEY, JSON.stringify(usuarios))
+
+export async function atualizarPesoPaciente(novoPeso) {
+  const usuarioId = sessionStorage.getItem('usuarioId')
+
+  if (!usuarioId || novoPeso === '' || novoPeso === null || novoPeso === undefined) {
+    return null
+  }
+
+  try {
+    const resposta = await fetch(`${API_URL}/pacientes/${usuarioId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ peso: Number(novoPeso) })
+    })
+
+    if (!resposta.ok) {
+      throw new Error('Não foi possível atualizar o peso.')
+    }
+
+    const pacienteAtualizado = await resposta.json()
+    usuarioLogado.value = { ...usuarioLogado.value, ...pacienteAtualizado, tipo: 'paciente' }
+    return pacienteAtualizado
+  } catch (error) {
+    console.error('Erro ao atualizar peso do paciente:', error)
+    return null
+  }
 }
 
-const usuarioAtual = computed(() => {
-  const chaveAtual = chaveUsuario.value || sessionStorage.getItem('usuarioChave')
-  if (!chaveAtual) return null
+export async function deletarRegistroPorId(tipo, id) {
+  const registroId = Number(id)
 
-  return [...pacientesBase, ...medicosBase].find((usuario) => {
-    const chaveGerada = gerarChaveUsuario(usuario.cpf, usuario.email)
-    return chaveGerada === chaveAtual
-  })
-});
+  if (!tipo || !registroId) {
+    return false
+  }
 
-function registrarUsuario(usuario, tipo = 'paciente') {
-  const base = tipo === 'medico' ? medicosBase : pacientesBase
-  base.push(usuario)
+  try {
+    const resposta = await fetch(`${API_URL}/${tipo}/${registroId}`, {
+      method: 'DELETE'
+    })
 
-  const usuariosCadastrados = lerUsuariosCadastrados()
-  usuariosCadastrados.push({ tipo, usuario })
-  salvarUsuariosCadastrados(usuariosCadastrados)
-  iniciarSessao(usuario)
-};
+    return resposta.ok
+  } catch (error) {
+    console.error(`Erro ao excluir ${tipo} com id ${registroId}:`, error)
+    return false
+  }
+}
+
+const usuarioAtual = computed(() => usuarioLogado.value)
 
 export function useUsuario() {
   return {
     chaveUsuario,
     usuarioLogado,
     usuarioAtual,
-    gerarChaveUsuario,
-    iniciarSessao,
-    registrarUsuario,
+    carregarUsuarioPorId,
+    carregarDadosPaciente,
+    atualizarPesoPaciente,
+    deletarRegistroPorId,
   }
 }
 

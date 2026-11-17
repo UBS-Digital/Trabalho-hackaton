@@ -55,17 +55,6 @@ function validarFormulario() {
 
   return Object.keys(erros.value).length === 0;
 }
-/*
-function resetarFormulario() {
-  nomePaciente.value = '';
-  cpfPaciente.value = '';
-  telPaciente.value = '';
-  genPaciente.value = '';
-  emailPaciente.value = '';
-  senhaPaciente.value = '';
-  limparErros();
-}
-*/
 
 function cadastrarUsuario() {
   if (!validarFormulario()) {
