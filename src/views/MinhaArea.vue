@@ -2,28 +2,6 @@
 import { computed, onMounted, ref } from 'vue';
 import { useUsuario } from '../composables/usePaciente';
 
-// Código antigo, mantido em comentário para facilitar a reversão:
-// const { usuarioLogado, carregarUsuarioPorId } = useUsuario();
-// const usuarioAtual = computed(() => usuarioLogado.value)
-// const nomeUsuario = computed(() => usuarioAtual.value?.nome ?? '');
-// const consultasUs = computed(() => usuarioAtual.value?.consultas ?? []);
-// const examesUs = computed(() => usuarioAtual.value?.exames ?? []);
-// const pesoUs = computed(() => usuarioAtual.value?.peso ?? '');
-// const medicamentosUs = computed(() => usuarioAtual.value?.medicamentos ?? []);
-// const medicoFamiliarUs = computed(() => usuarioAtual.value?.medicoFamiliar ?? {});
-//
-// function checkUsuario(usuario) {
-//   const u = usuario && typeof usuario === 'object' && 'value' in usuario ? usuario.value : usuario;
-//   if (u === null || u === undefined || u === '') {
-//     return false;
-//   }
-//   return true;
-// }
-//
-// onMounted(async () => {
-//   await carregarUsuarioPorId();
-// })
-
 const { usuarioLogado, carregarDadosPaciente, atualizarPesoPaciente, deletarRegistroPorId } = useUsuario();
 const usuarioAtual = computed(() => usuarioLogado.value)
 const nomeUsuario = computed(() => usuarioAtual.value?.nome ?? '');
