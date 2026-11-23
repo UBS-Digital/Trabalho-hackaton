@@ -26,8 +26,9 @@ async function confirmarExclusao() {
     await excluirConta();
     estadoExclusao.value = 'sucesso';
     setTimeout(() => router.push('/escolha-cadastro'), 2500);
-  } catch (erro) {
-    mensagemErro.value = erro instanceof TypeError
+    } catch (erro) {
+    console.error('Erro ao excluir conta:', erro);
+    mensagemErro.value = erro.message === 'Failed to fetch'
       ? 'Não foi possível conectar à API. Verifique se ela está rodando (npm run api).'
       : erro.message;
     estadoExclusao.value = 'erro';
