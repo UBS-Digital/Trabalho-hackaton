@@ -1,8 +1,38 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { useUsuario } from '../composables/usePaciente';
 
-const { usuarioAtual } = useUsuario();
+const router = useRouter();
+const { usuarioAtual, excluirConta } = useUsuario();
+
+// Exclusão de conta: 'fechado' | 'confirmando' | 'carregando' | 'sucesso' | 'erro'
+const estadoExclusao = ref('fechado');
+const mensagemErro = ref('');
+
+function abrirConfirmacao() {
+  mensagemErro.value = '';
+  estadoExclusao.value = 'confirmando';
+}
+
+function fecharModal() {
+  if (estadoExclusao.value === 'carregando') return;
+  estadoExclusao.value = 'fechado';
+}
+
+async function confirmarExclusao() {
+  estadoExclusao.value = 'carregando';
+  try {
+    await excluirConta();
+    estadoExclusao.value = 'sucesso';
+    setTimeout(() => router.push('/escolha-cadastro'), 2500);
+  } catch (erro) {
+    mensagemErro.value = erro instanceof TypeError
+      ? 'Não foi possível conectar à API. Verifique se ela está rodando (npm run api).'
+      : erro.message;
+    estadoExclusao.value = 'erro';
+  }
+}
 const nomeUsuario = computed(() => usuarioAtual.value?.nome ?? '');
 const consultasUs = computed(() => usuarioAtual.value?.consultas ?? []);
 const examesUs = computed(() => usuarioAtual.value?.exames ?? []);
@@ -111,17 +141,6 @@ function checkUsuario(usuario) {
           </div>
         </div>
       </div>
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -254,17 +273,6 @@ function checkUsuario(usuario) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
           <!--Resultados de Exames -->
           <div class="cartao-exames">
             <div class="cabecalho-cartao">
@@ -303,19 +311,7 @@ function checkUsuario(usuario) {
                 </button>
               </a>
             </div>
-            <!-- Não vamos usar
-      <div class="item-exame">
-        <div class="item-exame-esquerda">
-          <div class="icone-situacao-exame icone-situacao-laranja">
-            <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23ea580c%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%2210%22%20%2F%3E%3Cpath%20d%3D%22M12%206v6l4%202%22%20%2F%3E%3C%2Fsvg%3E" width="18" height="18" alt="">
-          </div>
-          <div>
-            <p class="titulo-exame">Raio-X Tórax</p>
-            <p class="subtitulo-exame">20 Abr 2026 • Dr. Paulo Costa</p>
-          </div>
-        </div>
-        <span class="emblema-processando">Processando</span>
-      </div>   -->
+
           </div>
 
         </div>
@@ -343,32 +339,7 @@ function checkUsuario(usuario) {
             </div>
 
 
-
-
-
-
-
-
-
-
-
-            <!-- Item 2 Ainda não vamos usar
-      <div class="item-medicamento">
-        <h3 class="titulo-medicamento">Metformina 850mg</h3>
-        <p class="subtitulo-medicamento">2x ao dia - Manhã e Noite</p>
-        <p class="situacao-medicamento situacao-laranja">
-          <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23ea580c%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%2210%22%20%2F%3E%3Cline%20x1%3D%2212%22%20x2%3D%2212%22%20y1%3D%228%22%20y2%3D%2212%22%20%2F%3E%3Cline%20x1%3D%2212%22%20x2%3D%2212.01%22%20y1%3D%2216%22%20y2%3D%2216%22%20%2F%3E%3C%2Fsvg%3E" width="15" height="15" alt="">
-          8 dias restantes
-        </p>
-      </div>
-
-      <button class="botao-renovar">Renovar Receita</button>-->
           </div>
-
-
-
-
-
 
 
           <!-- Seu Médico da Família -->
@@ -404,6 +375,12 @@ function checkUsuario(usuario) {
             <a href="/src/imagem/preview.webp" download="resultado-exame.webp">
               <button class="botao-acao-rapida">Baixar Resultados</button>
             </a>
+
+          </div>
+                    <div class="cartao-zona-perigo">
+            <h2 class="titulo-zona-perigo">Excluir conta</h2>
+            <p class="texto-zona-perigo">Remove seus dados e encerra sua sessão. Essa ação não pode ser desfeita.</p>
+            <button class="botao-excluir-conta" type="button" @click="abrirConfirmacao">Excluir minha conta</button>
           </div>
 
         </div>
@@ -419,22 +396,42 @@ function checkUsuario(usuario) {
     </section>
 
 
+        <!-- Esse é o Modal de exclusão de conta -->
+    <div v-if="estadoExclusao !== 'fechado'" class="modal-fundo" @click.self="fecharModal">
+      <div class="modal" role="dialog" aria-modal="true">
+        <template v-if="estadoExclusao === 'confirmando'">
+          <h2>Excluir conta?</h2>
+          <p>Tem certeza que deseja excluir sua conta? Todos os seus dados serão removidos e essa ação não pode ser desfeita.</p>
+          <div class="modal-acoes">
+            <button type="button" class="botao-modal-cancelar" @click="fecharModal">Cancelar</button>
+            <button type="button" class="botao-modal-excluir" @click="confirmarExclusao">Sim, excluir</button>
+          </div>
+        </template>
+
+        <template v-else-if="estadoExclusao === 'carregando'">
+          <h2>Excluindo conta...</h2>
+          <p>Aguarde um instante.</p>
+        </template>
+
+        <template v-else-if="estadoExclusao === 'sucesso'">
+          <h2 class="texto-sucesso">Conta excluída com sucesso!</h2>
+          <p>Você será redirecionado em instantes...</p>
+        </template>
+
+        <template v-else-if="estadoExclusao === 'erro'">
+          <h2 class="texto-erro">Erro ao excluir a conta</h2>
+          <p>{{ mensagemErro }}</p>
+          <div class="modal-acoes">
+            <button type="button" class="botao-modal-cancelar" @click="fecharModal">Fechar</button>
+            <button type="button" class="botao-modal-excluir" @click="confirmarExclusao">Tentar novamente</button>
+          </div>
+        </template>
+      </div>
+    </div>
   </main>
 
 
-
-
-
 </template>
-
-
-
-
-
-
-
-
-
 
 
 <style scoped>
@@ -1060,5 +1057,108 @@ main {
   font-size: 1.5rem;
   margin: 1vw;
   cursor: pointer;
+}
+.cartao-zona-perigo {
+  background: #ffffff;
+  border: 1px solid #fca5a5;
+  border-radius: 10px;
+  padding: 22px 26px;
+  box-sizing: border-box;
+  margin-top: 24px;
+}
+
+.titulo-zona-perigo {
+  margin: 0 0 8px 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: #dc2626;
+}
+
+.texto-zona-perigo {
+  margin: 0 0 16px 0;
+  font-size: 13.5px;
+  color: #6b7280;
+}
+
+.botao-excluir-conta {
+  width: 100%;
+  padding: 12px 0;
+  background: #ffffff;
+  border: 1px solid #dc2626;
+  border-radius: 8px;
+  color: #dc2626;
+  font-size: 14.5px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.botao-excluir-conta:hover {
+  background: #fef2f2;
+}
+
+.modal-fundo {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 28px 32px;
+  max-width: 440px;
+  width: 90%;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.modal h2 {
+  margin: 0 0 12px 0;
+  font-size: 22px;
+}
+
+.modal p {
+  margin: 0 0 20px 0;
+  color: #4b5563;
+  font-size: 15px;
+}
+
+.modal-acoes {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.botao-modal-cancelar,
+.botao-modal-excluir {
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-size: 14.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.botao-modal-cancelar {
+  background: #ffffff;
+  border: 1px solid #9ca3af;
+  color: #374151;
+}
+
+.botao-modal-excluir {
+  background: #dc2626;
+  border: 1px solid #dc2626;
+  color: #ffffff;
+}
+
+.texto-sucesso {
+  color: #15803d;
+}
+
+.texto-erro {
+  color: #dc2626;
 }
 </style>
