@@ -60,18 +60,17 @@ const localAtendimento = ref('')
 
     </div>
     <div class="colunas">
-        <div class="coluna1">
+        <div class="coluna">
             <div class="imagem">
                 <h2>Selecionar o Local</h2>
                 <img src="/public/iconeLocal.png" alt="">
-            </div>    
-                <select v-model="localAtendimento">
+            </div>
+            <select v-model="localAtendimento">
                 <option value="">UBS digital - Unidade Norte</option>
                 <option value="ubs">UBS digital - Laboratório central</option>
             </select>
-            
         </div>
-        <div class="coluna2">
+        <div class="coluna">
             <div class="data">
                 <h2>
                     Selecione Data e Horário
@@ -86,10 +85,10 @@ const localAtendimento = ref('')
 
     <div class="botoes">
 
-        <button><RouterLink to="/agendar-exame" class="btn primary"><span><- voltar</span> </RouterLink></button>
+        <button>← Voltar</button>
 
-        <button><RouterLink to="/agendar-consulta" class="btn primary"><span> Confirmar -></span> </RouterLink>
-</button> 
+        <button @click="proximo">Próximo →</button>
+
     </div>
 
 </template>
@@ -101,35 +100,11 @@ const localAtendimento = ref('')
     gap: 20px;
 }
 
-.coluna1, .coluna2 {
+.coluna {
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-     transform: scale(1.3);
-}
-
-.coluna1 {
-    background: linear-gradient(to right, #2a26ee, #3d7caf, #58a8c0);
-    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.7);
-    max-width: 400px;
-    border-radius: 20px;
-    margin-top: 5.65rem;
-    margin-bottom: 5.65rem;
-    margin-left: 17rem;  
-    color: aliceblue;
-}
-
-.imagem{
-    margin: 9vw 0 2vw 0;
-    transform: scale(1.7);
-    border-radius: 2px;
-    padding: 4px;
-    }
-.data{
-    margin: 5vw;
-    background: linear-gradient(to right, #2a26ee, #3d7caf, #58a8c0);
-    border-radius: 9px;
 }
 .imagem {
     display: flex;
@@ -139,7 +114,9 @@ const localAtendimento = ref('')
     width: 20px;
     height: auto;
 }
-
+.imagem h2{
+    
+}
 div.Banner {
     display: flex;
     justify-content: space-between;
@@ -177,7 +154,6 @@ div.Banner {
     align-items: center;
     justify-content: space-between;
     margin-bottom: 40px;
-    
 }
 
 .step {
@@ -227,7 +203,7 @@ div.Banner {
     font-size: 2rem;
 }
 
-
+.local select {}
 
 .linha :hover {
     width: 100%;
@@ -255,17 +231,16 @@ button {
     border: none;
     border-radius: 8px;
     background: #2f80ed;
+    color: white;
     cursor: pointer;
 
 }
-
-span {
-    color: white;
-}
-
 .data{
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+.calendario {
+
 }
 </style>

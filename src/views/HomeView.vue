@@ -18,7 +18,7 @@
 
 
           <div class="a">
-            <RouterLink to="/login" class="botaoum">Agendar consultas </RouterLink>
+            <RouterLink to="/login-usuario" class="botaoum">Agendar consultas </RouterLink>
             <RouterLink to="/agendar-exame" class="botao">Agendar exames<img src="/src/imagem/hospital.png" alt=""></RouterLink>
           </div>
         </div>
@@ -91,8 +91,8 @@
     </div>
 
     <p>Atendimento completo para diagnóstico e tratamento de doenças comuns</p>
-    <RouterLink to="/especialidades" class="saibaMais">Saiba Mais <span>→</span></RouterLink>    
-    <
+    <RouterLink to="/especialidades" class="saibaMais">Saiba Mais <span>→</span></RouterLink>
+    
   </div>
 
 
@@ -103,7 +103,7 @@
     </div>
 
     <p>Cuidado especializado para a saúde e desenvolvimento das crianças</p>
-    <RouterLink to="/especialidades" class="saibaMais">Saiba Mais <span>→</span></RouterLink>  
+    <RouterLink to="/especialidades" class="saibaMais">Saiba Mais <span>→</span></RouterLink>
     </div>
 
 
@@ -125,7 +125,7 @@
     </div>
 
     <p>Acompanhamento contínuo e integral de toda sua família </p>
-    
+
     <RouterLink to="/especialidades" class="saibaMais">Saiba Mais <span>→</span></RouterLink>
   </div>
 
@@ -234,8 +234,8 @@
     <p>Agende sua consulta agora mesmo e tenha acesso a um atendimento de qualidade</p>
 
     <div class="a">
-        <a href="" class="botaoAgendar">Agendar agora<img src="/src/imagem/Calendario.png" alt=""></a>
-        <a href="" class="botaoConta">Criar conta</a>
+        <RouterLink to="/agendar-consulta" class="botaoAgendar" >Agendar agora <img src="/src/imagem/Calendario.png" alt=""></RouterLink>
+        <RouterLink to="/cadastro-usuario" class="botaoConta">Criar conta</RouterLink>
     </div>
 </div>
 
