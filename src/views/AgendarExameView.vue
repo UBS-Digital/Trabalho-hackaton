@@ -1,15 +1,17 @@
 <script setup>
-import { computed, ref } from 'vue'
-
+import { ref, onMounted } from 'vue'
 import AppBanner from '@/components/Produtos/AppBanner.vue'
 import paginas from '@/components/data/data'
 import { useUsuario } from '@/composables/usePaciente'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
+
+const API_URL = 'http://localhost:3001'
 
 const { usuarioAtual } = useUsuario()
 const router = useRouter()
+const route = useRoute()
 
-const examesAgendados = computed(() => usuarioAtual.value?.exames ?? [])
+const examesAgendados = ref([])
 
 const exames = [
   {
@@ -47,8 +49,30 @@ const exameSelecionado = ref(null)
 const dataSelecionada = ref('')
 const horarioSelecionado = ref('')
 const horarios = ['08:00', '09:30', '11:00', '13:30', '15:00', '16:30']
+const exameEmEdicao = ref(null)
 
-function avancar() {
+async function carregarExames() {
+  const pacienteId = usuarioAtual.value?.id
+
+  if (!pacienteId) {
+    throw new Error('Paciente não identificado.')
+  }
+
+  const resposta = await fetch(
+    `${API_URL}/exames?pacienteId=${pacienteId}`
+  )
+
+  if (!resposta.ok) {
+    throw new Error('Erro ao carregar os exames.')
+  }
+
+  examesAgendados.value = await resposta.json()
+}
+
+onMounted(carregarExames)
+
+
+async function avancar() {
   if (etapa.value === 1 && !exameSelecionado.value) {
     alert('Selecione um exame antes de continuar.')
     return
@@ -60,29 +84,79 @@ function avancar() {
   }
 
   if (etapa.value < 3) {
-    etapa.value += 1
+    etapa.value++
     return
   }
 
   const exame = exameSelecionado.value
 
-  if (!exame) return
+  if (!exame) {
+  alert('Nenhum exame foi selecionado.')
+  return
+}
 
-  examesAgendados.value.push({
-    id: examesAgendados.value.length + 1,
+if (!usuarioAtual.value?.id) {
+  alert('Não foi possível identificar o paciente logado.')
+  return
+}
+
+  const dadosExame = {
     tipo: exame.nome,
     data: dataSelecionada.value,
-    medico: 'Dr. Carlos Mendes',
     horario: horarioSelecionado.value,
-  })
+    medicoId: 2,
+    medico: 'Dr. Carlos Mendes',
+    pacienteId: usuarioAtual.value.id
+  }
 
-  alert(
-    `Exame agendado com sucesso para ${exame.nome} em ${dataSelecionada.value} às ${horarioSelecionado.value}.`,
-  )
+  try {
+    let resposta
 
-  resetar()
-  router.push("MinhaArea");
+    if (exameEmEdicao.value !== null) {
+      resposta = await fetch(
+        `${API_URL}/exames/${exameEmEdicao.value}`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            tipo: dadosExame.tipo,
+            data: dadosExame.data,
+            horario: dadosExame.horario
+          })
+        }
+      )
+    } else {
+      resposta = await fetch(`${API_URL}/exames`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dadosExame)
+      })
+    }
+
+    if (!resposta.ok) {
+      throw new Error('Não foi possível salvar o exame.')
+    }
+
+    alert(
+      exameEmEdicao.value !== null
+        ? 'Agendamento atualizado com sucesso!'
+        : 'Exame agendado com sucesso!'
+    )
+
+    resetar()
+    router.push('/MinhaArea')
+
+  } catch (erro) {
+    console.error(erro)
+    alert('Ocorreu um erro ao salvar o agendamento.')
+  }
 }
+
+
 
 function voltarEtapa() {
   if (etapa.value > 1) {
@@ -95,7 +169,52 @@ function resetar() {
   exameSelecionado.value = null
   dataSelecionada.value = ''
   horarioSelecionado.value = ''
+  exameEmEdicao.value = null
 }
+
+//
+
+function editarExame(exame) {
+  exameEmEdicao.value = exame.id
+
+  const encontrado = exames.find(
+    item => item.nome.toLowerCase() === exame.tipo.toLowerCase()
+  )
+
+  if (!encontrado) {
+    alert('Não foi possível encontrar esse exame.')
+    return
+  }
+
+  exameSelecionado.value = encontrado
+  dataSelecionada.value = exame.data
+  horarioSelecionado.value = exame.horario
+
+  etapa.value = 2
+}
+
+onMounted(async () => {
+  try {
+    await carregarExames()
+
+    if (route.query.editar) {
+      const exame = examesAgendados.value.find(
+        item => String(item.id) === String(route.query.editar)
+      )
+
+      if (exame) {
+        editarExame(exame)
+      } else {
+        alert('Não foi possível encontrar esse agendamento.')
+      }
+    }
+  } catch (erro) {
+    console.error(erro)
+    alert('Não foi possível carregar os exames.')
+  }
+})
+
+
 </script>
 
 <template>
@@ -180,7 +299,22 @@ function resetar() {
     <div class="actions-row">
       <button v-if="etapa > 1" class="back-btn" @click="voltarEtapa">Voltar</button>
       <button v-if="etapa < 3" class="next-btn" @click="avancar">Próximo →</button>
-      <button v-else class="next-btn" @click="avancar">Confirmar</button>
+       <button
+    v-if="etapa === 3 && exameEmEdicao === null"
+    class="next-btn"
+    @click="avancar"
+  >
+    Confirmar
+  </button>
+
+  <button
+    v-if="etapa === 3 && exameEmEdicao !== null"
+    class="next-btn"
+    @click="avancar"
+  >
+    Atualizar
+  </button>
+
     </div>
   </div>
 </template>

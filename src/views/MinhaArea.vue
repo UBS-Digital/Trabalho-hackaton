@@ -287,6 +287,18 @@ onMounted(async () => {
                 <button class="botao-reagendar">Reagendar</button>
               </router-link>
               <button class="botao-cancelar" type="button" @click="cancelarItem('consultas', consulta.id)">Cancelar</button>
+
+              <button
+  class="botao-editar"
+  type="button"
+  @click="$router.push({
+    path: '/agendar-exame',
+    query: { editar: exame.id }
+  })"
+>
+  Editar
+</button>
+
             </div>
 
             <!-- Exame
