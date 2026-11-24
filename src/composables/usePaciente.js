@@ -141,6 +141,38 @@ export async function deletarRegistroPorId(tipo, id) {
   }
 }
 
+export async function registrarUsuario(dados, tipo) {
+  try {
+    const resposta = await fetch(`${API_URL}/${tipo === 'paciente' ? 'pacientes' : 'medicos'}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(dados)
+    })
+
+    if (!resposta.ok) {
+      throw new Error('Não foi possível cadastrar o usuário.')
+    }
+
+    const usuarioCriado = await resposta.json()
+
+    sessionStorage.setItem('usuarioId', usuarioCriado.id)
+
+    usuarioLogado.value = {
+      ...usuarioCriado,
+      tipo
+    }
+
+    return usuarioCriado
+
+  } catch (error) {
+    console.error('Erro ao registrar usuário:', error)
+    throw error
+  }
+}
+
+
 const usuarioAtual = computed(() => usuarioLogado.value)
 
 export function useUsuario() {
@@ -152,6 +184,7 @@ export function useUsuario() {
     carregarDadosPaciente,
     atualizarPesoPaciente,
     deletarRegistroPorId,
+    registrarUsuario,
   }
 }
 

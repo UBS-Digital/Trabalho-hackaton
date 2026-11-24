@@ -1,16 +1,15 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import AppBanner from '@/components/Produtos/AppBanner.vue'
 import paginas from '@/components/data/data'
 import { useUsuario } from '@/composables/usePaciente'
 import { useRouter, useRoute } from 'vue-router'
 
-const API_URL = 'http://localhost:3001'
+const API_URL = 'http://localhost:3000'
 
-const { usuarioAtual } = useUsuario()
+const { usuarioAtual, carregarUsuarioPorId } = useUsuario()
 const router = useRouter()
 const route = useRoute()
-
 const examesAgendados = ref([])
 
 const exames = [
@@ -69,7 +68,6 @@ async function carregarExames() {
   examesAgendados.value = await resposta.json()
 }
 
-onMounted(carregarExames)
 
 
 async function avancar() {
@@ -95,10 +93,9 @@ async function avancar() {
   return
 }
 
-if (!usuarioAtual.value?.id) {
-  alert('Não foi possível identificar o paciente logado.')
-  return
-}
+
+console.log('Usuário atual:', usuarioAtual.value)
+console.log('ID da sessão:', sessionStorage.getItem('usuarioId'))
 
   const dadosExame = {
     tipo: exame.nome,
@@ -106,7 +103,7 @@ if (!usuarioAtual.value?.id) {
     horario: horarioSelecionado.value,
     medicoId: 2,
     medico: 'Dr. Carlos Mendes',
-    pacienteId: usuarioAtual.value.id
+   pacienteId: usuarioAtual.value?.id ?? sessionStorage.getItem('usuarioId')
   }
 
   try {
@@ -195,6 +192,7 @@ function editarExame(exame) {
 
 onMounted(async () => {
   try {
+    await carregarUsuarioPorId()
     await carregarExames()
 
     if (route.query.editar) {

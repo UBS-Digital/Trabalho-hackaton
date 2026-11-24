@@ -45,6 +45,26 @@
       "email": "lucaseliel15032010@gmail.com",
       "tel": "47 99183-3045",
       "senha": "Senha2"
+    },
+    {
+      "nome": "Geral",
+      "peso": "",
+      "genero": "M",
+      "email": "geraldo@gmail.com",
+      "senha": "0028922",
+      "tel": "00000000000",
+      "cpf": "00000000000",
+      "medicamentos": [],
+      "medicoFamiliar": {
+        "id": null,
+        "nome": "Não informado",
+        "experiencia": null,
+        "acompanhamento": "",
+        "especialidade": ""
+      },
+      "exames": [],
+      "consultas": [],
+      "id": "3VnA5khS2Ek"
     }
   ],
   "exames": [
@@ -71,6 +91,15 @@
       "medicoId": 2,
       "medico": "Laboratório Central",
       "pacienteId": 1
+    },
+    {
+      "tipo": "Glicemia em jejum",
+      "data": "2026-11-06",
+      "horario": "08:00",
+      "medicoId": 2,
+      "medico": "Dr. Carlos Mendes",
+      "pacienteId": "3VnA5khS2Ek",
+      "id": "5MedwrzMDLo"
     }
   ],
   "consultas": [

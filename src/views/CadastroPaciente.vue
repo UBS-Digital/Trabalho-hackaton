@@ -56,31 +56,38 @@ function validarFormulario() {
   return Object.keys(erros.value).length === 0;
 }
 
-function cadastrarUsuario() {
+async function cadastrarUsuario() {
   if (!validarFormulario()) {
     return;
   }
 
-  registrarUsuario({
-    nome: nomePaciente.value,
-    peso: '',
-    genero: genPaciente.value,
-    email: emailPaciente.value,
-    senha: senhaPaciente.value,
-    tel: telPaciente.value,
-    cpf: cpfPaciente.value,
-    medicamentos: [],
-    medicoFamiliar: {
-      id: null,
-      nome: 'Não informado',
-      experiencia: null,
-      acompanhamento: '',
-      especialidade: ''
-    },
-    exames: [],
-    consultas: []
-  }, 'paciente');
-  router.push('/MinhaArea');
+  try {
+    await registrarUsuario({
+      nome: nomePaciente.value,
+      peso: '',
+      genero: genPaciente.value,
+      email: emailPaciente.value,
+      senha: senhaPaciente.value,
+      tel: telPaciente.value,
+      cpf: cpfPaciente.value,
+      medicamentos: [],
+      medicoFamiliar: {
+        id: null,
+        nome: 'Não informado',
+        experiencia: null,
+        acompanhamento: '',
+        especialidade: ''
+      },
+      exames: [],
+      consultas: []
+    }, 'paciente');
+
+    router.push('/MinhaArea');
+
+  } catch (error) {
+  console.error('Erro ao cadastrar paciente:', error);
+  alert(error.message);
+}
 }
 
 </script>

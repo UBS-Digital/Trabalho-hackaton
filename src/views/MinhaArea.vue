@@ -288,16 +288,7 @@ onMounted(async () => {
               </router-link>
               <button class="botao-cancelar" type="button" @click="cancelarItem('consultas', consulta.id)">Cancelar</button>
 
-              <button
-  class="botao-editar"
-  type="button"
-  @click="$router.push({
-    path: '/agendar-exame',
-    query: { editar: exame.id }
-  })"
->
-  Editar
-</button>
+
 
             </div>
 
@@ -372,6 +363,9 @@ onMounted(async () => {
               <p class="nenhum-agendamento">Nenhum exame concluído...</p>
             </div>
             <div class="item-exame" v-for="(exame) in examesUs" :key="exame.id">
+
+
+
               <p class="subtitulo-exame">Exame ID: {{ exame.id }} • Paciente ID: {{ exame.pacienteId }}</p>
               <div class="item-exame-esquerda">
                 <div class="icone-situacao-exame icone-situacao-verde">
@@ -386,6 +380,18 @@ onMounted(async () => {
               </div>
 
               <button class="botao-cancelar" type="button" @click="cancelarItem('exames', exame.id)">Cancelar</button>
+
+              <button
+  class="botao-editar"
+  type="button"
+  @click="$router.push({
+    path: '/agendar-exame',
+    query: { editar: exame.id }
+  })"
+>
+  Editar
+</button>
+
               <a href="/src/imagem/preview.webp" download="resultado-exame.webp">
                 <button class="botao-baixar">
 
