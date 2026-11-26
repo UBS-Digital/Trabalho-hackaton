@@ -34,7 +34,18 @@
       "cpf": "123.456.789-00",
       "email": "gamaliel@gmail.com",
       "tel": "4002-8922",
-      "senha": "senha"
+      "senha": "senha",
+      "medicoFamiliar": {
+        "id": "2",
+        "nome": "Dr. Carlos Mendes",
+        "experiencia": 15,
+        "especialidades": [
+          "Clínico Geral"
+        ],
+        "especialidade": "Clínico Geral",
+        "email": "carlosmender@gmail.com",
+        "tel": "423-8922"
+      }
     },
     {
       "id": "2",
