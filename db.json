@@ -1,71 +1,8 @@
 {
-  "pacientes": [
-    {
-      "id": "2",
-      "nome": "Lucas",
-      "peso": 75,
-      "genero": "M",
-      "cpf": "183.156.459-90",
-      "email": "lucaseliel15032010@gamil.com",
-      "tel": "47 99183-3045",
-      "senha": "Senha2",
-      "medicamentos": [
-        {
-          "id": 1,
-          "nome": "PuranT4",
-          "dose": 37.5,
-          "vezes": 1,
-          "horarios": [
-            "Manhã"
-          ]
-        },
-        {
-          "id": 2,
-          "nome": "Symbicort",
-          "dose": 200,
-          "vezes": 2,
-          "horarios": [
-            "manhã",
-            "noite"
-          ]
-        }
-      ],
-      "medicoFamiliar": {
-        "nome": "Dr. Paulo Henrique Viana",
-        "id": null,
-        "experiencia": null,
-        "acompanhamento": "Fevereiro de 2021",
-        "especialidade": "Pediatria"
-      },
-      "exames": [
-        {
-          "id": 1,
-          "tipo": "Exame de Urina",
-          "data": "12 de março de 2026",
-          "medico": "Dr. Paulo Henrique Viana"
-        },
-        {
-          "id": 2,
-          "tipo": "Hemograma Completo",
-          "data": "02 de maio de 2026",
-          "medico": "Dr. Carlos Mendes"
-        }
-      ],
-      "consultas": [
-        {
-          "id": 1,
-          "especialidade": "Pneumologista",
-          "motivo": "Dificuldade para respirar",
-          "data": "02 de maio de 2026",
-          "medico": "Dr. Carlos Mendes"
-        }
-      ]
-    }
-  ],
   "medicos": [
     {
-      "id": "1",
       "nome": "Dr. Carlos Mendes",
+      "id": "2",
       "certificado": "",
       "experiencia": 15,
       "email": "carlosmender@gmail.com",
@@ -76,10 +13,10 @@
       ]
     },
     {
-      "id": "2",
       "nome": "Dr. Paulo Henrique Viana",
+      "id": "3",
       "certificado": "",
-      "email": "parulohenriquedr@gmail.com",
+      "email": "paulohenriquedr@gmail.com",
       "tel": "613-8032",
       "senha": "senha2",
       "especialidades": [
@@ -87,5 +24,144 @@
         "Pneumologia"
       ]
     }
-  ]
+  ],
+  "pacientes": [
+    {
+      "id": "1",
+      "nome": "Gamaliel",
+      "peso": 72,
+      "genero": "M",
+      "cpf": "123.456.789-00",
+      "email": "gamaliel@gmail.com",
+      "tel": "4002-8922",
+      "senha": "senha"
+    },
+    {
+      "id": "2",
+      "nome": "Lucas",
+      "peso": 83,
+      "genero": "M",
+      "cpf": "183.156.459-90",
+      "email": "lucaseliel15032010@gmail.com",
+      "tel": "47 99183-3045",
+      "senha": "Senha2"
+    }
+  ],
+  "exames": [
+    {
+      "id": "2",
+      "tipo": "Hemograma Completo",
+      "data": "02 de maio de 2026",
+      "medicoId": 2,
+      "medico": "Laboratório Central",
+      "pacienteId": 2
+    },
+    {
+      "id": "3",
+      "tipo": "Ultrassom Abdominal",
+      "data": "20 de maio de 2026",
+      "medicoId": 3,
+      "medico": "Dr. Paulo Henrique Viana",
+      "pacienteId": 2
+    },
+    {
+      "id": "4",
+      "tipo": "Exame de Colesterol",
+      "data": "25 de junho de 2026",
+      "medicoId": 2,
+      "medico": "Laboratório Central",
+      "pacienteId": 1
+    }
+  ],
+  "consultas": [
+    {
+      "id": "3",
+      "especialidade": "Cardiologia",
+      "motivo": "Acompanhamento preventivo",
+      "data": "16 de maio de 2026",
+      "medicoId": 2,
+      "medico": "Dr. Carlos Mendes",
+      "horario": "08:30",
+      "pacienteId": 2
+    },
+    {
+      "id": "4",
+      "especialidade": "Pediatria",
+      "motivo": "Consulta de rotina",
+      "data": "22 de maio de 2026",
+      "medicoId": 3,
+      "medico": "Dr. Paulo Henrique Viana",
+      "horario": "10:00",
+      "pacienteId": 2
+    },
+    {
+      "id": "5",
+      "especialidade": "Clínico Geral",
+      "motivo": "Acompanhamento de pressão",
+      "data": "05 de junho de 2026",
+      "medicoId": 2,
+      "medico": "Dr. Carlos Mendes",
+      "horario": "14:15",
+      "pacienteId": 1
+    }
+  ],
+  "familiasAssociadas": [
+    {
+      "id": "1",
+      "nome": "Família Silva",
+      "membros": [
+        {
+          "idMembros": [
+            1,
+            2
+          ]
+        }
+      ],
+      "idMedico": 2
+    }
+  ],
+  "medicamentos": [
+    {
+      "id": "1",
+      "nome": "Paracetamol",
+      "dose": 500,
+      "vezes": 1,
+      "horarios": [
+        "08:00"
+      ],
+      "pacienteId": 1
+    },
+    {
+      "id": "2",
+      "nome": "Ibuprofeno",
+      "dose": 600,
+      "vezes": 2,
+      "horarios": [
+        "08:00",
+        "20:00"
+      ],
+      "pacienteId": 2
+    },
+    {
+      "id": "3",
+      "nome": "Omeprazol",
+      "dose": 20,
+      "vezes": 1,
+      "horarios": [
+        "07:00"
+      ],
+      "pacienteId": 2
+    },
+    {
+      "id": "4",
+      "nome": "Vitamina D",
+      "dose": 1000,
+      "vezes": 1,
+      "horarios": [
+        "19:00"
+      ],
+      "pacienteId": 1
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
