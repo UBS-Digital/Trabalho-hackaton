@@ -5,7 +5,6 @@ const API_URL = 'http://localhost:3000'
 export const chaveUsuario = ref(sessionStorage.getItem('usuarioChave') || null)
 export const usuarioLogado = ref(null)
 
-
 export async function carregarUsuarioPorId() {
   const usuarioId = sessionStorage.getItem('usuarioId')
 
@@ -15,6 +14,17 @@ export async function carregarUsuarioPorId() {
   }
 
   try {
+    const tipoUsuario = sessionStorage.getItem('usuarioTipo')
+
+    if (tipoUsuario === 'medico') {
+      const respostaMedico = await fetch(`${API_URL}/medicos/${usuarioId}`)
+      if (respostaMedico.ok) {
+        const medico = await respostaMedico.json()
+        usuarioLogado.value = { ...medico, tipo: 'medico' }
+        return usuarioLogado.value
+      }
+    }
+
     const respostaPaciente = await fetch(`${API_URL}/pacientes/${usuarioId}`)
     if (respostaPaciente.ok) {
       const paciente = await respostaPaciente.json()
@@ -47,7 +57,9 @@ function filtrarPorPacienteId(lista, pacienteId) {
     return []
   }
 
-  return lista.filter((item) => normalizarPacienteId(item?.pacienteId) === normalizarPacienteId(pacienteId))
+  return lista.filter(
+    (item) => normalizarPacienteId(item?.pacienteId) === normalizarPacienteId(pacienteId),
+  )
 }
 
 export async function carregarDadosPaciente() {
@@ -59,16 +71,16 @@ export async function carregarDadosPaciente() {
       paciente: null,
       consultas: [],
       exames: [],
-      medicamentos: []
+      medicamentos: [],
     }
   }
 
   try {
     const [pacienteRes, consultasRes, examesRes, medicamentosRes] = await Promise.all([
-      fetch(`${API_URL}/pacientes/${ pacienteIdNormalizado }`),
+      fetch(`${API_URL}/pacientes/${pacienteIdNormalizado}`),
       fetch(`${API_URL}/consultas`),
       fetch(`${API_URL}/exames`),
-      fetch(`${API_URL}/medicamentos`)
+      fetch(`${API_URL}/medicamentos`),
     ])
 
     const paciente = pacienteRes.ok ? await pacienteRes.json() : null
@@ -80,7 +92,7 @@ export async function carregarDadosPaciente() {
       paciente,
       consultas: filtrarPorPacienteId(consultas, pacienteIdNormalizado),
       exames: filtrarPorPacienteId(exames, pacienteIdNormalizado),
-      medicamentos: filtrarPorPacienteId(medicamentos, pacienteIdNormalizado)
+      medicamentos: filtrarPorPacienteId(medicamentos, pacienteIdNormalizado),
     }
   } catch (error) {
     console.error('Erro ao carregar dados do paciente:', error)
@@ -88,7 +100,7 @@ export async function carregarDadosPaciente() {
       paciente: null,
       consultas: [],
       exames: [],
-      medicamentos: []
+      medicamentos: [],
     }
   }
 }
@@ -104,9 +116,9 @@ export async function atualizarPesoPaciente(novoPeso) {
     const resposta = await fetch(`${API_URL}/pacientes/${usuarioId}`, {
       method: 'PATCH',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ peso: Number(novoPeso) })
+      body: JSON.stringify({ peso: Number(novoPeso) }),
     })
 
     if (!resposta.ok) {
@@ -131,7 +143,7 @@ export async function deletarRegistroPorId(tipo, id) {
 
   try {
     const resposta = await fetch(`${API_URL}/${tipo}/${registroId}`, {
-      method: 'DELETE'
+      method: 'DELETE',
     })
 
     return resposta.ok
@@ -154,6 +166,3 @@ export function useUsuario() {
     deletarRegistroPorId,
   }
 }
-
-
-

@@ -7,8 +7,9 @@ import chart2 from '../imagem/image2.jpg'
 import { useUsuario } from '@/composables/usePaciente'
 
 const API_URL = 'http://localhost:3000'
-const { usuarioAtual, usuarioLogado } = useUsuario()
+const { usuarioAtual, usuarioLogado, carregarUsuarioPorId } = useUsuario()
 const medicoFamiliar = ref(null)
+const consultasPaciente = ref([])
 const medicosDisponiveis = ref([])
 const exibindoSelecao = ref(false)
 const carregandoPerfil = ref(false)
@@ -39,6 +40,11 @@ function idPacienteAtual() {
   return sessionStorage.getItem('usuarioId') || usuarioAtual.value?.id || null
 }
 
+function usuarioEhMedico() {
+  return sessionStorage.getItem('usuarioTipo') === 'medico'
+    || usuarioAtual.value?.tipo === 'medico'
+}
+
 function normalizarMedico(medico) {
   const especialidades = Array.isArray(medico.especialidades)
     ? medico.especialidades
@@ -59,13 +65,26 @@ function normalizarMedico(medico) {
 
 async function carregarPerfil() {
   const pacienteId = idPacienteAtual()
-  if (!pacienteId) return
+  if (!pacienteId) {
+    erro.value = 'Faça login como paciente para visualizar o médico da família.'
+    return
+  }
+
+  if (usuarioEhMedico()) {
+    erro.value = 'Esta página é exclusiva para pacientes.'
+    medicoFamiliar.value = null
+    return
+  }
 
   carregandoPerfil.value = true
   erro.value = ''
 
   try {
-    const respostaPaciente = await fetch(`${API_URL}/pacientes/${encodeURIComponent(pacienteId)}`)
+    const [respostaPaciente, respostaConsultas] = await Promise.all([
+      fetch(`${API_URL}/pacientes/${encodeURIComponent(pacienteId)}`),
+      fetch(`${API_URL}/consultas?pacienteId=${encodeURIComponent(pacienteId)}`)
+    ])
+
     if (!respostaPaciente.ok) {
       throw new Error('Não foi possível carregar os dados do paciente.')
     }
@@ -73,18 +92,24 @@ async function carregarPerfil() {
     const paciente = await respostaPaciente.json()
     usuarioLogado.value = { ...usuarioLogado.value, ...paciente, tipo: 'paciente' }
 
+    if (respostaConsultas.ok) {
+      consultasPaciente.value = await respostaConsultas.json()
+    } else {
+      consultasPaciente.value = []
+    }
+
     const medicoAssociado = paciente.medicoFamiliar
-    if (medicoAssociado?.id == null) {
+    if (!medicoAssociado?.id) {
       medicoFamiliar.value = null
       return
     }
 
     const respostaMedico = await fetch(`${API_URL}/medicos/${encodeURIComponent(medicoAssociado.id)}`)
-    if (!respostaMedico.ok) {
-      throw new Error('Não foi possível carregar os dados do médico associado.')
+    if (respostaMedico.ok) {
+      medicoFamiliar.value = normalizarMedico(await respostaMedico.json())
+    } else {
+      medicoFamiliar.value = normalizarMedico(medicoAssociado)
     }
-
-    medicoFamiliar.value = normalizarMedico(await respostaMedico.json())
   } catch (errorCarregamento) {
     console.error('Erro ao carregar médico da família:', errorCarregamento)
     erro.value = errorCarregamento.message || 'Não foi possível carregar os dados.'
@@ -120,7 +145,7 @@ async function abrirSelecaoMedico() {
 
 async function salvarMedico(medico) {
   const pacienteId = idPacienteAtual()
-  if (!pacienteId || usuarioAtual.value?.tipo === 'medico') {
+  if (!pacienteId || usuarioEhMedico()) {
     erro.value = 'Entre na sua conta de paciente para gerenciar o médico da família.'
     return false
   }
@@ -130,14 +155,14 @@ async function salvarMedico(medico) {
 
   const medicoParaSalvar = medico
     ? {
-        id: medico.id,
-        nome: medico.nome,
-        experiencia: medico.experiencia ?? null,
-        especialidades: medico.especialidades,
-        especialidade: medico.especialidade,
-        email: medico.email || '',
-        tel: medico.tel || ''
-      }
+      id: medico.id,
+      nome: medico.nome,
+      experiencia: medico.experiencia ?? null,
+      especialidades: medico.especialidades,
+      especialidade: medico.especialidade,
+      email: medico.email || '',
+      tel: medico.tel || ''
+    }
     : null
 
   try {
@@ -165,7 +190,10 @@ async function salvarMedico(medico) {
   }
 }
 
-onMounted(carregarPerfil)
+onMounted(async () => {
+  await carregarUsuarioPorId()
+  await carregarPerfil()
+})
 </script>
 
 <template>
@@ -225,17 +253,17 @@ onMounted(carregarPerfil)
 
           <div class="historico">
             <h3>Histórico de Consultas</h3>
-            <div class="item-historico">
+            <p v-if="!consultasPaciente.length" class="informacao-adicional">
+              Nenhuma consulta encontrada para este paciente.
+            </p>
+            <div v-for="consulta in consultasPaciente" :key="consulta.id" class="item-historico">
               <div>
-                <strong>Consulta de Rotina</strong>
-                <div class="informacao-adicional">02 Mai 2024 · Pressão arterial controlada. Manter medicação.</div>
-              </div>
-              <button class="botao pequeno" type="button">Ver Detalhes</button>
-            </div>
-            <div class="item-historico">
-              <div>
-                <strong>Consulta de Rotina</strong>
-                <div class="informacao-adicional">01 Mar 2024 · Pressão arterial controlada. Manter medicação.</div>
+                <strong>{{ consulta.especialidade || 'Consulta de Rotina' }}</strong>
+                <div class="informacao-adicional">
+                  {{ consulta.data || 'Data não informada' }} · {{ consulta.medico || medicoFamiliar.nome }}
+                  <span v-if="consulta.horario"> às {{ consulta.horario }}</span>
+                  <span v-if="consulta.motivo"> · {{ consulta.motivo }}</span>
+                </div>
               </div>
               <button class="botao pequeno" type="button">Ver Detalhes</button>
             </div>
@@ -266,18 +294,9 @@ onMounted(carregarPerfil)
         </aside>
       </section>
 
-      <div
-        v-if="exibindoSelecao"
-        class="fundo-modal"
-        @click.self="exibindoSelecao = false"
-      >
-        <section
-          class="selecao-medicos"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="titulo-selecao"
-          aria-describedby="descricao-selecao"
-        >
+      <div v-if="exibindoSelecao" class="fundo-modal" @click.self="exibindoSelecao = false">
+        <section class="selecao-medicos" role="dialog" aria-modal="true" aria-labelledby="titulo-selecao"
+          aria-describedby="descricao-selecao">
           <div class="cabecalho-selecao">
             <div>
               <h2 id="titulo-selecao">Escolha um médico</h2>
@@ -307,12 +326,7 @@ onMounted(carregarPerfil)
                 </div>
               </div>
               <div>
-                <button
-                  class="botao primario"
-                  type="button"
-                  :disabled="salvando"
-                  @click="salvarMedico(medico)"
-                >
+                <button class="botao primario" type="button" :disabled="salvando" @click="salvarMedico(medico)">
                   {{ salvando ? 'Salvando...' : 'Selecionar médico' }}
                 </button>
               </div>
@@ -607,7 +621,7 @@ onMounted(carregarPerfil)
   font-size: 18px;
 }
 
-.cabecalho-selecao > .botao {
+.cabecalho-selecao>.botao {
   position: absolute;
   right: 0;
 }
@@ -687,7 +701,7 @@ onMounted(carregarPerfil)
   margin: 12px 0;
 }
 
-.selecao-medicos > .mensagem {
+.selecao-medicos>.mensagem {
   padding: 24px 12px;
   color: #344b5c;
   font-size: 19px;
@@ -730,7 +744,7 @@ onMounted(carregarPerfil)
     gap: 16px;
   }
 
-  .cabecalho-selecao > .botao {
+  .cabecalho-selecao>.botao {
     position: static;
   }
 
