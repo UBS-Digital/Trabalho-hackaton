@@ -1,7 +1,121 @@
 <script setup>
+import { ref, computed, onMounted } from 'vue'
+import { API_URL } from '@/services/api'
+import { useUsuario } from '@/composables/usePaciente'
 
+const { usuarioAtual } = useUsuario()
 
+const comentarios = ref([])
+const novoTexto = ref('')
+const editandoId = ref(null)
+const textoEdicao = ref('')
+const erroComentario = ref('')
 
+const logado = computed(() => !!usuarioAtual.value)
+
+// só o autor pode editar/excluir o próprio comentário
+function ehMeu(comentario) {
+  return !!usuarioAtual.value && comentario.autorEmail === usuarioAtual.value.email
+}
+
+function formatarData(iso) {
+  return new Date(iso).toLocaleDateString('pt-BR')
+}
+
+function tratarErro(erro, acao) {
+  erroComentario.value =
+    erro.message === 'Failed to fetch'
+      ? 'Não foi possível conectar à API. Verifique se ela está rodando (npm run api).'
+      : `Não foi possível ${acao} o comentário. ${erro.message}`
+}
+
+// READ: busca todos os comentários (mais novos primeiro)
+async function carregarComentarios() {
+  try {
+    const resposta = await fetch(`${API_URL}/comentarios?_sort=criadoEm&_order=desc`)
+    if (!resposta.ok) throw new Error(`código ${resposta.status}`)
+    comentarios.value = await resposta.json()
+  } catch (erro) {
+    tratarErro(erro, 'carregar')
+  }
+}
+
+// CREATE: cria um comentário com o usuário logado como autor
+async function criarComentario() {
+  erroComentario.value = ''
+  const texto = novoTexto.value.trim()
+  if (!texto || !usuarioAtual.value) return
+
+  try {
+    const resposta = await fetch(`${API_URL}/comentarios`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        texto,
+        autorNome: usuarioAtual.value.nome,
+        autorEmail: usuarioAtual.value.email,
+        criadoEm: new Date().toISOString(),
+        editadoEm: null,
+      }),
+    })
+    if (!resposta.ok) throw new Error(`código ${resposta.status}`)
+    comentarios.value.unshift(await resposta.json())
+    novoTexto.value = ''
+  } catch (erro) {
+    tratarErro(erro, 'publicar')
+  }
+}
+
+// UPDATE: entra no modo de edição
+function iniciarEdicao(comentario) {
+  editandoId.value = comentario.id
+  textoEdicao.value = comentario.texto
+  erroComentario.value = ''
+}
+
+function cancelarEdicao() {
+  editandoId.value = null
+  textoEdicao.value = ''
+}
+
+// UPDATE: salva a edição (PATCH altera só os campos enviados)
+async function salvarEdicao(comentario) {
+  erroComentario.value = ''
+  const texto = textoEdicao.value.trim()
+  if (!texto || !ehMeu(comentario)) return
+
+  try {
+    const resposta = await fetch(`${API_URL}/comentarios/${comentario.id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ texto, editadoEm: new Date().toISOString() }),
+    })
+    if (!resposta.ok) throw new Error(`código ${resposta.status}`)
+    const atualizado = await resposta.json()
+    const indice = comentarios.value.findIndex((c) => c.id === comentario.id)
+    if (indice !== -1) comentarios.value[indice] = atualizado
+    cancelarEdicao()
+  } catch (erro) {
+    tratarErro(erro, 'editar')
+  }
+}
+
+// DELETE: exclui o comentário
+async function excluirComentario(comentario) {
+  erroComentario.value = ''
+  if (!ehMeu(comentario)) return
+  if (!confirm('Tem certeza que deseja excluir este comentário?')) return
+
+  try {
+    const resposta = await fetch(`${API_URL}/comentarios/${comentario.id}`, { method: 'DELETE' })
+    if (!resposta.ok) throw new Error(`código ${resposta.status}`)
+    comentarios.value = comentarios.value.filter((c) => c.id !== comentario.id)
+  } catch (erro) {
+    tratarErro(erro, 'excluir')
+  }
+}
+
+onMounted(carregarComentarios)
 </script>
 
 <template>
@@ -92,7 +206,7 @@
 
     <p>Atendimento completo para diagnóstico e tratamento de doenças comuns</p>
     <RouterLink to="/especialidades" class="saibaMais">Saiba Mais <span>→</span></RouterLink>
-    
+
   </div>
 
 
@@ -183,7 +297,12 @@
     <p>Depoimentos de quem confia na nossa equipe</p>
 
     <div class="caixaComentario">
-        <input type="text" placeholder="Comente aqui a sua opinião sobre o site, atendimento, consultas e o que você quiser mas lembre-se de sempre manter a educação com todos 😊">
+        <form v-if="logado" @submit.prevent="criarComentario">
+            <input v-model="novoTexto" type="text" maxlength="300" placeholder="Comente aqui a sua opinião sobre o site, atendimento, consultas e o que você quiser mas lembre-se de sempre manter a educação com todos 😊">
+            <button type="submit" class="btnComentar" :disabled="!novoTexto.trim()">Comentar</button>
+        </form>
+        <p v-else class="avisoLogin">Para comentar, <RouterLink to="/login-usuario">faça login</RouterLink>.</p>
+        <p v-if="erroComentario" class="erroComentario">{{ erroComentario }}</p>
     </div>
 
 </div>
@@ -222,6 +341,35 @@
       <div>
         <p class="nome">Ana Paula</p>
         <p class="tipo">Paciente</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Comentários dos usuários (CRUD) -->
+  <div class="depoimento" v-for="comentario in comentarios" :key="comentario.id">
+
+    <template v-if="editandoId === comentario.id">
+      <textarea v-model="textoEdicao" class="campoEdicao" maxlength="300" rows="4"></textarea>
+      <div class="acoesComentario">
+        <button type="button" class="btnSalvar" :disabled="!textoEdicao.trim()" @click="salvarEdicao(comentario)">Salvar</button>
+        <button type="button" class="btnCancelar" @click="cancelarEdicao">Cancelar</button>
+      </div>
+    </template>
+
+    <template v-else>
+      <p class="fala">"{{ comentario.texto }}"</p>
+      <div class="acoesComentario" v-if="ehMeu(comentario)">
+        <button type="button" class="btnEditar" @click="iniciarEdicao(comentario)">Editar</button>
+        <button type="button" class="btnExcluir" @click="excluirComentario(comentario)">Excluir</button>
+      </div>
+    </template>
+
+    <div class="autor">
+      <img src="/src/imagem/moco.png" alt="">
+      <div>
+        <p class="nome">{{ comentario.autorNome }}</p>
+        <p class="tipo">{{ formatarData(comentario.criadoEm) }}<span v-if="comentario.editadoEm"> · editado</span></p>
       </div>
     </div>
   </div>
@@ -530,8 +678,14 @@ img{
     margin: 0 auto;
 }
 
+.caixaComentario form{
+    display: flex;
+    gap: 10px;
+}
+
 .caixaComentario input{
-    width: 100%;
+    flex: 1;
+    min-width: 0;
     box-sizing: border-box;
     padding: 1rem 1.3rem;
     border-radius: 8px;
@@ -596,6 +750,94 @@ img{
     font-size: 1rem;
     color: #999;
     margin: 0;
+}
+
+
+/* ===== CRUD de comentários ===== */
+.btnComentar,
+.btnSalvar{
+    background-color: #418CEF;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0 1.4rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btnComentar:hover:not(:disabled),
+.btnSalvar:hover:not(:disabled){
+    background-color: #2F6FDB;
+}
+
+.btnComentar:disabled,
+.btnSalvar:disabled{
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.avisoLogin{
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.avisoLogin a{
+    color: #418CEF;
+    font-weight: 600;
+}
+
+.erroComentario{
+    color: #d93025;
+    font-size: 1.1rem;
+    margin-top: 0.8rem;
+}
+
+.acoesComentario{
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.acoesComentario button{
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.acoesComentario .btnSalvar{
+    padding: 6px 14px;
+}
+
+.btnEditar{
+    background: white;
+    color: #418CEF;
+    border-color: #418CEF !important;
+}
+
+.btnExcluir{
+    background: white;
+    color: #d93025;
+    border-color: #d93025 !important;
+}
+
+.btnCancelar{
+    background: #eee;
+    color: #555;
+}
+
+.campoEdicao{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.7rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1.1rem;
+    resize: vertical;
 }
 
 /* ===== Chamada final ===== */
