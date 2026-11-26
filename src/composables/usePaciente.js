@@ -14,6 +14,17 @@ export async function carregarUsuarioPorId() {
   }
 
   try {
+    const tipoUsuario = sessionStorage.getItem('usuarioTipo')
+
+    if (tipoUsuario === 'medico') {
+      const respostaMedico = await fetch(`${API_URL}/medicos/${usuarioId}`)
+      if (respostaMedico.ok) {
+        const medico = await respostaMedico.json()
+        usuarioLogado.value = { ...medico, tipo: 'medico' }
+        return usuarioLogado.value
+      }
+    }
+
     const respostaPaciente = await fetch(`${API_URL}/pacientes/${usuarioId}`)
     if (respostaPaciente.ok) {
       const paciente = await respostaPaciente.json()
