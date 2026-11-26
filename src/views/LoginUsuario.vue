@@ -77,10 +77,19 @@ async function login() {
 
     const pacientes = pacientesResponse.ok ? await pacientesResponse.json() : []
     const medicos = medicosResponse.ok ? await medicosResponse.json() : []
-    const usuarioEncontrado = [...pacientes, ...medicos].find((usuario) => {
+    const usuarioPaciente = pacientes.find((usuario) => {
       const emailBanco = usuario.email?.trim().toLowerCase()
       return emailBanco === emailDigitado && usuario.senha === senhaDigitada
     })
+    const usuarioMedico = medicos.find((usuario) => {
+      const emailBanco = usuario.email?.trim().toLowerCase()
+      return emailBanco === emailDigitado && usuario.senha === senhaDigitada
+    })
+    const usuarioEncontrado = usuarioPaciente
+      ? { ...usuarioPaciente, tipo: 'paciente' }
+      : usuarioMedico
+        ? { ...usuarioMedico, tipo: 'medico' }
+        : null
 
     if (!usuarioEncontrado) {
       erroLogin.value = 'E-mail ou senha incorretos.'
@@ -93,6 +102,7 @@ async function login() {
 
     chaveUsuario.value = chavePrimaria
     sessionStorage.setItem('usuarioId', String(usuarioEncontrado.id))
+    sessionStorage.setItem('usuarioTipo', usuarioEncontrado.tipo)
     sessionStorage.setItem('usuarioChave', chavePrimaria)
 
     if (chaveLegacy) {
@@ -178,11 +188,13 @@ form {
   display: flex;
   flex-direction: column;
 }
+
 form label {
   font-weight: bold;
   font-size: 1rem;
   margin: 10px 0 0 0;
 }
+
 form input {
 
   padding: 1vw 1.5vw;
@@ -190,6 +202,7 @@ form input {
   border: 1px solid #000;
   font-size: 1rem;
 }
+
 .submeter {
   background-color: #4D41EF;
   color: white;
@@ -209,13 +222,16 @@ form input {
   text-align: center;
   margin: 20% 0 20% 0;
 }
+
 .feito h2 {
   font-size: 2rem;
   margin: 0 0 20px 0;
 }
+
 .feito p {
   font-size: 1.5rem;
 }
+
 .feito p span {
   font-size: 1.7rem;
   font-weight: bold;

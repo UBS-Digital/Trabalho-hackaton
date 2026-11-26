@@ -1,8 +1,17 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { useUsuario } from '../composables/usePaciente';
 
-const { usuarioLogado, carregarDadosPaciente, atualizarPesoPaciente, deletarRegistroPorId } = useUsuario();
+const router = useRouter();
+const {
+  usuarioLogado,
+  carregarUsuarioPorId,
+  carregarDadosPaciente,
+  atualizarPesoPaciente,
+  deletarRegistroPorId,
+  excluirConta
+} = useUsuario();
 const usuarioAtual = computed(() => usuarioLogado.value)
 const nomeUsuario = computed(() => usuarioAtual.value?.nome ?? '');
 const consultasUs = ref([]);
@@ -12,6 +21,9 @@ const medicamentosUs = ref([]);
 const medicoFamiliarUs = computed(() => usuarioAtual.value?.medicoFamiliar ?? {});
 const novoPeso = ref('');
 const mensagemPeso = ref('');
+
+const estadoExclusao = ref('fechado');
+const mensagemErro = ref('');
 
 function checkUsuario(usuario) {
   const u = usuario && typeof usuario === 'object' && 'value' in usuario ? usuario.value : usuario;
@@ -80,7 +92,31 @@ async function cancelarItem(tipo, id) {
   await carregarDadosUsuario()
 }
 
+function abrirConfirmacao() {
+  mensagemErro.value = '';
+  estadoExclusao.value = 'confirmando';
+}
+
+function fecharModal() {
+  if (estadoExclusao.value === 'carregando') return;
+  estadoExclusao.value = 'fechado';
+}
+
+async function confirmarExclusao() {
+  estadoExclusao.value = 'carregando';
+
+  try {
+    await excluirConta();
+    estadoExclusao.value = 'sucesso';
+    setTimeout(() => router.push('/escolha-cadastro'), 2500);
+  } catch (erro) {
+    mensagemErro.value = erro.message;
+    estadoExclusao.value = 'erro';
+  }
+}
+
 onMounted(async () => {
+  await carregarUsuarioPorId();
   await carregarDadosUsuario();
 })
 </script>
@@ -177,14 +213,7 @@ onMounted(async () => {
             <p class="subtitulo-exame">Paciente ID: {{ usuarioAtual?.id ?? '—' }}</p>
 
             <div class="peso-edicao">
-              <input
-                v-model="novoPeso"
-                type="number"
-                min="0"
-                step="0.1"
-                placeholder="Novo peso"
-                @input="onPesoInput"
-              />
+              <input v-model="novoPeso" type="number" min="0" step="0.1" placeholder="Novo peso" @input="onPesoInput" />
               <button type="button" @click="alterarPeso">Atualizar peso</button>
             </div>
 
@@ -275,7 +304,8 @@ onMounted(async () => {
               <router-link to="/agendar-exame">
                 <button class="botao-reagendar">Reagendar</button>
               </router-link>
-              <button class="botao-cancelar" type="button" @click="cancelarItem('consultas', consulta.id)">Cancelar</button>
+              <button class="botao-cancelar" type="button"
+                @click="cancelarItem('consultas', consulta.id)">Cancelar</button>
             </div>
 
             <!-- Exame
@@ -379,7 +409,8 @@ onMounted(async () => {
             </div>
 
             <div class="item-medicamento" v-for="(medicamento) in medicamentosUs" :key="medicamento.id">
-              <p class="subtitulo-exame">Medicamento ID: {{ medicamento.id }} • Paciente ID: {{ medicamento.pacienteId }}</p>
+              <p class="subtitulo-exame">Medicamento ID: {{ medicamento.id }} • Paciente ID: {{ medicamento.pacienteId
+                }}</p>
               <h3 class="titulo-medicamento">{{ medicamento.nome }}</h3>
               <p class="subtitulo-medicamento">{{ medicamento.dose }}mg - {{ medicamento.vezes }}x ao dia. De {{
                 medicamento.horarios.join(' e de ') }}</p>
@@ -407,7 +438,8 @@ onMounted(async () => {
             <div class="informacoes-medico">_
               <div class="avatar-medico">{{ medicoFamiliarUs && medicoFamiliarUs.nome ?
                 medicoFamiliarUs.nome.charAt(medicoFamiliarUs.nome.indexOf('Dr.') + 4) : '' }}</div>
-              <p class="nome-medico">{{ medicoFamiliarUs && medicoFamiliarUs.nome ? medicoFamiliarUs.nome : 'Nãoinformado' }}</p>
+              <p class="nome-medico">{{ medicoFamiliarUs && medicoFamiliarUs.nome ? medicoFamiliarUs.nome :
+                'Nãoinformado' }}</p>
             </div>
             <router-link to="/medico-familiar">
               <button class="botao-historico">Ver Histórico</button>
@@ -430,7 +462,7 @@ onMounted(async () => {
             </a>
 
           </div>
-                    <div class="cartao-zona-perigo">
+          <div class="cartao-zona-perigo">
             <h2 class="titulo-zona-perigo">Excluir conta</h2>
             <p class="texto-zona-perigo">Remove seus dados e encerra sua sessão. Essa ação não pode ser desfeita.</p>
             <button class="botao-excluir-conta" type="button" @click="abrirConfirmacao">Excluir minha conta</button>
@@ -449,12 +481,13 @@ onMounted(async () => {
     </section>
 
 
-        <!-- Esse é o Modal de exclusão de conta -->
+    <!-- Esse é o Modal de exclusão de conta -->
     <div v-if="estadoExclusao !== 'fechado'" class="modal-fundo" @click.self="fecharModal">
       <div class="modal" role="dialog" aria-modal="true">
         <template v-if="estadoExclusao === 'confirmando'">
           <h2>Excluir conta?</h2>
-          <p>Tem certeza que deseja excluir sua conta? Todos os seus dados serão removidos e essa ação não pode ser desfeita.</p>
+          <p>Tem certeza que deseja excluir sua conta? Todos os seus dados serão removidos e essa ação não pode ser
+            desfeita.</p>
           <div class="modal-acoes">
             <button type="button" class="botao-modal-cancelar" @click="fecharModal">Cancelar</button>
             <button type="button" class="botao-modal-excluir" @click="confirmarExclusao">Sim, excluir</button>

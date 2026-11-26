@@ -64,25 +64,27 @@ function validarFormulario() {
   return Object.keys(erros.value).length === 0;
 }
 
-function cadastrarUsuario() {
+async function cadastrarUsuario() {
   if (!validarFormulario()) {
     return;
   }
 
-  registrarUsuario({
-    nome: nomeMedico.value,
-    crm: crmMedico.value,
-    especialidade: especialidadeMedico.value,
-    certificado: certificadoMedico.value,
-    email: emailMedico.value,
-    senha: senhaMedico.value,
-    tel: telMedico.value,
-    cpf: cpfMedico.value,
-    familiasAssociadas: [],
-    exames: [],
-    consultas: []
-  }, 'medico');
-  router.push('/MinhaArea');
+  try {
+    await registrarUsuario({
+      nome: nomeMedico.value,
+      crm: crmMedico.value,
+      especialidades: especialidadeMedico.value ? [especialidadeMedico.value] : [],
+      certificado: certificadoMedico.value,
+      email: emailMedico.value,
+      senha: senhaMedico.value,
+      tel: telMedico.value,
+      cpf: cpfMedico.value
+    }, 'medico');
+
+    cadastroFeito.value = true;
+  } catch (erro) {
+    erros.value.email = erro.message;
+  }
 }
 </script>
 <template>
@@ -142,14 +144,13 @@ function cadastrarUsuario() {
       <h2>Cadastro Feito!</h2>
       <p>Analisaremos usas informações para completar o cadastro.</p>
       <p><span>O cadastro será confirmado por email.</span></p>
-       <RouterLink to="/home" class="voltar-home">Voltar para a página inicial</RouterLink>
+      <RouterLink to="/home" class="voltar-home">Voltar para a página inicial</RouterLink>
     </div>
   </section>
 
 </template>
 
 <style scoped>
-
 .voltar-home {
   margin-top: 10px;
   display: inline-block;
@@ -160,6 +161,7 @@ function cadastrarUsuario() {
   text-decoration: none;
   font-weight: bold;
 }
+
 .cadastro {
   background-color: #F4F3F3;
   padding: 2vw 20%;
@@ -180,11 +182,13 @@ form {
   display: flex;
   flex-direction: column;
 }
+
 form label {
   font-weight: bold;
   font-size: 1rem;
   margin: 10px 0 0 0;
 }
+
 form input {
 
   padding: 1vw 1.5vw;
@@ -192,6 +196,7 @@ form input {
   border: 1px solid #000;
   font-size: 1rem;
 }
+
 .submeter {
   background-color: #4D41EF;
   color: white;
@@ -226,13 +231,16 @@ form input {
   text-align: center;
   margin: 20% 0 20% 0;
 }
+
 .feito h2 {
   font-size: 2rem;
   margin: 0 0 20px 0;
 }
+
 .feito p {
   font-size: 1.7rem;
 }
+
 .feito p span {
   font-size: 1.3rem;
 }

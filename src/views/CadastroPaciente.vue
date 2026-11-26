@@ -56,31 +56,26 @@ function validarFormulario() {
   return Object.keys(erros.value).length === 0;
 }
 
-function cadastrarUsuario() {
+async function cadastrarUsuario() {
   if (!validarFormulario()) {
     return;
   }
 
-  registrarUsuario({
-    nome: nomePaciente.value,
-    peso: '',
-    genero: genPaciente.value,
-    email: emailPaciente.value,
-    senha: senhaPaciente.value,
-    tel: telPaciente.value,
-    cpf: cpfPaciente.value,
-    medicamentos: [],
-    medicoFamiliar: {
-      id: null,
-      nome: 'Não informado',
-      experiencia: null,
-      acompanhamento: '',
-      especialidade: ''
-    },
-    exames: [],
-    consultas: []
-  }, 'paciente');
-  router.push('/MinhaArea');
+  try {
+    await registrarUsuario({
+      nome: nomePaciente.value,
+      peso: '',
+      genero: genPaciente.value,
+      email: emailPaciente.value,
+      senha: senhaPaciente.value,
+      tel: telPaciente.value,
+      cpf: cpfPaciente.value
+    }, 'paciente');
+
+    cadastroFeito.value = true;
+  } catch (erro) {
+    erros.value.email = erro.message;
+  }
 }
 
 </script>
@@ -136,7 +131,6 @@ function cadastrarUsuario() {
 </template>
 
 <style scoped>
-
 .voltar-home {
   margin-top: 20px;
   display: inline-block;
@@ -172,11 +166,13 @@ form {
   display: flex;
   flex-direction: column;
 }
+
 form label {
   font-weight: bold;
   font-size: 1rem;
   margin: 10px 0 0 0;
 }
+
 form input {
 
   padding: 1vw 1.5vw;
@@ -184,6 +180,7 @@ form input {
   border: 1px solid #000;
   font-size: 1rem;
 }
+
 .submeter {
   background-color: #4D41EF;
   color: white;
@@ -198,6 +195,7 @@ form input {
   margin: 1vw 0 0 0;
   font-weight: bold;
 }
+
 .cancelar {
   background-color: #ef4141;
   color: white;
@@ -217,13 +215,16 @@ form input {
   text-align: center;
   margin: 20% 0 20% 0;
 }
+
 .feito h2 {
   font-size: 2rem;
   margin: 0 0 20px 0;
 }
+
 .feito p {
   font-size: 1.7rem;
 }
+
 .feito p span {
   font-size: 1.3rem;
 }
