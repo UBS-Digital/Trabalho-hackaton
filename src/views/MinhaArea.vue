@@ -195,17 +195,6 @@ onMounted(async () => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
       <!-- os proximo exame -->
 
       <div class="container-principal">
@@ -334,17 +323,6 @@ onMounted(async () => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
           <!--Resultados de Exames -->
           <div class="cartao-exames">
             <div class="cabecalho-cartao">
@@ -385,19 +363,7 @@ onMounted(async () => {
                 </button>
               </a>
             </div>
-            <!-- Não vamos usar
-      <div class="item-exame">
-        <div class="item-exame-esquerda">
-          <div class="icone-situacao-exame icone-situacao-laranja">
-            <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23ea580c%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%2210%22%20%2F%3E%3Cpath%20d%3D%22M12%206v6l4%202%22%20%2F%3E%3C%2Fsvg%3E" width="18" height="18" alt="">
-          </div>
-          <div>
-            <p class="titulo-exame">Raio-X Tórax</p>
-            <p class="subtitulo-exame">20 Abr 2026 • Dr. Paulo Costa</p>
-          </div>
-        </div>
-        <span class="emblema-processando">Processando</span>
-      </div>   -->
+
           </div>
 
         </div>
@@ -426,32 +392,7 @@ onMounted(async () => {
             </div>
 
 
-
-
-
-
-
-
-
-
-
-            <!-- Item 2 Ainda não vamos usar
-      <div class="item-medicamento">
-        <h3 class="titulo-medicamento">Metformina 850mg</h3>
-        <p class="subtitulo-medicamento">2x ao dia - Manhã e Noite</p>
-        <p class="situacao-medicamento situacao-laranja">
-          <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23ea580c%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%2210%22%20%2F%3E%3Cline%20x1%3D%2212%22%20x2%3D%2212%22%20y1%3D%228%22%20y2%3D%2212%22%20%2F%3E%3Cline%20x1%3D%2212%22%20x2%3D%2212.01%22%20y1%3D%2216%22%20y2%3D%2216%22%20%2F%3E%3C%2Fsvg%3E" width="15" height="15" alt="">
-          8 dias restantes
-        </p>
-      </div>
-
-      <button class="botao-renovar">Renovar Receita</button>-->
           </div>
-
-
-
-
-
 
 
           <!-- Seu Médico da Família -->
@@ -487,6 +428,12 @@ onMounted(async () => {
             <a href="/src/imagem/preview.webp" download="resultado-exame.webp">
               <button class="botao-acao-rapida">Baixar Resultados</button>
             </a>
+
+          </div>
+                    <div class="cartao-zona-perigo">
+            <h2 class="titulo-zona-perigo">Excluir conta</h2>
+            <p class="texto-zona-perigo">Remove seus dados e encerra sua sessão. Essa ação não pode ser desfeita.</p>
+            <button class="botao-excluir-conta" type="button" @click="abrirConfirmacao">Excluir minha conta</button>
           </div>
 
         </div>
@@ -502,22 +449,42 @@ onMounted(async () => {
     </section>
 
 
+        <!-- Esse é o Modal de exclusão de conta -->
+    <div v-if="estadoExclusao !== 'fechado'" class="modal-fundo" @click.self="fecharModal">
+      <div class="modal" role="dialog" aria-modal="true">
+        <template v-if="estadoExclusao === 'confirmando'">
+          <h2>Excluir conta?</h2>
+          <p>Tem certeza que deseja excluir sua conta? Todos os seus dados serão removidos e essa ação não pode ser desfeita.</p>
+          <div class="modal-acoes">
+            <button type="button" class="botao-modal-cancelar" @click="fecharModal">Cancelar</button>
+            <button type="button" class="botao-modal-excluir" @click="confirmarExclusao">Sim, excluir</button>
+          </div>
+        </template>
+
+        <template v-else-if="estadoExclusao === 'carregando'">
+          <h2>Excluindo conta...</h2>
+          <p>Aguarde um instante.</p>
+        </template>
+
+        <template v-else-if="estadoExclusao === 'sucesso'">
+          <h2 class="texto-sucesso">Conta excluída com sucesso!</h2>
+          <p>Você será redirecionado em instantes...</p>
+        </template>
+
+        <template v-else-if="estadoExclusao === 'erro'">
+          <h2 class="texto-erro">Erro ao excluir a conta</h2>
+          <p>{{ mensagemErro }}</p>
+          <div class="modal-acoes">
+            <button type="button" class="botao-modal-cancelar" @click="fecharModal">Fechar</button>
+            <button type="button" class="botao-modal-excluir" @click="confirmarExclusao">Tentar novamente</button>
+          </div>
+        </template>
+      </div>
+    </div>
   </main>
 
 
-
-
-
 </template>
-
-
-
-
-
-
-
-
-
 
 
 <style scoped>

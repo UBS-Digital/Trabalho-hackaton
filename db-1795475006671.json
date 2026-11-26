@@ -1,0 +1,153 @@
+{
+  "pacientes": [
+    {
+      "id": "1",
+      "nome": "Gamaliel",
+      "peso": 72,
+      "genero": "M",
+      "cpf": "123.456.789-00",
+      "email": "gamaliel@gmail.com",
+      "tel": "4002-8922",
+      "senha": "senha",
+      "medicamentos": [
+        {
+          "nome": "Losartana",
+          "dose": 50,
+          "vezes": 1,
+          "horarios": [
+            "noite"
+          ]
+        },
+        {
+          "nome": "Metformina",
+          "dose": 850,
+          "vezes": 2,
+          "horarios": [
+            "manhã",
+            "noite"
+          ]
+        }
+      ],
+      "medicoFamiliar": {
+        "nome": "Dr. Carlos Mendes",
+        "id": 2,
+        "experiencia": 15,
+        "acompanhamento": "Janeiro de 2024",
+        "especialidade": "Clínico Geral"
+      },
+      "exames": [
+        {
+          "id": 1,
+          "tipo": "Hemograma Completo",
+          "data": "02 de maio de 2026",
+          "medico": "Dr. Carlos Mendes",
+          "horario": "14:30"
+        },
+        {
+          "id": 2,
+          "tipo": "Raio-X Tórax",
+          "data": "20 de abril de 2026",
+          "medico": "Dr. Paulo Costa",
+          "horario": "10:00"
+        }
+      ],
+      "consultas": [
+        {
+          "id": 1,
+          "especialidade": "Clínico Geral",
+          "motivo": "Dor no Abdômen",
+          "data": "02 de maio de 2026",
+          "medico": "Dr. Carlos Mendes",
+          "horario": "14:30"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "nome": "Lucas",
+      "peso": 75,
+      "genero": "M",
+      "cpf": "183.156.459-90",
+      "email": "lucaseliel15032010@gamil.com",
+      "tel": "47 99183-3045",
+      "senha": "Senha2",
+      "medicamentos": [
+        {
+          "id": 1,
+          "nome": "PuranT4",
+          "dose": 37.5,
+          "vezes": 1,
+          "horarios": [
+            "Manhã"
+          ]
+        },
+        {
+          "id": 2,
+          "nome": "Symbicort",
+          "dose": 200,
+          "vezes": 2,
+          "horarios": [
+            "manhã",
+            "noite"
+          ]
+        }
+      ],
+      "medicoFamiliar": {
+        "nome": "Dr. Paulo Henrique Viana",
+        "id": null,
+        "experiencia": null,
+        "acompanhamento": "Fevereiro de 2021",
+        "especialidade": "Pediatria"
+      },
+      "exames": [
+        {
+          "id": 1,
+          "tipo": "Exame de Urina",
+          "data": "12 de março de 2026",
+          "medico": "Dr. Paulo Henrique Viana"
+        },
+        {
+          "id": 2,
+          "tipo": "Hemograma Completo",
+          "data": "02 de maio de 2026",
+          "medico": "Dr. Carlos Mendes"
+        }
+      ],
+      "consultas": [
+        {
+          "id": 1,
+          "especialidade": "Pneumologista",
+          "motivo": "Dificuldade para respirar",
+          "data": "02 de maio de 2026",
+          "medico": "Dr. Carlos Mendes"
+        }
+      ]
+    }
+  ],
+  "medicos": [
+    {
+      "id": "1",
+      "nome": "Dr. Carlos Mendes",
+      "certificado": "",
+      "experiencia": 15,
+      "email": "carlosmender@gmail.com",
+      "tel": "423-8922",
+      "senha": "senha",
+      "especialidades": [
+        "Clínico Geral"
+      ]
+    },
+    {
+      "id": "2",
+      "nome": "Dr. Paulo Henrique Viana",
+      "certificado": "",
+      "email": "parulohenriquedr@gmail.com",
+      "tel": "613-8032",
+      "senha": "senha2",
+      "especialidades": [
+        "Pediatria",
+        "Pneumologia"
+      ]
+    }
+  ]
+}
