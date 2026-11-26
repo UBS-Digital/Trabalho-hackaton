@@ -5,7 +5,6 @@ const API_URL = 'http://localhost:3000'
 export const chaveUsuario = ref(sessionStorage.getItem('usuarioChave') || null)
 export const usuarioLogado = ref(null)
 
-
 export async function carregarUsuarioPorId() {
   const usuarioId = sessionStorage.getItem('usuarioId')
 
@@ -47,7 +46,9 @@ function filtrarPorPacienteId(lista, pacienteId) {
     return []
   }
 
-  return lista.filter((item) => normalizarPacienteId(item?.pacienteId) === normalizarPacienteId(pacienteId))
+  return lista.filter(
+    (item) => normalizarPacienteId(item?.pacienteId) === normalizarPacienteId(pacienteId),
+  )
 }
 
 export async function carregarDadosPaciente() {
@@ -59,16 +60,16 @@ export async function carregarDadosPaciente() {
       paciente: null,
       consultas: [],
       exames: [],
-      medicamentos: []
+      medicamentos: [],
     }
   }
 
   try {
     const [pacienteRes, consultasRes, examesRes, medicamentosRes] = await Promise.all([
-      fetch(`${API_URL}/pacientes/${ pacienteIdNormalizado }`),
+      fetch(`${API_URL}/pacientes/${pacienteIdNormalizado}`),
       fetch(`${API_URL}/consultas`),
       fetch(`${API_URL}/exames`),
-      fetch(`${API_URL}/medicamentos`)
+      fetch(`${API_URL}/medicamentos`),
     ])
 
     const paciente = pacienteRes.ok ? await pacienteRes.json() : null
@@ -80,7 +81,7 @@ export async function carregarDadosPaciente() {
       paciente,
       consultas: filtrarPorPacienteId(consultas, pacienteIdNormalizado),
       exames: filtrarPorPacienteId(exames, pacienteIdNormalizado),
-      medicamentos: filtrarPorPacienteId(medicamentos, pacienteIdNormalizado)
+      medicamentos: filtrarPorPacienteId(medicamentos, pacienteIdNormalizado),
     }
   } catch (error) {
     console.error('Erro ao carregar dados do paciente:', error)
@@ -88,7 +89,7 @@ export async function carregarDadosPaciente() {
       paciente: null,
       consultas: [],
       exames: [],
-      medicamentos: []
+      medicamentos: [],
     }
   }
 }
@@ -104,9 +105,9 @@ export async function atualizarPesoPaciente(novoPeso) {
     const resposta = await fetch(`${API_URL}/pacientes/${usuarioId}`, {
       method: 'PATCH',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ peso: Number(novoPeso) })
+      body: JSON.stringify({ peso: Number(novoPeso) }),
     })
 
     if (!resposta.ok) {
@@ -131,7 +132,7 @@ export async function deletarRegistroPorId(tipo, id) {
 
   try {
     const resposta = await fetch(`${API_URL}/${tipo}/${registroId}`, {
-      method: 'DELETE'
+      method: 'DELETE',
     })
 
     return resposta.ok
@@ -143,38 +144,80 @@ export async function deletarRegistroPorId(tipo, id) {
 
 const usuarioAtual = computed(() => usuarioLogado.value)
 
+export async function registrarUsuario(usuario, tipo = 'paciente') {
+  const colecao = tipo === 'medico' ? 'medicos' : 'pacientes'
+  const email = usuario.email?.trim().toLowerCase()
+
+  if (!email) throw new Error('Informe um e-mail válido.')
+
+  const busca = await fetch(`${API_URL}/${colecao}?email=${encodeURIComponent(email)}`)
+  if (!busca.ok) throw new Error('Não foi possível verificar o cadastro.')
+
+  const existentes = await busca.json()
+  if (existentes.length) throw new Error('Já existe uma conta cadastrada com este e-mail.')
+
+  const resposta = await fetch(`${API_URL}/${colecao}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ ...usuario, email }),
+  })
+
+  if (!resposta.ok) throw new Error('Não foi possível cadastrar o usuário.')
+
+  const usuarioCriado = await resposta.json()
+  const usuarioComTipo = { ...usuarioCriado, tipo }
+
+  usuarioLogado.value = usuarioComTipo
+  chaveUsuario.value = `id_${usuarioCriado.id}`
+  sessionStorage.setItem('usuarioId', String(usuarioCriado.id))
+  sessionStorage.setItem('usuarioChave', `id_${usuarioCriado.id}`)
+  sessionStorage.setItem('usuarioTipo', tipo)
+
+  return usuarioComTipo
+}
+
 function encerrarSessao() {
   chaveUsuario.value = null
   usuarioLogado.value = null
   sessionStorage.removeItem('usuarioChave')
+  sessionStorage.removeItem('usuarioChaveLegacy')
+  sessionStorage.removeItem('usuarioId')
+  sessionStorage.removeItem('usuarioTipo')
 }
 
-// DELETE: exclui a conta do usuário logado (API + dados locais + sessão)
 async function excluirConta() {
   const usuario = usuarioAtual.value
   if (!usuario) throw new Error('Nenhum usuário logado.')
 
-  const ehMedico = medicosBase.includes(usuario)
-  const colecao = ehMedico ? 'medicos' : 'pacientes'
+  const tipo = usuario.tipo || sessionStorage.getItem('usuarioTipo') || 'paciente'
+  const usuarioId = usuario.id || sessionStorage.getItem('usuarioId')
+  const colecao = tipo === 'medico' ? 'medicos' : 'pacientes'
 
-  // 1) consulta o registro na API pelo e-mail para descobrir o id
-  const busca = await fetch(`${API_URL}/${colecao}?email=${encodeURIComponent(usuario.email)}`)
-  if (!busca.ok) throw new Error(`Não foi possível localizar a conta (código ${busca.status}).`)
-  const registro = (await busca.json())[0]
+  if (!usuarioId) throw new Error('Não foi possível identificar o usuário atual.')
 
-  // 2) exclui na API (contas criadas só no cadastro local podem não existir lá)
-  if (registro) {
-    const resposta = await fetch(`${API_URL}/${colecao}/${registro.id}`, { method: 'DELETE' })
-    if (!resposta.ok) throw new Error(`A API recusou a exclusão (código ${resposta.status}).`)
+  const respostaConta = await fetch(`${API_URL}/${colecao}/${encodeURIComponent(usuarioId)}`, {
+    method: 'DELETE',
+  })
+  if (!respostaConta.ok) {
+    throw new Error(`A API recusou a exclusão (código ${respostaConta.status}).`)
   }
 
-  // 3) remove dos dados locais e encerra a sessão
-  const base = ehMedico ? medicosBase : pacientesBase
-  const indice = base.indexOf(usuario)
-  if (indice !== -1) base.splice(indice, 1)
-  salvarUsuariosCadastrados(
-    lerUsuariosCadastrados().filter((item) => item.usuario?.email !== usuario.email)
-  )
+  if (tipo === 'paciente') {
+    for (const colecaoRelacionada of ['consultas', 'exames', 'medicamentos']) {
+      const busca = await fetch(
+        `${API_URL}/${colecaoRelacionada}?pacienteId=${encodeURIComponent(usuarioId)}`,
+      )
+      if (!busca.ok) continue
+
+      const registros = await busca.json()
+      await Promise.all(
+        registros.map((registro) =>
+          fetch(`${API_URL}/${colecaoRelacionada}/${registro.id}`, { method: 'DELETE' }),
+        ),
+      )
+    }
+  }
+
   encerrarSessao()
 }
 
@@ -183,9 +226,11 @@ export function useUsuario() {
     chaveUsuario,
     usuarioLogado,
     usuarioAtual,
+    registrarUsuario,
     carregarUsuarioPorId,
     carregarDadosPaciente,
     atualizarPesoPaciente,
     deletarRegistroPorId,
+    excluirConta,
   }
 }
