@@ -39,12 +39,24 @@
     {
       "id": "2",
       "nome": "Lucas",
-      "peso": 83,
+      "peso": 72,
       "genero": "M",
       "cpf": "183.156.459-90",
       "email": "lucaseliel15032010@gmail.com",
       "tel": "47 99183-3045",
-      "senha": "Senha2"
+      "senha": "Senha2",
+      "medicoFamiliar": {
+        "id": "3",
+        "nome": "Dr. Paulo Henrique Viana",
+        "experiencia": null,
+        "especialidades": [
+          "Pediatria",
+          "Pneumologia"
+        ],
+        "especialidade": "Pediatria",
+        "email": "paulohenriquedr@gmail.com",
+        "tel": "613-8032"
+      }
     }
   ],
   "exames": [
