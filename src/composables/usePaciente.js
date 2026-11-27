@@ -1,6 +1,5 @@
 import { ref, computed } from 'vue'
-
-const API_URL = 'http://localhost:3000'
+import { API_URL } from '@/services/api'
 
 export const chaveUsuario = ref(sessionStorage.getItem('usuarioChave') || null)
 export const usuarioLogado = ref(null)
@@ -135,14 +134,14 @@ export async function atualizarPesoPaciente(novoPeso) {
 }
 
 export async function deletarRegistroPorId(tipo, id) {
-  const registroId = Number(id)
+  const registroId = id === null || id === undefined ? '' : String(id).trim()
 
   if (!tipo || !registroId) {
     return false
   }
 
   try {
-    const resposta = await fetch(`${API_URL}/${tipo}/${registroId}`, {
+    const resposta = await fetch(`${API_URL}/${tipo}/${encodeURIComponent(registroId)}`, {
       method: 'DELETE',
     })
 
@@ -185,6 +184,48 @@ export async function registrarUsuario(usuario, tipo = 'paciente') {
   sessionStorage.setItem('usuarioTipo', tipo)
 
   return usuarioComTipo
+}
+
+export async function criarConsulta(dadosConsulta) {
+  const usuarioId = sessionStorage.getItem('usuarioId')
+
+  if (!usuarioId) {
+    throw new Error('Nenhum paciente está conectado.')
+  }
+
+  const resposta = await fetch(`${API_URL}/consultas`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      ...dadosConsulta,
+      pacienteId: Number(usuarioId),
+    }),
+  })
+
+  if (!resposta.ok) {
+    throw new Error('Não foi possível agendar a consulta.')
+  }
+
+  return resposta.json()
+}
+
+export async function atualizarConsulta(id, dadosConsulta) {
+  if (id === null || id === undefined || String(id).trim() === '') {
+    throw new Error('Consulta inválida.')
+  }
+
+  const consultaId = encodeURIComponent(String(id))
+  const resposta = await fetch(`${API_URL}/consultas/${consultaId}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(dadosConsulta),
+  })
+
+  if (!resposta.ok) {
+    throw new Error('Não foi possível atualizar a consulta.')
+  }
+
+  return resposta.json()
 }
 
 function encerrarSessao() {
@@ -243,5 +284,7 @@ export function useUsuario() {
     atualizarPesoPaciente,
     deletarRegistroPorId,
     excluirConta,
+    criarConsulta,
+    atualizarConsulta,
   }
 }
