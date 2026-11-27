@@ -301,9 +301,10 @@ onMounted(async () => {
 
 
 
-              <router-link to="/agendar-exame">
-                <button class="botao-reagendar">Reagendar</button>
-              </router-link>
+              <button class="botao-reagendar" type="button"
+                @click="router.push({ path: '/agendar-consulta', query: { editar: consulta.id } })">
+                Editar
+              </button>
               <button class="botao-cancelar" type="button"
                 @click="cancelarItem('consultas', consulta.id)">Cancelar</button>
             </div>
@@ -410,7 +411,7 @@ onMounted(async () => {
 
             <div class="item-medicamento" v-for="(medicamento) in medicamentosUs" :key="medicamento.id">
               <p class="subtitulo-exame">Medicamento ID: {{ medicamento.id }} • Paciente ID: {{ medicamento.pacienteId
-                }}</p>
+              }}</p>
               <h3 class="titulo-medicamento">{{ medicamento.nome }}</h3>
               <p class="subtitulo-medicamento">{{ medicamento.dose }}mg - {{ medicamento.vezes }}x ao dia. De {{
                 medicamento.horarios.join(' e de ') }}</p>

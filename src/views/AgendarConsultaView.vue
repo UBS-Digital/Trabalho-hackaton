@@ -1,13 +1,29 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import paginas from '@/components/data/data'
 import AppBanner from '@/components/Produtos/AppBanner.vue'
 import { useUsuario } from '@/composables/usePaciente'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
+import { API_URL } from '@/services/api'
 
-const router = useRouter();
-const { usuarioAtual } = useUsuario()
-const consultas = computed(() => usuarioAtual.value?.consultas ?? [])
+const router = useRouter()
+const route = useRoute()
+const {
+  usuarioAtual,
+  carregarUsuarioPorId,
+  criarConsulta,
+  atualizarConsulta,
+  deletarRegistroPorId,
+} = useUsuario()
+
+const consultas = ref([])
+const etapa = ref(1)
+const especialidadeSelecionada = ref('')
+const profissionalSelecionado = ref('')
+const dataSelecionada = ref('')
+const horarioSelecionado = ref('')
+const consultaEditandoId = ref(null)
+const salvando = ref(false)
 
 const especialidades = [
   { nome: 'Pediatria', descricao: 'Saúde infantil', icone: '👩‍⚕️', cor: 'pink' },
@@ -24,16 +40,91 @@ const profissionais = {
 }
 
 const horarios = ['08:00', '09:30', '11:00', '13:30', '15:00', '16:30']
-
-const etapa = ref(1)
-const especialidadeSelecionada = ref('')
-const profissionalSelecionado = ref('')
-const dataSelecionada = ref('')
-const horarioSelecionado = ref('')
-
 const profissionalLista = computed(() => profissionais[especialidadeSelecionada.value] || [])
 
-const avancar = () => {
+function converterDataParaInput(data) {
+  if (!data) return ''
+  if (/^\d{4}-\d{2}-\d{2}$/.test(data)) return data
+
+  const meses = {
+    janeiro: '01', fevereiro: '02', março: '03', abril: '04', maio: '05', junho: '06',
+    julho: '07', agosto: '08', setembro: '09', outubro: '10', novembro: '11', dezembro: '12',
+  }
+
+  const correspondencia = String(data).match(/^(\d{1,2}) de ([a-zç]+) de (\d{4})$/i)
+  if (correspondencia) {
+    const dia = correspondencia[1].padStart(2, '0')
+    const mes = meses[correspondencia[2].toLowerCase()] || '01'
+    return `${correspondencia[3]}-${mes}-${dia}`
+  }
+
+  const correspondenciaBarra = String(data).match(/^(\d{1,2})[/-](\d{1,2})[/-](\d{4})$/)
+  if (correspondenciaBarra) {
+    const dia = correspondenciaBarra[1].padStart(2, '0')
+    const mes = correspondenciaBarra[2].padStart(2, '0')
+    return `${correspondenciaBarra[3]}-${mes}-${dia}`
+  }
+
+  return ''
+}
+
+async function carregarConsultas() {
+  const usuarioId = sessionStorage.getItem('usuarioId')
+
+  if (!usuarioId) {
+    consultas.value = []
+    return
+  }
+
+  try {
+    const resposta = await fetch(`${API_URL}/consultas?pacienteId=${encodeURIComponent(usuarioId)}`)
+    if (!resposta.ok) throw new Error('Não foi possível carregar as consultas.')
+    consultas.value = await resposta.json()
+  } catch (error) {
+    alert(error.message)
+  }
+}
+
+function editarConsulta(consulta) {
+  const especialidade = consulta.especialidade || ''
+  const medico = consulta.medico || ''
+
+  if (especialidade && !especialidades.some((item) => item.nome === especialidade)) {
+    especialidades.push({
+      nome: especialidade,
+      descricao: 'Especialidade cadastrada',
+      icone: '🩺',
+      cor: 'teal',
+    })
+  }
+
+  if (especialidade && !profissionais[especialidade]) profissionais[especialidade] = []
+  if (medico && !profissionais[especialidade].includes(medico)) {
+    profissionais[especialidade].push(medico)
+  }
+
+  consultaEditandoId.value = consulta.id
+  especialidadeSelecionada.value = especialidade
+  profissionalSelecionado.value = medico
+  dataSelecionada.value = converterDataParaInput(consulta.data)
+  horarioSelecionado.value = consulta.horario || ''
+  etapa.value = 1
+}
+
+async function cancelarConsulta(consulta) {
+  if (!window.confirm('Deseja cancelar esta consulta?')) return
+
+  const removida = await deletarRegistroPorId('consultas', consulta.id)
+  if (!removida) {
+    alert('Não foi possível cancelar a consulta.')
+    return
+  }
+
+  await carregarConsultas()
+  alert('Consulta cancelada com sucesso.')
+}
+
+const avancar = async () => {
   if (etapa.value === 1 && !especialidadeSelecionada.value) {
     alert('Selecione uma especialidade.')
     return
@@ -59,28 +150,37 @@ const avancar = () => {
     return
   }
 
-  const novaConsulta = {
-    id: (consultas.value.length || 0) + 1,
+  salvando.value = true
+
+  const dadosConsulta = {
     especialidade: especialidadeSelecionada.value,
+    motivo: 'Consulta agendada pelo paciente',
     medico: profissionalSelecionado.value,
     data: dataSelecionada.value,
     horario: horarioSelecionado.value,
   }
 
-  usuarioAtual.value.consultas = [...(usuarioAtual.value.consultas || []), novaConsulta]
+  try {
+    if (consultaEditandoId.value) {
+      await atualizarConsulta(consultaEditandoId.value, dadosConsulta)
+      alert('Consulta atualizada com sucesso.')
+    } else {
+      await criarConsulta(dadosConsulta)
+      alert(`Consulta agendada com sucesso para ${dadosConsulta.especialidade} com ${dadosConsulta.medico}.`)
+    }
 
-  alert(
-    `Consulta agendada com sucesso para ${especialidadeSelecionada.value} com ${profissionalSelecionado.value} em ${dataSelecionada.value} às ${horarioSelecionado.value}.`,
-  )
-
-  resetar()
-  router.push("MinhaArea")
+    resetar()
+    await carregarConsultas()
+    router.push({ name: 'minha-area' })
+  } catch (error) {
+    alert(error.message || 'Não foi possível salvar a consulta.')
+  } finally {
+    salvando.value = false
+  }
 }
 
 const voltarEtapa = () => {
-  if (etapa.value > 1) {
-    etapa.value -= 1
-  }
+  if (etapa.value > 1) etapa.value -= 1
 }
 
 const resetar = () => {
@@ -89,12 +189,53 @@ const resetar = () => {
   profissionalSelecionado.value = ''
   dataSelecionada.value = ''
   horarioSelecionado.value = ''
+  consultaEditandoId.value = null
 }
+
+onMounted(async () => {
+  await carregarUsuarioPorId()
+  await carregarConsultas()
+
+  if (route.query.editar) {
+    const consulta = consultas.value.find((item) => String(item.id) === String(route.query.editar))
+    if (consulta) editarConsulta(consulta)
+  }
+})
+
+watch(
+  () => route.query.editar,
+  async (novoValor) => {
+    if (novoValor) {
+      const consulta = consultas.value.find((item) => String(item.id) === String(novoValor))
+      if (consulta) editarConsulta(consulta)
+    }
+  }
+)
 </script>
 
 <template>
   <main class="content">
     <AppBanner key="paginas[0].pagina" :titulo="paginas[0].titulo" :subtitulo="paginas[0].subtitulo" />
+
+    <section class="consultas-panel">
+      <div class="consultas-header">
+        <h2>Minhas consultas</h2>
+        <button type="button" class="nova-btn" @click="resetar">Nova consulta</button>
+      </div>
+
+      <p v-if="consultas.length === 0" class="sem-consultas">Nenhuma consulta agendada.</p>
+
+      <article v-for="consulta in consultas" :key="consulta.id" class="consulta-card">
+        <div>
+          <strong>{{ consulta.especialidade }}</strong>
+          <p>{{ consulta.medico }} • {{ consulta.data }} às {{ consulta.horario }}</p>
+        </div>
+        <div class="consulta-actions">
+          <button type="button" class="edit-btn" @click="editarConsulta(consulta)">Editar</button>
+          <button type="button" class="delete-btn" @click="cancelarConsulta(consulta)">Cancelar</button>
+        </div>
+      </article>
+    </section>
 
     <section class="steps" aria-label="etapas de agendamento">
       <div :class="['step', { active: etapa === 1 }]">
@@ -164,7 +305,7 @@ const resetar = () => {
       </div>
 
       <div v-else class="panel-block confirmation">
-        <h2>Confirmação</h2>
+        <h2>{{ consultaEditandoId ? 'Confirmar alterações' : 'Confirmação' }}</h2>
         <div class="confirm-box">
           <p><strong>Especialidade:</strong> {{ especialidadeSelecionada }}</p>
           <p><strong>Profissional:</strong> {{ profissionalSelecionado }}</p>
@@ -176,7 +317,9 @@ const resetar = () => {
       <div class="actions-row">
         <button v-if="etapa > 1" class="back-btn" @click="voltarEtapa">Voltar</button>
         <button v-if="etapa < 4" class="next-btn" @click="avancar">Próximo →</button>
-        <button v-else class="next-btn" @click="avancar">Confirmar</button>
+        <button v-else class="next-btn" @click="avancar" :disabled="salvando">
+          {{ salvando ? 'Salvando...' : (consultaEditandoId ? 'Salvar alterações' : 'Confirmar') }}
+        </button>
       </div>
     </section>
   </main>
@@ -474,6 +617,70 @@ const resetar = () => {
   background: transparent;
   color: #1a79d7;
   border: 2px solid #1a79d7;
+}
+
+.consultas-panel {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+  margin: 1.5rem 0;
+  padding: 1.2rem;
+}
+
+.consultas-header,
+.consulta-card,
+.consulta-actions {
+  display: flex;
+  align-items: center;
+}
+
+.consultas-header {
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.consultas-header h2 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.consulta-card {
+  justify-content: space-between;
+  gap: 1rem;
+  border-top: 1px solid #eee;
+  padding: 1rem 0;
+}
+
+.consulta-card p,
+.sem-consultas {
+  margin: 0.35rem 0 0;
+  color: #555;
+}
+
+.consulta-actions {
+  gap: 0.6rem;
+}
+
+.nova-btn,
+.edit-btn,
+.delete-btn {
+  border-radius: 8px;
+  padding: 0.65rem 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  background: #fff;
+}
+
+.nova-btn,
+.edit-btn {
+  color: #1a79d7;
+  border: 1px solid #1a79d7;
+}
+
+.delete-btn {
+  color: #b42318;
+  border: 1px solid #d92d20;
 }
 
 @media (max-width: 980px) {
